@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3214fd7d8ac74991ab394c03cb1f7b61" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="KotorDb.Cim_t" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KotorDb.Tanusitvany_t" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KotorDb.TervezesiEgyseg_t" Width="1.5" PointX="11.875" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KotorDb.VonalkodTartomany_t" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KotorDb.Tanusitvany2015FO" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KotorDb.Tanusitvany2015ORE" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KotorDb.vCim" Width="1.5" PointX="4.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KotorDb.vEpuletElsCim" Width="1.5" PointX="14.375" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="KotorDb.Tanusitvany_SzulotanusitvanyId_FK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KotorDb.Munkatars_t" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="KotorDb.Cim_EllenorzoId_FK" />
+        <AssociationConnector Association="KotorDb.Cim_UtolsoModositoId_FK" />
+        <AssociationConnector Association="KotorDb.Munkatars_ElszamolasAlairoId_FK" />
+        <AssociationConnector Association="KotorDb.Munkatars_FelettesId_FK" />
+        <AssociationConnector Association="KotorDb.Tanusitvany_BeolvasoId_FK" />
+        <AssociationConnector Association="KotorDb.Tanusitvany_KiallitoId_FK" />
+        <EntityTypeShape EntityType="KotorDb.NyomtatvanyTipus_m" Width="1.5" PointX="0.75" PointY="2.875" />
+        <AssociationConnector Association="KotorDb.Tanusitvany_NyomtatvanyTipusKod_FK" />
+        <AssociationConnector Association="KotorDb.VonalkodTartomany_NyomtatvanytipusKod_FK" />
+        <EntityTypeShape EntityType="KotorDb.MunkaTargyaHiba_t" Width="1.5" PointX="11.375" PointY="7.75" />
+        <EntityTypeShape EntityType="KotorDb.ORE_t" Width="1.5" PointX="10.375" PointY="6.5" />
+        <AssociationConnector Association="KotorDb.ORE_Cid_FK" />
+        <AssociationConnector Association="KotorDb.MunkaTargyaHiba_Oid_FK" />
+        <AssociationConnector Association="KotorDb.ORE_EllenorzoId_FK" />
+        <AssociationConnector Association="KotorDb.ORE_UtolsoModositoId_FK" />
+        <AssociationConnector Association="KotorDb.Tanusitvany_Oid_FK" />
+        <EntityTypeShape EntityType="KotorDb.Rendeles_t" Width="1.5" PointX="17" PointY="0.5" />
+        <AssociationConnector Association="KotorDb.Kozt_JovahagyoId_FK" />
+        <AssociationConnector Association="KotorDb.Rendeles_ORE_FK" />
+        <EntityTypeShape EntityType="KotorDb.Munka_t" Width="2.625" PointX="20.75" PointY="0.5" />
+        <AssociationConnector Association="KotorDb.Munka_RendelesId_FK" />
+        <AssociationConnector Association="KotorDb.Munka_TervezesiEgysegId_FK" />
+        <AssociationConnector Association="KotorDb.Tanusitvany_MunkaId_FK" />
+        <EntityTypeShape EntityType="KotorDb.RendelesStatusz_m" Width="1.5" PointX="14.75" PointY="4.875" />
+        <AssociationConnector Association="KotorDb.Rendeles_RendelesStatusz_FK" />
+        <EntityTypeShape EntityType="KotorDb.Mesterkorzet_t" Width="1.5" PointX="0.75" PointY="11.125" />
+        <AssociationConnector Association="KotorDb.Mesterkorzet_VezetoId_FK" />
+        <AssociationConnector Association="KotorDb.Munkatars_MesterkorzetId_FK" />
+        <EntityTypeShape EntityType="KotorDb.Regio_t" Width="1.5" PointX="0.75" PointY="5.5" />
+        <AssociationConnector Association="KotorDb.Regio_Cid_FK" />
+        <AssociationConnector Association="KotorDb.Mesterkorzet_RegioId_FK" />
+        <AssociationConnector Association="KotorDb.Munkatars_RegioId_FK" />
+        <AssociationConnector Association="KotorDb.Regio_VezetoId_FK" />
+        <AssociationConnector Association="KotorDb.Rendeles_MunkatVegzoRegioId_FK" />
+        <EntityTypeShape EntityType="KotorDb.MunkaTargya_cs" Width="1.5" PointX="24.125" PointY="6" />
+        <AssociationConnector Association="KotorDb.MunkaTargya_MunkaId_FK" />
+        <AssociationConnector Association="KotorDb.MunkaTargya_Oid_FK" />
+        <AssociationConnector Association="KotorDb.MunkaTargya_TanusitvanyId_FK" />
+        <AssociationConnector Association="KotorDb.MunkaTargyaHiba_MunkaTargyaId_FK" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

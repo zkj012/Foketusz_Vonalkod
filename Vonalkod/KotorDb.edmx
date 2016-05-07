@@ -1,0 +1,2814 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KotorDb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cim_t">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Iranyitoszam" Type="int" />
+          <Property Name="KozteruletId" Type="int" />
+          <Property Name="Hazszam1" Type="int" />
+          <Property Name="Hazszamtores1" Type="nvarchar" MaxLength="10" />
+          <Property Name="Hazszam2" Type="int" />
+          <Property Name="Hazszamtores2" Type="nvarchar" MaxLength="10" />
+          <Property Name="Epuletjel" Type="nvarchar" MaxLength="10" />
+          <Property Name="Epulettores" Type="nvarchar" MaxLength="10" />
+          <Property Name="Lepcsohaz" Type="nvarchar" MaxLength="10" />
+          <Property Name="Emelet" Type="nvarchar" MaxLength="20" />
+          <Property Name="Ajto" Type="nvarchar" MaxLength="10" />
+          <Property Name="Ajtotores" Type="nvarchar" MaxLength="10" />
+          <Property Name="HRSZ" Type="nvarchar" MaxLength="10" />
+          <Property Name="HRSZ1" Type="nvarchar" MaxLength="10" />
+          <Property Name="HRSZ2" Type="nvarchar" MaxLength="10" />
+          <Property Name="HRSZ3" Type="nvarchar" MaxLength="10" />
+          <Property Name="Forras" Type="nvarchar" MaxLength="30" />
+          <Property Name="EgyediCim" Type="nvarchar" MaxLength="200" />
+          <Property Name="Ervenyes" Type="bit" Nullable="false" />
+          <Property Name="UtolsoModositasDatuma" Type="datetime" Nullable="false" />
+          <Property Name="UtolsoModositoId" Type="int" Nullable="false" />
+          <Property Name="EllenorzesDatuma" Type="datetime" />
+          <Property Name="EllenorzoId" Type="int" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Old_KiszamigrID" Type="int" />
+          <Property Name="Old_TavirCimid" Type="int" />
+          <Property Name="Old_TavirUtcakod" Type="int" />
+          <Property Name="Old_TavirVaroskod" Type="int" />
+          <Property Name="CimFilterMask" Type="nvarchar" MaxLength="400" />
+          <Property Name="EmeletJelKod" Type="nvarchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Mesterkorzet_t">
+          <Key>
+            <PropertyRef Name="MesterkorzetId" />
+          </Key>
+          <Property Name="MesterkorzetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="VezetoId" Type="int" />
+          <Property Name="RegioId" Type="int" Nullable="false" />
+          <Property Name="ProduktivitasiKorekcio" Type="float" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Munka_t">
+          <Key>
+            <PropertyRef Name="MunkaId" />
+          </Key>
+          <Property Name="MunkaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Munkaszam" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="MunkaStatuszKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="RendelesId" Type="int" Nullable="false" />
+          <Property Name="TervezesiEgysegId" Type="int" />
+          <Property Name="TervezettMunkaKezdes" Type="datetime" />
+          <Property Name="TervezettMunkaBefejezes" Type="datetime" />
+          <Property Name="MunkaVegezesKezdes" Type="datetime" />
+          <Property Name="MunkaVegezesBefejezes" Type="datetime" />
+          <Property Name="TervezettPlakatolasKezdes" Type="datetime" />
+          <Property Name="TervezettPlakatolasBefejezes" Type="datetime" />
+          <Property Name="PlakatolasKezdes" Type="datetime" />
+          <Property Name="PlakatolasBefejezes" Type="datetime" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="TervezettMunkaKezdesSor2" Type="datetime" />
+          <Property Name="TervezettMunkaBefejezesSor2" Type="datetime" />
+          <Property Name="MunkaVegezesKezdesSor2" Type="datetime" />
+          <Property Name="MunkaVegezesBefejezesSor2" Type="datetime" />
+          <Property Name="MegrendelovelEgyeztetettKezdes" Type="datetime" />
+          <Property Name="MegrendelovelEgyeztetettBefejezes" Type="datetime" />
+          <Property Name="Plakatolando" Type="bit" Nullable="false" />
+          <Property Name="KalkulaltMunkaegyenertek" Type="float" />
+          <Property Name="KalkulaltMunkaegyenertek2" Type="float" />
+          <Property Name="TervezettMunkaNapszakSor2Kod" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MunkaTargya_cs">
+          <Key>
+            <PropertyRef Name="MunkaTargyaId" />
+          </Key>
+          <Property Name="MunkaTargyaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MunkaId" Type="int" Nullable="false" />
+          <Property Name="TanusitvanyId" Type="int" />
+          <Property Name="Kid" Type="int" />
+          <Property Name="OsszekotoelemId" Type="int" />
+          <Property Name="TuzeloberendezesId" Type="int" />
+          <Property Name="Oid" Type="int" />
+          <Property Name="Potdijkoteles" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="MunkaTargyaTipusKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Zart" Type="bit" Nullable="false" />
+          <Property Name="KemenyJelKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="UtolsoSormunkavegzesDatumaIrodjon" Type="bit" Nullable="false" />
+          <Property Name="UtolsoMuszakiFelulvizsgalatDatumaIrodjon" Type="bit" Nullable="false" />
+          <Property Name="COMeresEredmeny" Type="float" />
+          <Property Name="ReszbenZart" Type="bit" Nullable="false" />
+          <Property Name="Megjegyzes" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Eid" Type="int" />
+        </EntityType>
+        <EntityType Name="MunkaTargyaHiba_t">
+          <Key>
+            <PropertyRef Name="MunkaTargyaHibaId" />
+          </Key>
+          <Property Name="MunkaTargyaHibaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HibaTipusKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MunkaTargyaId" Type="int" Nullable="false" />
+          <Property Name="FigyelmeztetoVonalkod" Type="nvarchar" MaxLength="20" />
+          <Property Name="EszlelesDatuma" Type="datetime" Nullable="false" />
+          <Property Name="ElozolegIsFennallt" Type="bit" Nullable="false" />
+          <Property Name="Elharult" Type="bit" Nullable="false" />
+          <Property Name="Leiras" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="KemenyCsoport" Type="nvarchar" MaxLength="100" />
+          <Property Name="Oid" Type="int" />
+        </EntityType>
+        <EntityType Name="Munkatars_t">
+          <Key>
+            <PropertyRef Name="MunkatarsId" />
+          </Key>
+          <Property Name="MunkatarsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HRId" Type="int" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MunkakorKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="KepzettsegKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="MesterkorzetId" Type="int" />
+          <Property Name="RegioId" Type="int" Nullable="false" />
+          <Property Name="FelettesId" Type="int" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="60" />
+          <Property Name="MunkaviszonyKezdete" Type="datetime" />
+          <Property Name="MunkaviszonyVege" Type="datetime" />
+          <Property Name="SzuletesDatuma" Type="datetime" />
+          <Property Name="Kulsos" Type="bit" Nullable="false" />
+          <Property Name="Aktiv" Type="bit" Nullable="false" />
+          <Property Name="LoginNev" Type="nvarchar" MaxLength="200" />
+          <Property Name="DomainPrefix" Type="nvarchar" MaxLength="200" />
+          <Property Name="Jelszo" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OklevelSzama" Type="nvarchar" MaxLength="20" />
+          <Property Name="Old_TavirDolgozoId" Type="int" />
+          <Property Name="Old_TavirMunkakorId" Type="int" />
+          <Property Name="Old_TavirOnelkerId" Type="int" />
+          <Property Name="Old_TavirMunkakor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Old_TavirJelszo" Type="nvarchar" MaxLength="50" />
+          <Property Name="JelszoClearText" Type="nvarchar" MaxLength="40" />
+          <Property Name="ADUserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADLogin" Type="bit" Nullable="false" />
+          <Property Name="ElszamolasAlairoId" Type="int" />
+          <Property Name="Vonalkod" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="NyomtatvanyTipus_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORE_t">
+          <Key>
+            <PropertyRef Name="Oid" />
+          </Key>
+          <Property Name="Oid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Eid" Type="int" Nullable="false" />
+          <Property Name="Cid" Type="int" Nullable="false" />
+          <Property Name="Lepcsohaz" Type="nvarchar" MaxLength="10" />
+          <Property Name="Emelet" Type="nvarchar" MaxLength="10" />
+          <Property Name="Ajto" Type="nvarchar" MaxLength="10" />
+          <Property Name="Ajtotores" Type="nvarchar" MaxLength="10" />
+          <Property Name="HRSZ3" Type="nvarchar" MaxLength="10" />
+          <Property Name="OREHasznalatModjaKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="LegterOsszekottetesekSzama" Type="int" Nullable="false" />
+          <Property Name="COMeroKoteles" Type="bit" Nullable="false" />
+          <Property Name="UtolsoCOMeresDatuma" Type="datetime" />
+          <Property Name="UtolsoMuszakiFelulvizsgalatDatuma" Type="datetime" />
+          <Property Name="UtolsoSormunkavegzesDatuma" Type="datetime" />
+          <Property Name="Megjegyzes" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Ervenyes" Type="bit" Nullable="false" />
+          <Property Name="UtolsoModositasDatuma" Type="datetime" Nullable="false" />
+          <Property Name="UtolsoModositoId" Type="int" Nullable="false" />
+          <Property Name="EllenorzesDatuma" Type="datetime" />
+          <Property Name="EllenorzoId" Type="int" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="COMeroErvenyesseg" Type="datetime" />
+          <Property Name="Old_2014TavirVonalkod" Type="nvarchar" MaxLength="50" />
+          <Property Name="Old_2014SzigoruLakasvonalkod" Type="nvarchar" MaxLength="20" />
+          <Property Name="IdoszakosanHasznalt" Type="bit" Nullable="false" />
+          <Property Name="SormunkaPeriodus" Type="int" Nullable="false" />
+          <Property Name="CimFilterMask" Type="nvarchar" MaxLength="400" />
+          <Property Name="kacs_2014tanTulaj" Type="nvarchar" MaxLength="255" />
+          <Property Name="kacs_2014tanKezelo" Type="nvarchar" MaxLength="255" />
+          <Property Name="kacs_2014tanEpulet" Type="nvarchar" MaxLength="10" />
+          <Property Name="kacs_2014tanHasznalo" Type="nvarchar" MaxLength="255" />
+          <Property Name="kacs_2014tanEpulettores" Type="nvarchar" MaxLength="10" />
+          <Property Name="Old_2014TavirKS" Type="nvarchar" MaxLength="20" />
+          <Property Name="Old_2014TavirEpulID" Type="int" />
+          <Property Name="Old_2014SzigoruTuzeloBerendezesMenny" Type="int" />
+          <Property Name="Torolve" Type="bit" Nullable="false" />
+          <Property Name="EmeletJelKod" Type="nvarchar" MaxLength="3" />
+          <Property Name="IdoszakosHasznalatBejelentesDatuma" Type="datetime" />
+          <Property Name="kacs_AzonosOre" Type="int" />
+        </EntityType>
+        <EntityType Name="Regio_t">
+          <Key>
+            <PropertyRef Name="RegioId" />
+          </Key>
+          <Property Name="RegioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cid" Type="int" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="20" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="VezetoId" Type="int" />
+          <Property Name="RegioKod" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="KeszenletiCsoport" Type="bit" Nullable="false" />
+          <Property Name="CimSzoveg" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Rendeles_t">
+          <Key>
+            <PropertyRef Name="RendelesId" />
+          </Key>
+          <Property Name="RendelesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rendelesszam" Type="nvarchar" MaxLength="23" Nullable="false" />
+          <Property Name="RendelesStatuszKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Iid" Type="int" />
+          <Property Name="Eid" Type="int" />
+          <Property Name="Oid" Type="int" />
+          <Property Name="MunkaTipusKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Szamlazando" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="SzamlazasraAtadas" Type="datetime" />
+          <Property Name="Kiszamlazva" Type="datetime" />
+          <Property Name="MegrendeloId" Type="int" />
+          <Property Name="ErtesitendoSzemelyId" Type="int" />
+          <Property Name="TervezoId" Type="int" />
+          <Property Name="RendelesFelvetelDatuma" Type="datetime" />
+          <Property Name="KivitelezoId" Type="int" />
+          <Property Name="SzamlazoRendszerKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="MunkatVegzoRegioId" Type="int" Nullable="false" />
+          <Property Name="JovahagyasDatuma" Type="datetime" />
+          <Property Name="JovahagyoId" Type="int" />
+          <Property Name="NyilatkozatKotelezo" Type="bit" Nullable="false" />
+          <Property Name="KellNyilatkozat" Type="bit" Nullable="false" />
+          <Property Name="EpuletUtolsoSormunkavegzesDatumaIrodjon" Type="bit" Nullable="false" />
+          <Property Name="EpuletUtolsoMuszakiFelulvizsgalatDatumaIrodjon" Type="bit" Nullable="false" />
+          <Property Name="TajekoztatoId" Type="int" />
+          <Property Name="SzamlazasDatumaTan" Type="date" />
+          <Property Name="RendelesBeerkezesDatuma" Type="datetime" />
+          <Property Name="kacs_SzamlazvaVisszajelzesTan" Type="date" />
+          <Property Name="kacs_2014SormunkaPotmunkaja" Type="bit" />
+          <Property Name="kacs_DuplaRendelesRogzitesEllenorizve" Type="bit" />
+          <Property Name="kacs_EmailkeresDatum" Type="date" />
+          <Property Name="kacs_EmailkeresSzovegKod" Type="nvarchar" MaxLength="25" />
+          <Property Name="kacs_EmailkeresEredmeny" Type="nvarchar" MaxLength="25" />
+          <Property Name="kacs_SmskeresDatum" Type="date" />
+          <Property Name="kacs_SmskeresSzovegKod" Type="nvarchar" MaxLength="25" />
+          <Property Name="kacs_SmskeresEredmeny" Type="nvarchar" MaxLength="25" />
+          <Property Name="kacs_KeziSzamlazasTiltott" Type="bit" />
+          <Property Name="kacs_NemszamlazandoIndoklas" Type="nvarchar" MaxLength="512" />
+          <Property Name="kacs_NemszamlazandoJogos" Type="bit" />
+          <Property Name="ElszamolasEve" Type="int" />
+          <Property Name="LakossagiAr" Type="bit" />
+          <Property Name="SzlafizPartnerId" Type="int" />
+          <Property Name="SzlafizGazdformcsopKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="kacs_NincsSzamlazhatoMunkatargyaRendben" Type="bit" Nullable="false" />
+          <Property Name="TeljesitesDatuma" Type="date" />
+          <Property Name="SzamlazasUtolsoKvhHibakod" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="RendelesStatusz_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="50" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tanusitvany_t">
+          <Key>
+            <PropertyRef Name="TanusitvanyId" />
+          </Key>
+          <Property Name="TanusitvanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SzulotanusitvanyId" Type="int" />
+          <Property Name="MunkaId" Type="int" />
+          <Property Name="Vonalkod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NyomtatvanyTipusKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="Oid" Type="int" />
+          <Property Name="Dokumentum" Type="nvarchar" MaxLength="200" />
+          <Property Name="BeolvasasIdopontja" Type="datetime" />
+          <Property Name="BeolvasoId" Type="int" />
+          <Property Name="AtvevoId" Type="int" />
+          <Property Name="Sormunka1" Type="bit" Nullable="false" />
+          <Property Name="Sormunka2" Type="bit" Nullable="false" />
+          <Property Name="Zart" Type="bit" Nullable="false" />
+          <Property Name="Elvegzett" Type="bit" Nullable="false" />
+          <Property Name="Bianko" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Technikai" Type="bit" Nullable="false" />
+          <Property Name="KiallitasIdopontja" Type="datetime" />
+          <Property Name="KiallitoId" Type="int" />
+          <Property Name="kacs_Megjegyzes" Type="nvarchar" MaxLength="200" />
+          <Property Name="GazElzarasahozHozzajarult" Type="bit" Nullable="false" />
+          <Property Name="Megjegyzes" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KOTORTESZT.dbo.Tanusitvany2015FO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tanusitvany2015FO">
+          <Key>
+            <PropertyRef Name="IdHaszn" />
+            <PropertyRef Name="Eid" />
+            <PropertyRef Name="Iid" />
+            <PropertyRef Name="EIDnbelüliFotan" />
+          </Key>
+          <Property Name="EpuletID" Type="nvarchar" MaxLength="8" />
+          <Property Name="hrsztan" Type="nvarchar" MaxLength="21" />
+          <Property Name="Vonalkod" Type="nvarchar" MaxLength="14" />
+          <Property Name="Kirnev" Type="nvarchar" MaxLength="106" />
+          <Property Name="Kircim" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdHaszn" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Ingatlancim" Type="nvarchar" MaxLength="316" />
+          <Property Name="TulajdonosNev" Type="nvarchar" MaxLength="100" />
+          <Property Name="TulajdonosCim" Type="nvarchar" MaxLength="316" />
+          <Property Name="Használónév" Type="nvarchar" MaxLength="100" />
+          <Property Name="HasználóCím" Type="nvarchar" MaxLength="316" />
+          <Property Name="MuszakiEv" Type="int" />
+          <Property Name="KezelőNév" Type="nvarchar" MaxLength="100" />
+          <Property Name="KezelőCím" Type="nvarchar" MaxLength="316" />
+          <Property Name="KezelőEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="KezelőTelefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Jel01" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db01" Type="int" />
+          <Property Name="Jel02" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db02" Type="int" />
+          <Property Name="Jel03" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db03" Type="int" />
+          <Property Name="Jel04" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db04" Type="int" />
+          <Property Name="Jel05" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db05" Type="int" />
+          <Property Name="Jel06" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db06" Type="int" />
+          <Property Name="fmszint06" Type="float" />
+          <Property Name="Jel07" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db07" Type="int" />
+          <Property Name="fmszint07" Type="float" />
+          <Property Name="Jel08" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db08" Type="int" />
+          <Property Name="fmszint08" Type="float" />
+          <Property Name="Jel09" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db09" Type="int" />
+          <Property Name="fmszint09" Type="float" />
+          <Property Name="Jel10" Type="nvarchar" MaxLength="20" />
+          <Property Name="Db10" Type="int" />
+          <Property Name="fmszint10" Type="float" />
+          <Property Name="Eid" Type="int" Nullable="false" />
+          <Property Name="Iid" Type="int" Nullable="false" />
+          <Property Name="EIDnbelüliFotan" Type="int" Nullable="false" />
+          <Property Name="TervezettMunkavegzesDatuma" Type="date" />
+          <Property Name="RegioID" Type="int" />
+          <Property Name="Kemenyseproparid" Type="int" />
+          <Property Name="Kemenyseproparnev" Type="nvarchar" MaxLength="100" />
+          <Property Name="Munkavegzeshonapja" Type="int" />
+          <Property Name="Sorrend" Type="nvarchar" MaxLength="27" />
+          <Property Name="TervezesiegysegID" Type="int" />
+          <Property Name="TervezesiegysegCsoportID" Type="int" />
+          <Property Name="NyomdabaadasDatuma" Type="date" />
+          <Property Name="EpuletOREMennyisegTenyleges" Type="int" />
+          <Property Name="MesterkorzetId" Type="int" />
+          <Property Name="Ev" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KOTORTESZT.dbo.Tanusitvany2015ORE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tanusitvany2015ORE">
+          <Key>
+            <PropertyRef Name="eid" />
+            <PropertyRef Name="iid" />
+          </Key>
+          <Property Name="Epuletid" Type="nvarchar" MaxLength="12" />
+          <Property Name="OREVonalkod" Type="nvarchar" MaxLength="14" />
+          <Property Name="Kirnev" Type="nvarchar" MaxLength="106" />
+          <Property Name="Kircim" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ingatlancim" Type="nvarchar" MaxLength="316" />
+          <Property Name="EpuletOREMennyisegTenyleges" Type="int" />
+          <Property Name="eid" Type="int" Nullable="false" />
+          <Property Name="iid" Type="int" Nullable="false" />
+          <Property Name="TervezettMunkavegzesDatuma" Type="date" />
+          <Property Name="RegioID" Type="int" />
+          <Property Name="Kemenyseproparid" Type="int" />
+          <Property Name="Kemenyseproparnev" Type="nvarchar" MaxLength="100" />
+          <Property Name="MunkavegzesHonapja" Type="int" />
+          <Property Name="FotanusitvanyVonalkod" Type="nvarchar" MaxLength="14" />
+          <Property Name="Sorrend" Type="nvarchar" MaxLength="27" />
+          <Property Name="TervezesiegysegID" Type="int" />
+          <Property Name="TervezesiegysegCsoportID" Type="int" />
+          <Property Name="NyomdabaadasDatuma" Type="date" />
+          <Property Name="MesterkorzetId" Type="int" />
+          <Property Name="Ev" Type="int" />
+        </EntityType>
+        <EntityType Name="TervezesiEgyseg_t">
+          <Key>
+            <PropertyRef Name="TervezesiEgysegId" />
+          </Key>
+          <Property Name="TervezesiEgysegId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TervezesiEgysegCsoportId" Type="int" />
+          <Property Name="Eid" Type="int" Nullable="false" />
+          <Property Name="Sorszam" Type="int" />
+          <Property Name="KalkulaltMunkaegyenertek" Type="float" />
+          <Property Name="MegadottMunkaegyenertek" Type="float" />
+          <Property Name="MegadottRaforditasPercben" Type="float" />
+          <Property Name="Megjegyzes" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Lezart" Type="bit" Nullable="false" />
+          <Property Name="Periodus" Type="int" />
+          <Property Name="Vonalkod" Type="nvarchar" MaxLength="20" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="512" />
+          <Property Name="LetrehozasDatuma" Type="datetime" Nullable="false" />
+          <Property Name="MuszakiFelulvizsgalat" Type="bit" Nullable="false" />
+          <Property Name="kacs_Vonalkod2014" Type="nvarchar" MaxLength="20" />
+          <Property Name="kacs_RegioId" Type="int" />
+          <Property Name="kacs_MesterkorzetId" Type="int" />
+          <Property Name="kacs_KemenyseproparId" Type="int" />
+          <Property Name="Ev" Type="datetime" />
+          <Property Name="kacs_Tanusitvany2015NyomdabaAdva" Type="date" />
+          <Property Name="kacs_Tanusitvany2015NyomdabaAdando" Type="bit" />
+          <Property Name="Torolve" Type="bit" Nullable="false" />
+          <Property Name="Ervenyes" Type="bit" Nullable="false" />
+          <Property Name="kacs_TeNevBeallitva" Type="bit" />
+        </EntityType>
+        <EntityType Name="VonalkodTartomany_t">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Eleje" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Vege" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NyomtatvanytipusKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="20" />
+          <Property Name="KarakterKod" Type="nvarchar" MaxLength="20" />
+          <Property Name="KioszthatoSorszam" Type="int" />
+          <Property Name="Ev" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KOTORTESZT.dbo.vCim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vCim">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="int" Nullable="false" />
+          <Property Name="Iranyitoszam" Type="int" />
+          <Property Name="TelepulesNev" Type="nvarchar" MaxLength="50" />
+          <Property Name="KozteruletNev" Type="nvarchar" MaxLength="100" />
+          <Property Name="KozteruletJellegNev" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hazszam1" Type="int" />
+          <Property Name="Hazszamtores1" Type="nvarchar" MaxLength="10" />
+          <Property Name="Hazszam2" Type="int" />
+          <Property Name="Hazszamtores2" Type="nvarchar" MaxLength="10" />
+          <Property Name="Epuletjel" Type="nvarchar" MaxLength="10" />
+          <Property Name="Epulettores" Type="nvarchar" MaxLength="10" />
+          <Property Name="Lepcsohaz" Type="nvarchar" MaxLength="10" />
+          <Property Name="Emelet" Type="nvarchar" MaxLength="20" />
+          <Property Name="Ajto" Type="nvarchar" MaxLength="10" />
+          <Property Name="Ajtotores" Type="nvarchar" MaxLength="10" />
+          <Property Name="CimSzoveg" Type="nvarchar" MaxLength="442" />
+          <Property Name="CimHRSZ" Type="nvarchar" MaxLength="43" />
+          <Property Name="UtcaHazszam" Type="nvarchar" MaxLength="359" />
+          <Property Name="Hazszam" Type="nvarchar" MaxLength="83" />
+          <Property Name="EpuletSzoveg" Type="nvarchar" MaxLength="45" />
+          <Property Name="LhSzoveg" Type="nvarchar" MaxLength="15" />
+          <Property Name="AjtoSzoveg" Type="nvarchar" MaxLength="42" />
+          <Property Name="HazszamSzoveg" Type="nvarchar" MaxLength="207" />
+          <Property Name="EmeletKod" Type="nvarchar" MaxLength="3" />
+          <Property Name="KozteruletId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KOTORTESZT.dbo.vEpuletElsCim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vEpuletElsCim">
+          <Key>
+            <PropertyRef Name="Eid" />
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Eid" Type="int" Nullable="false" />
+          <Property Name="Cid" Type="int" Nullable="false" />
+          <Property Name="IRSZ" Type="int" />
+          <Property Name="CimSzoveg" Type="nvarchar" MaxLength="442" />
+          <Property Name="Iid" Type="int" />
+          <Property Name="CimHRSZ" Type="nvarchar" MaxLength="43" />
+          <Property Name="EpHRSZ" Type="nvarchar" MaxLength="32" />
+          <Property Name="UtcaHazszam" Type="nvarchar" MaxLength="359" />
+          <Property Name="TelepulesNev" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vOreCim">
+          <Key>
+            <PropertyRef Name="Oid" />
+            <PropertyRef Name="Cid" />
+            <PropertyRef Name="eid" />
+            <PropertyRef Name="iid" />
+          </Key>
+          <Property Name="Oid" Type="int" Nullable="false" />
+          <Property Name="Cid" Type="int" Nullable="false" />
+          <Property Name="Lepcsohaz" Type="nvarchar" MaxLength="10" />
+          <Property Name="Emelet" Type="nvarchar" MaxLength="10" />
+          <Property Name="EmeletJelKod" Type="nvarchar" MaxLength="3" />
+          <Property Name="Ajto" Type="nvarchar" MaxLength="10" />
+          <Property Name="Ajtotores" Type="nvarchar" MaxLength="10" />
+          <Property Name="IRSZ" Type="int" />
+          <Property Name="Cimszoveg" Type="nvarchar" MaxLength="510" />
+          <Property Name="eid" Type="int" Nullable="false" />
+          <Property Name="iid" Type="int" Nullable="false" />
+          <Property Name="OreHRSZ" Type="nvarchar" MaxLength="43" />
+          <Property Name="CimHRSZ" Type="nvarchar" MaxLength="43" />
+          <Property Name="UtcaHazszam" Type="nvarchar" MaxLength="427" />
+          <Property Name="TelepulesNev" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="Cim_EllenorzoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Cim_t" Type="Self.Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="EllenorzoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cim_UtolsoModositoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="1" />
+          <End Role="Cim_t" Type="Self.Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="UtolsoModositoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kozt_JovahagyoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Rendeles_t" Type="Self.Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="JovahagyoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Mesterkorzet_RegioId_FK">
+          <End Role="Regio_t" Type="Self.Regio_t" Multiplicity="1" />
+          <End Role="Mesterkorzet_t" Type="Self.Mesterkorzet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regio_t">
+              <PropertyRef Name="RegioId" />
+            </Principal>
+            <Dependent Role="Mesterkorzet_t">
+              <PropertyRef Name="RegioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Mesterkorzet_VezetoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Mesterkorzet_t" Type="Self.Mesterkorzet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Mesterkorzet_t">
+              <PropertyRef Name="VezetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munka_RendelesId_FK">
+          <End Role="Rendeles_t" Type="Self.Rendeles_t" Multiplicity="1" />
+          <End Role="Munka_t" Type="Self.Munka_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rendeles_t">
+              <PropertyRef Name="RendelesId" />
+            </Principal>
+            <Dependent Role="Munka_t">
+              <PropertyRef Name="RendelesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munka_TervezesiEgysegId_FK">
+          <End Role="TervezesiEgyseg_t" Type="Self.TervezesiEgyseg_t" Multiplicity="0..1" />
+          <End Role="Munka_t" Type="Self.Munka_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TervezesiEgyseg_t">
+              <PropertyRef Name="TervezesiEgysegId" />
+            </Principal>
+            <Dependent Role="Munka_t">
+              <PropertyRef Name="TervezesiEgysegId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargya_MunkaId_FK">
+          <End Role="Munka_t" Type="Self.Munka_t" Multiplicity="1" />
+          <End Role="MunkaTargya_cs" Type="Self.MunkaTargya_cs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munka_t">
+              <PropertyRef Name="MunkaId" />
+            </Principal>
+            <Dependent Role="MunkaTargya_cs">
+              <PropertyRef Name="MunkaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargya_Oid_FK">
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="0..1" />
+          <End Role="MunkaTargya_cs" Type="Self.MunkaTargya_cs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="MunkaTargya_cs">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargya_TanusitvanyId_FK">
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="0..1" />
+          <End Role="MunkaTargya_cs" Type="Self.MunkaTargya_cs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tanusitvany_t">
+              <PropertyRef Name="TanusitvanyId" />
+            </Principal>
+            <Dependent Role="MunkaTargya_cs">
+              <PropertyRef Name="TanusitvanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargyaHiba_MunkaTargyaId_FK">
+          <End Role="MunkaTargya_cs" Type="Self.MunkaTargya_cs" Multiplicity="1" />
+          <End Role="MunkaTargyaHiba_t" Type="Self.MunkaTargyaHiba_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MunkaTargya_cs">
+              <PropertyRef Name="MunkaTargyaId" />
+            </Principal>
+            <Dependent Role="MunkaTargyaHiba_t">
+              <PropertyRef Name="MunkaTargyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargyaHiba_Oid_FK">
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="0..1" />
+          <End Role="MunkaTargyaHiba_t" Type="Self.MunkaTargyaHiba_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="MunkaTargyaHiba_t">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_ElszamolasAlairoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Munkatars_t1" Type="Self.Munkatars_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Munkatars_t1">
+              <PropertyRef Name="ElszamolasAlairoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_FelettesId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Munkatars_t1" Type="Self.Munkatars_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Munkatars_t1">
+              <PropertyRef Name="FelettesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_MesterkorzetId_FK">
+          <End Role="Mesterkorzet_t" Type="Self.Mesterkorzet_t" Multiplicity="0..1" />
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesterkorzet_t">
+              <PropertyRef Name="MesterkorzetId" />
+            </Principal>
+            <Dependent Role="Munkatars_t">
+              <PropertyRef Name="MesterkorzetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_RegioId_FK">
+          <End Role="Regio_t" Type="Self.Regio_t" Multiplicity="1" />
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regio_t">
+              <PropertyRef Name="RegioId" />
+            </Principal>
+            <Dependent Role="Munkatars_t">
+              <PropertyRef Name="RegioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORE_Cid_FK">
+          <End Role="Cim_t" Type="Self.Cim_t" Multiplicity="1" />
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cim_t">
+              <PropertyRef Name="Cid" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="Cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORE_EllenorzoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="EllenorzoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORE_UtolsoModositoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="1" />
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="UtolsoModositoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Regio_Cid_FK">
+          <End Role="Cim_t" Type="Self.Cim_t" Multiplicity="0..1" />
+          <End Role="Regio_t" Type="Self.Regio_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cim_t">
+              <PropertyRef Name="Cid" />
+            </Principal>
+            <Dependent Role="Regio_t">
+              <PropertyRef Name="Cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Regio_VezetoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Regio_t" Type="Self.Regio_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Regio_t">
+              <PropertyRef Name="VezetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rendeles_MunkatVegzoRegioId_FK">
+          <End Role="Regio_t" Type="Self.Regio_t" Multiplicity="1" />
+          <End Role="Rendeles_t" Type="Self.Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regio_t">
+              <PropertyRef Name="RegioId" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="MunkatVegzoRegioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rendeles_ORE_FK">
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="0..1" />
+          <End Role="Rendeles_t" Type="Self.Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rendeles_RendelesStatusz_FK">
+          <End Role="RendelesStatusz_m" Type="Self.RendelesStatusz_m" Multiplicity="1" />
+          <End Role="Rendeles_t" Type="Self.Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RendelesStatusz_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="RendelesStatuszKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_BeolvasoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="BeolvasoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_KiallitoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="KiallitoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_MunkaId_FK">
+          <End Role="Munka_t" Type="Self.Munka_t" Multiplicity="0..1" />
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munka_t">
+              <PropertyRef Name="MunkaId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="MunkaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_NyomtatvanyTipusKod_FK">
+          <End Role="NyomtatvanyTipus_m" Type="Self.NyomtatvanyTipus_m" Multiplicity="0..1" />
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NyomtatvanyTipus_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="NyomtatvanyTipusKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_Oid_FK">
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="0..1" />
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_SzulotanusitvanyId_FK">
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="0..1" />
+          <End Role="Tanusitvany_t1" Type="Self.Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tanusitvany_t">
+              <PropertyRef Name="TanusitvanyId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t1">
+              <PropertyRef Name="SzulotanusitvanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VonalkodTartomany_NyomtatvanytipusKod_FK">
+          <End Role="NyomtatvanyTipus_m" Type="Self.NyomtatvanyTipus_m" Multiplicity="0..1" />
+          <End Role="VonalkodTartomany_t" Type="Self.VonalkodTartomany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NyomtatvanyTipus_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="VonalkodTartomany_t">
+              <PropertyRef Name="NyomtatvanytipusKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KotorDbStoreContainer">
+          <EntitySet Name="Cim_t" EntityType="Self.Cim_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesterkorzet_t" EntityType="Self.Mesterkorzet_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Munka_t" EntityType="Self.Munka_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MunkaTargya_cs" EntityType="Self.MunkaTargya_cs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MunkaTargyaHiba_t" EntityType="Self.MunkaTargyaHiba_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Munkatars_t" EntityType="Self.Munkatars_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NyomtatvanyTipus_m" EntityType="Self.NyomtatvanyTipus_m" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORE_t" EntityType="Self.ORE_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regio_t" EntityType="Self.Regio_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rendeles_t" EntityType="Self.Rendeles_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RendelesStatusz_m" EntityType="Self.RendelesStatusz_m" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tanusitvany_t" EntityType="Self.Tanusitvany_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TervezesiEgyseg_t" EntityType="Self.TervezesiEgyseg_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VonalkodTartomany_t" EntityType="Self.VonalkodTartomany_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tanusitvany2015FO" EntityType="Self.Tanusitvany2015FO" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tanusitvany2015FO].[EpuletID] AS [EpuletID], 
+    [Tanusitvany2015FO].[hrsztan] AS [hrsztan], 
+    [Tanusitvany2015FO].[Vonalkod] AS [Vonalkod], 
+    [Tanusitvany2015FO].[Kirnev] AS [Kirnev], 
+    [Tanusitvany2015FO].[Kircim] AS [Kircim], 
+    [Tanusitvany2015FO].[IdHaszn] AS [IdHaszn], 
+    [Tanusitvany2015FO].[Ingatlancim] AS [Ingatlancim], 
+    [Tanusitvany2015FO].[TulajdonosNev] AS [TulajdonosNev], 
+    [Tanusitvany2015FO].[TulajdonosCim] AS [TulajdonosCim], 
+    [Tanusitvany2015FO].[Használónév] AS [Használónév], 
+    [Tanusitvany2015FO].[HasználóCím] AS [HasználóCím], 
+    [Tanusitvany2015FO].[MuszakiEv] AS [MuszakiEv], 
+    [Tanusitvany2015FO].[KezelőNév] AS [KezelőNév], 
+    [Tanusitvany2015FO].[KezelőCím] AS [KezelőCím], 
+    [Tanusitvany2015FO].[KezelőEmail] AS [KezelőEmail], 
+    [Tanusitvany2015FO].[KezelőTelefon] AS [KezelőTelefon], 
+    [Tanusitvany2015FO].[Jel01] AS [Jel01], 
+    [Tanusitvany2015FO].[Db01] AS [Db01], 
+    [Tanusitvany2015FO].[Jel02] AS [Jel02], 
+    [Tanusitvany2015FO].[Db02] AS [Db02], 
+    [Tanusitvany2015FO].[Jel03] AS [Jel03], 
+    [Tanusitvany2015FO].[Db03] AS [Db03], 
+    [Tanusitvany2015FO].[Jel04] AS [Jel04], 
+    [Tanusitvany2015FO].[Db04] AS [Db04], 
+    [Tanusitvany2015FO].[Jel05] AS [Jel05], 
+    [Tanusitvany2015FO].[Db05] AS [Db05], 
+    [Tanusitvany2015FO].[Jel06] AS [Jel06], 
+    [Tanusitvany2015FO].[Db06] AS [Db06], 
+    [Tanusitvany2015FO].[fmszint06] AS [fmszint06], 
+    [Tanusitvany2015FO].[Jel07] AS [Jel07], 
+    [Tanusitvany2015FO].[Db07] AS [Db07], 
+    [Tanusitvany2015FO].[fmszint07] AS [fmszint07], 
+    [Tanusitvany2015FO].[Jel08] AS [Jel08], 
+    [Tanusitvany2015FO].[Db08] AS [Db08], 
+    [Tanusitvany2015FO].[fmszint08] AS [fmszint08], 
+    [Tanusitvany2015FO].[Jel09] AS [Jel09], 
+    [Tanusitvany2015FO].[Db09] AS [Db09], 
+    [Tanusitvany2015FO].[fmszint09] AS [fmszint09], 
+    [Tanusitvany2015FO].[Jel10] AS [Jel10], 
+    [Tanusitvany2015FO].[Db10] AS [Db10], 
+    [Tanusitvany2015FO].[fmszint10] AS [fmszint10], 
+    [Tanusitvany2015FO].[Eid] AS [Eid], 
+    [Tanusitvany2015FO].[Iid] AS [Iid], 
+    [Tanusitvany2015FO].[EIDnbelüliFotan] AS [EIDnbelüliFotan], 
+    [Tanusitvany2015FO].[TervezettMunkavegzesDatuma] AS [TervezettMunkavegzesDatuma], 
+    [Tanusitvany2015FO].[RegioID] AS [RegioID], 
+    [Tanusitvany2015FO].[Kemenyseproparid] AS [Kemenyseproparid], 
+    [Tanusitvany2015FO].[Kemenyseproparnev] AS [Kemenyseproparnev], 
+    [Tanusitvany2015FO].[Munkavegzeshonapja] AS [Munkavegzeshonapja], 
+    [Tanusitvany2015FO].[Sorrend] AS [Sorrend], 
+    [Tanusitvany2015FO].[TervezesiegysegID] AS [TervezesiegysegID], 
+    [Tanusitvany2015FO].[TervezesiegysegCsoportID] AS [TervezesiegysegCsoportID], 
+    [Tanusitvany2015FO].[NyomdabaadasDatuma] AS [NyomdabaadasDatuma], 
+    [Tanusitvany2015FO].[EpuletOREMennyisegTenyleges] AS [EpuletOREMennyisegTenyleges], 
+    [Tanusitvany2015FO].[MesterkorzetId] AS [MesterkorzetId], 
+    [Tanusitvany2015FO].[Ev] AS [Ev]
+    FROM [dbo].[Tanusitvany2015FO] AS [Tanusitvany2015FO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tanusitvany2015ORE" EntityType="Self.Tanusitvany2015ORE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tanusitvany2015ORE].[Epuletid] AS [Epuletid], 
+    [Tanusitvany2015ORE].[OREVonalkod] AS [OREVonalkod], 
+    [Tanusitvany2015ORE].[Kirnev] AS [Kirnev], 
+    [Tanusitvany2015ORE].[Kircim] AS [Kircim], 
+    [Tanusitvany2015ORE].[Ingatlancim] AS [Ingatlancim], 
+    [Tanusitvany2015ORE].[EpuletOREMennyisegTenyleges] AS [EpuletOREMennyisegTenyleges], 
+    [Tanusitvany2015ORE].[eid] AS [eid], 
+    [Tanusitvany2015ORE].[iid] AS [iid], 
+    [Tanusitvany2015ORE].[TervezettMunkavegzesDatuma] AS [TervezettMunkavegzesDatuma], 
+    [Tanusitvany2015ORE].[RegioID] AS [RegioID], 
+    [Tanusitvany2015ORE].[Kemenyseproparid] AS [Kemenyseproparid], 
+    [Tanusitvany2015ORE].[Kemenyseproparnev] AS [Kemenyseproparnev], 
+    [Tanusitvany2015ORE].[MunkavegzesHonapja] AS [MunkavegzesHonapja], 
+    [Tanusitvany2015ORE].[FotanusitvanyVonalkod] AS [FotanusitvanyVonalkod], 
+    [Tanusitvany2015ORE].[Sorrend] AS [Sorrend], 
+    [Tanusitvany2015ORE].[TervezesiegysegID] AS [TervezesiegysegID], 
+    [Tanusitvany2015ORE].[TervezesiegysegCsoportID] AS [TervezesiegysegCsoportID], 
+    [Tanusitvany2015ORE].[NyomdabaadasDatuma] AS [NyomdabaadasDatuma], 
+    [Tanusitvany2015ORE].[MesterkorzetId] AS [MesterkorzetId], 
+    [Tanusitvany2015ORE].[Ev] AS [Ev]
+    FROM [dbo].[Tanusitvany2015ORE] AS [Tanusitvany2015ORE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vCim" EntityType="Self.vCim" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vCim].[Cid] AS [Cid], 
+    [vCim].[Iranyitoszam] AS [Iranyitoszam], 
+    [vCim].[TelepulesNev] AS [TelepulesNev], 
+    [vCim].[KozteruletNev] AS [KozteruletNev], 
+    [vCim].[KozteruletJellegNev] AS [KozteruletJellegNev], 
+    [vCim].[Hazszam1] AS [Hazszam1], 
+    [vCim].[Hazszamtores1] AS [Hazszamtores1], 
+    [vCim].[Hazszam2] AS [Hazszam2], 
+    [vCim].[Hazszamtores2] AS [Hazszamtores2], 
+    [vCim].[Epuletjel] AS [Epuletjel], 
+    [vCim].[Epulettores] AS [Epulettores], 
+    [vCim].[Lepcsohaz] AS [Lepcsohaz], 
+    [vCim].[Emelet] AS [Emelet], 
+    [vCim].[Ajto] AS [Ajto], 
+    [vCim].[Ajtotores] AS [Ajtotores], 
+    [vCim].[CimSzoveg] AS [CimSzoveg], 
+    [vCim].[CimHRSZ] AS [CimHRSZ], 
+    [vCim].[UtcaHazszam] AS [UtcaHazszam], 
+    [vCim].[Hazszam] AS [Hazszam], 
+    [vCim].[EpuletSzoveg] AS [EpuletSzoveg], 
+    [vCim].[LhSzoveg] AS [LhSzoveg], 
+    [vCim].[AjtoSzoveg] AS [AjtoSzoveg], 
+    [vCim].[HazszamSzoveg] AS [HazszamSzoveg], 
+    [vCim].[EmeletKod] AS [EmeletKod], 
+    [vCim].[KozteruletId] AS [KozteruletId]
+    FROM [dbo].[vCim] AS [vCim]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEpuletElsCim" EntityType="Self.vEpuletElsCim" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vEpuletElsCim].[Eid] AS [Eid], 
+    [vEpuletElsCim].[Cid] AS [Cid], 
+    [vEpuletElsCim].[IRSZ] AS [IRSZ], 
+    [vEpuletElsCim].[CimSzoveg] AS [CimSzoveg], 
+    [vEpuletElsCim].[Iid] AS [Iid], 
+    [vEpuletElsCim].[CimHRSZ] AS [CimHRSZ], 
+    [vEpuletElsCim].[EpHRSZ] AS [EpHRSZ], 
+    [vEpuletElsCim].[UtcaHazszam] AS [UtcaHazszam], 
+    [vEpuletElsCim].[TelepulesNev] AS [TelepulesNev]
+    FROM [dbo].[vEpuletElsCim] AS [vEpuletElsCim]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vOreCim" EntityType="Self.vOreCim" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vOreCim].[Oid] AS [Oid], 
+    [vOreCim].[Cid] AS [Cid], 
+    [vOreCim].[Lepcsohaz] AS [Lepcsohaz], 
+    [vOreCim].[Emelet] AS [Emelet], 
+    [vOreCim].[EmeletJelKod] AS [EmeletJelKod], 
+    [vOreCim].[Ajto] AS [Ajto], 
+    [vOreCim].[Ajtotores] AS [Ajtotores], 
+    [vOreCim].[IRSZ] AS [IRSZ], 
+    [vOreCim].[Cimszoveg] AS [Cimszoveg], 
+    [vOreCim].[eid] AS [eid], 
+    [vOreCim].[iid] AS [iid], 
+    [vOreCim].[OreHRSZ] AS [OreHRSZ], 
+    [vOreCim].[CimHRSZ] AS [CimHRSZ], 
+    [vOreCim].[UtcaHazszam] AS [UtcaHazszam], 
+    [vOreCim].[TelepulesNev] AS [TelepulesNev]
+    FROM [dbo].[vOreCim] AS [vOreCim]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="Cim_EllenorzoId_FK" Association="Self.Cim_EllenorzoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
+          <AssociationSet Name="Cim_UtolsoModositoId_FK" Association="Self.Cim_UtolsoModositoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
+          <AssociationSet Name="Kozt_JovahagyoId_FK" Association="Self.Kozt_JovahagyoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <AssociationSet Name="Mesterkorzet_RegioId_FK" Association="Self.Mesterkorzet_RegioId_FK">
+            <End Role="Regio_t" EntitySet="Regio_t" />
+            <End Role="Mesterkorzet_t" EntitySet="Mesterkorzet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Mesterkorzet_VezetoId_FK" Association="Self.Mesterkorzet_VezetoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Mesterkorzet_t" EntitySet="Mesterkorzet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munka_RendelesId_FK" Association="Self.Munka_RendelesId_FK">
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+            <End Role="Munka_t" EntitySet="Munka_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munka_TervezesiEgysegId_FK" Association="Self.Munka_TervezesiEgysegId_FK">
+            <End Role="TervezesiEgyseg_t" EntitySet="TervezesiEgyseg_t" />
+            <End Role="Munka_t" EntitySet="Munka_t" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargya_MunkaId_FK" Association="Self.MunkaTargya_MunkaId_FK">
+            <End Role="Munka_t" EntitySet="Munka_t" />
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargya_Oid_FK" Association="Self.MunkaTargya_Oid_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargya_TanusitvanyId_FK" Association="Self.MunkaTargya_TanusitvanyId_FK">
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargyaHiba_MunkaTargyaId_FK" Association="Self.MunkaTargyaHiba_MunkaTargyaId_FK">
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+            <End Role="MunkaTargyaHiba_t" EntitySet="MunkaTargyaHiba_t" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargyaHiba_Oid_FK" Association="Self.MunkaTargyaHiba_Oid_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="MunkaTargyaHiba_t" EntitySet="MunkaTargyaHiba_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_ElszamolasAlairoId_FK" Association="Self.Munkatars_ElszamolasAlairoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Munkatars_t1" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_FelettesId_FK" Association="Self.Munkatars_FelettesId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Munkatars_t1" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_MesterkorzetId_FK" Association="Self.Munkatars_MesterkorzetId_FK">
+            <End Role="Mesterkorzet_t" EntitySet="Mesterkorzet_t" />
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_RegioId_FK" Association="Self.Munkatars_RegioId_FK">
+            <End Role="Regio_t" EntitySet="Regio_t" />
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <AssociationSet Name="ORE_Cid_FK" Association="Self.ORE_Cid_FK">
+            <End Role="Cim_t" EntitySet="Cim_t" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
+          <AssociationSet Name="ORE_EllenorzoId_FK" Association="Self.ORE_EllenorzoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
+          <AssociationSet Name="ORE_UtolsoModositoId_FK" Association="Self.ORE_UtolsoModositoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
+          <AssociationSet Name="Regio_Cid_FK" Association="Self.Regio_Cid_FK">
+            <End Role="Cim_t" EntitySet="Cim_t" />
+            <End Role="Regio_t" EntitySet="Regio_t" />
+          </AssociationSet>
+          <AssociationSet Name="Regio_VezetoId_FK" Association="Self.Regio_VezetoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Regio_t" EntitySet="Regio_t" />
+          </AssociationSet>
+          <AssociationSet Name="Rendeles_MunkatVegzoRegioId_FK" Association="Self.Rendeles_MunkatVegzoRegioId_FK">
+            <End Role="Regio_t" EntitySet="Regio_t" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <AssociationSet Name="Rendeles_ORE_FK" Association="Self.Rendeles_ORE_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <AssociationSet Name="Rendeles_RendelesStatusz_FK" Association="Self.Rendeles_RendelesStatusz_FK">
+            <End Role="RendelesStatusz_m" EntitySet="RendelesStatusz_m" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_BeolvasoId_FK" Association="Self.Tanusitvany_BeolvasoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_KiallitoId_FK" Association="Self.Tanusitvany_KiallitoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_MunkaId_FK" Association="Self.Tanusitvany_MunkaId_FK">
+            <End Role="Munka_t" EntitySet="Munka_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_NyomtatvanyTipusKod_FK" Association="Self.Tanusitvany_NyomtatvanyTipusKod_FK">
+            <End Role="NyomtatvanyTipus_m" EntitySet="NyomtatvanyTipus_m" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_Oid_FK" Association="Self.Tanusitvany_Oid_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_SzulotanusitvanyId_FK" Association="Self.Tanusitvany_SzulotanusitvanyId_FK">
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+            <End Role="Tanusitvany_t1" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="VonalkodTartomany_NyomtatvanytipusKod_FK" Association="Self.VonalkodTartomany_NyomtatvanytipusKod_FK">
+            <End Role="NyomtatvanyTipus_m" EntitySet="NyomtatvanyTipus_m" />
+            <End Role="VonalkodTartomany_t" EntitySet="VonalkodTartomany_t" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KotorDb" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cim_t">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Iranyitoszam" Type="Int32" />
+          <Property Name="KozteruletId" Type="Int32" />
+          <Property Name="Hazszam1" Type="Int32" />
+          <Property Name="Hazszamtores1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Hazszam2" Type="Int32" />
+          <Property Name="Hazszamtores2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Epuletjel" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Epulettores" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Lepcsohaz" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Emelet" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Ajto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Ajtotores" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HRSZ" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HRSZ1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HRSZ2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HRSZ3" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Forras" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="EgyediCim" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Ervenyes" Type="Boolean" Nullable="false" />
+          <Property Name="UtolsoModositasDatuma" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UtolsoModositoId" Type="Int32" Nullable="false" />
+          <Property Name="EllenorzesDatuma" Type="DateTime" Precision="3" />
+          <Property Name="EllenorzoId" Type="Int32" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Old_TavirCimid" Type="Int32" />
+          <Property Name="Old_TavirUtcakod" Type="Int32" />
+          <Property Name="Old_TavirVaroskod" Type="Int32" />
+          <Property Name="CimFilterMask" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="EmeletJelKod" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Munkatars_t" Relationship="KotorDb.Cim_EllenorzoId_FK" FromRole="Cim_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.Cim_UtolsoModositoId_FK" FromRole="Cim_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="ORE_t" Relationship="KotorDb.ORE_Cid_FK" FromRole="Cim_t" ToRole="ORE_t" />
+          <NavigationProperty Name="Regio_t" Relationship="KotorDb.Regio_Cid_FK" FromRole="Cim_t" ToRole="Regio_t" />
+        </EntityType>
+        <EntityType Name="Tanusitvany_t">
+          <Key>
+            <PropertyRef Name="TanusitvanyId" />
+          </Key>
+          <Property Name="TanusitvanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SzulotanusitvanyId" Type="Int32" />
+          <Property Name="MunkaId" Type="Int32" />
+          <Property Name="Vonalkod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NyomtatvanyTipusKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Oid" Type="Int32" />
+          <Property Name="Dokumentum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BeolvasasIdopontja" Type="DateTime" Precision="3" />
+          <Property Name="BeolvasoId" Type="Int32" />
+          <Property Name="AtvevoId" Type="Int32" />
+          <Property Name="Sormunka1" Type="Boolean" Nullable="false" />
+          <Property Name="Sormunka2" Type="Boolean" Nullable="false" />
+          <Property Name="Zart" Type="Boolean" Nullable="false" />
+          <Property Name="Elvegzett" Type="Boolean" Nullable="false" />
+          <Property Name="Bianko" Type="Boolean" Nullable="false" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Technikai" Type="Boolean" Nullable="false" />
+          <Property Name="KiallitasIdopontja" Type="DateTime" Precision="3" />
+          <Property Name="KiallitoId" Type="Int32" />
+          <Property Name="kacs_Megjegyzes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GazElzarasahozHozzajarult" Type="Boolean" Nullable="false" />
+          <Property Name="Megjegyzes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tanusitvany_t1" Relationship="Self.Tanusitvany_SzulotanusitvanyId_FK" FromRole="Tanusitvany_t" ToRole="Tanusitvany_t1" />
+          <NavigationProperty Name="Tanusitvany_t2" Relationship="Self.Tanusitvany_SzulotanusitvanyId_FK" FromRole="Tanusitvany_t1" ToRole="Tanusitvany_t" />
+          <NavigationProperty Name="Munkatars_t" Relationship="KotorDb.Tanusitvany_BeolvasoId_FK" FromRole="Tanusitvany_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.Tanusitvany_KiallitoId_FK" FromRole="Tanusitvany_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="NyomtatvanyTipus_m" Relationship="KotorDb.Tanusitvany_NyomtatvanyTipusKod_FK" FromRole="Tanusitvany_t" ToRole="NyomtatvanyTipus_m" />
+          <NavigationProperty Name="ORE_t" Relationship="KotorDb.Tanusitvany_Oid_FK" FromRole="Tanusitvany_t" ToRole="ORE_t" />
+          <NavigationProperty Name="Munka_t" Relationship="KotorDb.Tanusitvany_MunkaId_FK" FromRole="Tanusitvany_t" ToRole="Munka_t" />
+          <NavigationProperty Name="MunkaTargya_cs" Relationship="KotorDb.MunkaTargya_TanusitvanyId_FK" FromRole="Tanusitvany_t" ToRole="MunkaTargya_cs" />
+        </EntityType>
+        <EntityType Name="TervezesiEgyseg_t">
+          <Key>
+            <PropertyRef Name="TervezesiEgysegId" />
+          </Key>
+          <Property Name="TervezesiEgysegId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TervezesiEgysegCsoportId" Type="Int32" />
+          <Property Name="Eid" Type="Int32" Nullable="false" />
+          <Property Name="Sorszam" Type="Int32" />
+          <Property Name="KalkulaltMunkaegyenertek" Type="Double" />
+          <Property Name="MegadottMunkaegyenertek" Type="Double" />
+          <Property Name="MegadottRaforditasPercben" Type="Double" />
+          <Property Name="Megjegyzes" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Lezart" Type="Boolean" Nullable="false" />
+          <Property Name="Periodus" Type="Int32" />
+          <Property Name="Vonalkod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nev" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="LetrehozasDatuma" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MuszakiFelulvizsgalat" Type="Boolean" Nullable="false" />
+          <Property Name="kacs_Vonalkod2014" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_RegioId" Type="Int32" />
+          <Property Name="kacs_MesterkorzetId" Type="Int32" />
+          <Property Name="kacs_KemenyseproparId" Type="Int32" />
+          <Property Name="Ev" Type="DateTime" Precision="3" />
+          <Property Name="kacs_Tanusitvany2015NyomdabaAdva" Type="DateTime" Precision="0" />
+          <Property Name="kacs_Tanusitvany2015NyomdabaAdando" Type="Boolean" />
+          <Property Name="Torolve" Type="Boolean" Nullable="false" />
+          <Property Name="Ervenyes" Type="Boolean" Nullable="false" />
+          <Property Name="kacs_TeNevBeallitva" Type="Boolean" />
+          <NavigationProperty Name="Munka_t" Relationship="KotorDb.Munka_TervezesiEgysegId_FK" FromRole="TervezesiEgyseg_t" ToRole="Munka_t" />
+        </EntityType>
+        <EntityType Name="VonalkodTartomany_t">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nev" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Eleje" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Vege" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NyomtatvanytipusKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Prefix" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="KarakterKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="KioszthatoSorszam" Type="Int32" />
+          <Property Name="Ev" Type="Int32" />
+          <NavigationProperty Name="NyomtatvanyTipus_m" Relationship="KotorDb.VonalkodTartomany_NyomtatvanytipusKod_FK" FromRole="VonalkodTartomany_t" ToRole="NyomtatvanyTipus_m" />
+        </EntityType>
+        <EntityType Name="Tanusitvany2015FO">
+          <Key>
+            <PropertyRef Name="IdHaszn" />
+            <PropertyRef Name="Eid" />
+            <PropertyRef Name="Iid" />
+            <PropertyRef Name="EIDnbelüliFotan" />
+          </Key>
+          <Property Name="EpuletID" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="hrsztan" Type="String" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="Vonalkod" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="Kirnev" Type="String" MaxLength="106" FixedLength="false" Unicode="true" />
+          <Property Name="Kircim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdHaszn" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ingatlancim" Type="String" MaxLength="316" FixedLength="false" Unicode="true" />
+          <Property Name="TulajdonosNev" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TulajdonosCim" Type="String" MaxLength="316" FixedLength="false" Unicode="true" />
+          <Property Name="Használónév" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HasználóCím" Type="String" MaxLength="316" FixedLength="false" Unicode="true" />
+          <Property Name="MuszakiEv" Type="Int32" />
+          <Property Name="KezelőNév" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KezelőCím" Type="String" MaxLength="316" FixedLength="false" Unicode="true" />
+          <Property Name="KezelőEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KezelőTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Jel01" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db01" Type="Int32" />
+          <Property Name="Jel02" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db02" Type="Int32" />
+          <Property Name="Jel03" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db03" Type="Int32" />
+          <Property Name="Jel04" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db04" Type="Int32" />
+          <Property Name="Jel05" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db05" Type="Int32" />
+          <Property Name="Jel06" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db06" Type="Int32" />
+          <Property Name="fmszint06" Type="Double" />
+          <Property Name="Jel07" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db07" Type="Int32" />
+          <Property Name="fmszint07" Type="Double" />
+          <Property Name="Jel08" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db08" Type="Int32" />
+          <Property Name="fmszint08" Type="Double" />
+          <Property Name="Jel09" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db09" Type="Int32" />
+          <Property Name="fmszint09" Type="Double" />
+          <Property Name="Jel10" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Db10" Type="Int32" />
+          <Property Name="fmszint10" Type="Double" />
+          <Property Name="Eid" Type="Int32" Nullable="false" />
+          <Property Name="Iid" Type="Int32" Nullable="false" />
+          <Property Name="EIDnbelüliFotan" Type="Int32" Nullable="false" />
+          <Property Name="TervezettMunkavegzesDatuma" Type="DateTime" Precision="0" />
+          <Property Name="RegioID" Type="Int32" />
+          <Property Name="Kemenyseproparid" Type="Int32" />
+          <Property Name="Kemenyseproparnev" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Munkavegzeshonapja" Type="Int32" />
+          <Property Name="Sorrend" Type="String" MaxLength="27" FixedLength="false" Unicode="true" />
+          <Property Name="TervezesiegysegID" Type="Int32" />
+          <Property Name="TervezesiegysegCsoportID" Type="Int32" />
+          <Property Name="NyomdabaadasDatuma" Type="DateTime" Precision="0" />
+          <Property Name="EpuletOREMennyisegTenyleges" Type="Int32" />
+          <Property Name="MesterkorzetId" Type="Int32" />
+          <Property Name="Ev" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tanusitvany2015ORE">
+          <Key>
+            <PropertyRef Name="eid" />
+            <PropertyRef Name="iid" />
+          </Key>
+          <Property Name="Epuletid" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="OREVonalkod" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="Kirnev" Type="String" MaxLength="106" FixedLength="false" Unicode="true" />
+          <Property Name="Kircim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ingatlancim" Type="String" MaxLength="316" FixedLength="false" Unicode="true" />
+          <Property Name="EpuletOREMennyisegTenyleges" Type="Int32" />
+          <Property Name="eid" Type="Int32" Nullable="false" />
+          <Property Name="iid" Type="Int32" Nullable="false" />
+          <Property Name="TervezettMunkavegzesDatuma" Type="DateTime" Precision="0" />
+          <Property Name="RegioID" Type="Int32" />
+          <Property Name="Kemenyseproparid" Type="Int32" />
+          <Property Name="Kemenyseproparnev" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MunkavegzesHonapja" Type="Int32" />
+          <Property Name="FotanusitvanyVonalkod" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="Sorrend" Type="String" MaxLength="27" FixedLength="false" Unicode="true" />
+          <Property Name="TervezesiegysegID" Type="Int32" />
+          <Property Name="TervezesiegysegCsoportID" Type="Int32" />
+          <Property Name="NyomdabaadasDatuma" Type="DateTime" Precision="0" />
+          <Property Name="MesterkorzetId" Type="Int32" />
+          <Property Name="Ev" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vCim">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="Int32" Nullable="false" />
+          <Property Name="Iranyitoszam" Type="Int32" />
+          <Property Name="TelepulesNev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KozteruletNev" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KozteruletJellegNev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hazszam1" Type="Int32" />
+          <Property Name="Hazszamtores1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Hazszam2" Type="Int32" />
+          <Property Name="Hazszamtores2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Epuletjel" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Epulettores" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Lepcsohaz" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Emelet" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Ajto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Ajtotores" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CimSzoveg" Type="String" MaxLength="442" FixedLength="false" Unicode="true" />
+          <Property Name="CimHRSZ" Type="String" MaxLength="43" FixedLength="false" Unicode="true" />
+          <Property Name="UtcaHazszam" Type="String" MaxLength="359" FixedLength="false" Unicode="true" />
+          <Property Name="Hazszam" Type="String" MaxLength="83" FixedLength="false" Unicode="true" />
+          <Property Name="EpuletSzoveg" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="LhSzoveg" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="AjtoSzoveg" Type="String" MaxLength="42" FixedLength="false" Unicode="true" />
+          <Property Name="HazszamSzoveg" Type="String" MaxLength="207" FixedLength="false" Unicode="true" />
+          <Property Name="EmeletKod" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="KozteruletId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vEpuletElsCim">
+          <Key>
+            <PropertyRef Name="Eid" />
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Eid" Type="Int32" Nullable="false" />
+          <Property Name="Cid" Type="Int32" Nullable="false" />
+          <Property Name="IRSZ" Type="Int32" />
+          <Property Name="CimSzoveg" Type="String" MaxLength="442" FixedLength="false" Unicode="true" />
+          <Property Name="Iid" Type="Int32" />
+          <Property Name="CimHRSZ" Type="String" MaxLength="43" FixedLength="false" Unicode="true" />
+          <Property Name="EpHRSZ" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="UtcaHazszam" Type="String" MaxLength="359" FixedLength="false" Unicode="true" />
+          <Property Name="TelepulesNev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vOreCim">
+          <Key>
+            <PropertyRef Name="Oid" />
+            <PropertyRef Name="Cid" />
+            <PropertyRef Name="eid" />
+            <PropertyRef Name="iid" />
+          </Key>
+          <Property Name="Oid" Type="Int32" Nullable="false" />
+          <Property Name="Cid" Type="Int32" Nullable="false" />
+          <Property Name="Lepcsohaz" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Emelet" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EmeletJelKod" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Ajto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Ajtotores" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IRSZ" Type="Int32" />
+          <Property Name="Cimszoveg" Type="String" MaxLength="510" FixedLength="false" Unicode="true" />
+          <Property Name="eid" Type="Int32" Nullable="false" />
+          <Property Name="iid" Type="Int32" Nullable="false" />
+          <Property Name="OreHRSZ" Type="String" MaxLength="43" FixedLength="false" Unicode="true" />
+          <Property Name="CimHRSZ" Type="String" MaxLength="43" FixedLength="false" Unicode="true" />
+          <Property Name="UtcaHazszam" Type="String" MaxLength="427" FixedLength="false" Unicode="true" />
+          <Property Name="TelepulesNev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="Tanusitvany_SzulotanusitvanyId_FK">
+          <End Role="Tanusitvany_t" Type="Self.Tanusitvany_t" Multiplicity="0..1" />
+          <End Role="Tanusitvany_t1" Type="Self.Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tanusitvany_t">
+              <PropertyRef Name="TanusitvanyId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t1">
+              <PropertyRef Name="SzulotanusitvanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KotorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cim_t" EntityType="Self.Cim_t" />
+          <EntitySet Name="Tanusitvany_t" EntityType="Self.Tanusitvany_t" />
+          <EntitySet Name="TervezesiEgyseg_t" EntityType="Self.TervezesiEgyseg_t" />
+          <EntitySet Name="VonalkodTartomany_t" EntityType="Self.VonalkodTartomany_t" />
+          <EntitySet Name="Tanusitvany2015FO" EntityType="Self.Tanusitvany2015FO" />
+          <EntitySet Name="Tanusitvany2015ORE" EntityType="Self.Tanusitvany2015ORE" />
+          <EntitySet Name="vCim" EntityType="Self.vCim" />
+          <EntitySet Name="vEpuletElsCim" EntityType="Self.vEpuletElsCim" />
+          <EntitySet Name="vOreCim" EntityType="Self.vOreCim" />
+          <AssociationSet Name="Tanusitvany_SzulotanusitvanyId_FK" Association="Self.Tanusitvany_SzulotanusitvanyId_FK">
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+            <End Role="Tanusitvany_t1" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <EntitySet Name="Munkatars_t" EntityType="KotorDb.Munkatars_t" />
+          <AssociationSet Name="Cim_EllenorzoId_FK" Association="KotorDb.Cim_EllenorzoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
+          <AssociationSet Name="Cim_UtolsoModositoId_FK" Association="KotorDb.Cim_UtolsoModositoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_ElszamolasAlairoId_FK" Association="KotorDb.Munkatars_ElszamolasAlairoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Munkatars_t1" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_FelettesId_FK" Association="KotorDb.Munkatars_FelettesId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Munkatars_t1" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_BeolvasoId_FK" Association="KotorDb.Tanusitvany_BeolvasoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_KiallitoId_FK" Association="KotorDb.Tanusitvany_KiallitoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <EntitySet Name="NyomtatvanyTipus_m" EntityType="KotorDb.NyomtatvanyTipus_m" />
+          <AssociationSet Name="Tanusitvany_NyomtatvanyTipusKod_FK" Association="KotorDb.Tanusitvany_NyomtatvanyTipusKod_FK">
+            <End Role="NyomtatvanyTipus_m" EntitySet="NyomtatvanyTipus_m" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <AssociationSet Name="VonalkodTartomany_NyomtatvanytipusKod_FK" Association="KotorDb.VonalkodTartomany_NyomtatvanytipusKod_FK">
+            <End Role="NyomtatvanyTipus_m" EntitySet="NyomtatvanyTipus_m" />
+            <End Role="VonalkodTartomany_t" EntitySet="VonalkodTartomany_t" />
+          </AssociationSet>
+          <EntitySet Name="MunkaTargyaHiba_t" EntityType="KotorDb.MunkaTargyaHiba_t" />
+          <EntitySet Name="ORE_t" EntityType="KotorDb.ORE_t" />
+          <AssociationSet Name="ORE_Cid_FK" Association="KotorDb.ORE_Cid_FK">
+            <End Role="Cim_t" EntitySet="Cim_t" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargyaHiba_Oid_FK" Association="KotorDb.MunkaTargyaHiba_Oid_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="MunkaTargyaHiba_t" EntitySet="MunkaTargyaHiba_t" />
+          </AssociationSet>
+          <AssociationSet Name="ORE_EllenorzoId_FK" Association="KotorDb.ORE_EllenorzoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
+          <AssociationSet Name="ORE_UtolsoModositoId_FK" Association="KotorDb.ORE_UtolsoModositoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_Oid_FK" Association="KotorDb.Tanusitvany_Oid_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <EntitySet Name="Rendeles_t" EntityType="KotorDb.Rendeles_t" />
+          <AssociationSet Name="Kozt_JovahagyoId_FK" Association="KotorDb.Kozt_JovahagyoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <AssociationSet Name="Rendeles_ORE_FK" Association="KotorDb.Rendeles_ORE_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <EntitySet Name="Munka_t" EntityType="KotorDb.Munka_t" />
+          <AssociationSet Name="Munka_RendelesId_FK" Association="KotorDb.Munka_RendelesId_FK">
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+            <End Role="Munka_t" EntitySet="Munka_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munka_TervezesiEgysegId_FK" Association="KotorDb.Munka_TervezesiEgysegId_FK">
+            <End Role="TervezesiEgyseg_t" EntitySet="TervezesiEgyseg_t" />
+            <End Role="Munka_t" EntitySet="Munka_t" />
+          </AssociationSet>
+          <AssociationSet Name="Tanusitvany_MunkaId_FK" Association="KotorDb.Tanusitvany_MunkaId_FK">
+            <End Role="Munka_t" EntitySet="Munka_t" />
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+          </AssociationSet>
+          <EntitySet Name="RendelesStatusz_m" EntityType="KotorDb.RendelesStatusz_m" />
+          <AssociationSet Name="Rendeles_RendelesStatusz_FK" Association="KotorDb.Rendeles_RendelesStatusz_FK">
+            <End Role="RendelesStatusz_m" EntitySet="RendelesStatusz_m" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <EntitySet Name="Mesterkorzet_t" EntityType="KotorDb.Mesterkorzet_t" />
+          <AssociationSet Name="Mesterkorzet_VezetoId_FK" Association="KotorDb.Mesterkorzet_VezetoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Mesterkorzet_t" EntitySet="Mesterkorzet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_MesterkorzetId_FK" Association="KotorDb.Munkatars_MesterkorzetId_FK">
+            <End Role="Mesterkorzet_t" EntitySet="Mesterkorzet_t" />
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <EntitySet Name="Regio_t" EntityType="KotorDb.Regio_t" />
+          <AssociationSet Name="Regio_Cid_FK" Association="KotorDb.Regio_Cid_FK">
+            <End Role="Cim_t" EntitySet="Cim_t" />
+            <End Role="Regio_t" EntitySet="Regio_t" />
+          </AssociationSet>
+          <AssociationSet Name="Mesterkorzet_RegioId_FK" Association="KotorDb.Mesterkorzet_RegioId_FK">
+            <End Role="Regio_t" EntitySet="Regio_t" />
+            <End Role="Mesterkorzet_t" EntitySet="Mesterkorzet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Munkatars_RegioId_FK" Association="KotorDb.Munkatars_RegioId_FK">
+            <End Role="Regio_t" EntitySet="Regio_t" />
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+          </AssociationSet>
+          <AssociationSet Name="Regio_VezetoId_FK" Association="KotorDb.Regio_VezetoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Regio_t" EntitySet="Regio_t" />
+          </AssociationSet>
+          <AssociationSet Name="Rendeles_MunkatVegzoRegioId_FK" Association="KotorDb.Rendeles_MunkatVegzoRegioId_FK">
+            <End Role="Regio_t" EntitySet="Regio_t" />
+            <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <EntitySet Name="MunkaTargya_cs" EntityType="KotorDb.MunkaTargya_cs" />
+          <AssociationSet Name="MunkaTargya_MunkaId_FK" Association="KotorDb.MunkaTargya_MunkaId_FK">
+            <End Role="Munka_t" EntitySet="Munka_t" />
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargya_Oid_FK" Association="KotorDb.MunkaTargya_Oid_FK">
+            <End Role="ORE_t" EntitySet="ORE_t" />
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargya_TanusitvanyId_FK" Association="KotorDb.MunkaTargya_TanusitvanyId_FK">
+            <End Role="Tanusitvany_t" EntitySet="Tanusitvany_t" />
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+          </AssociationSet>
+          <AssociationSet Name="MunkaTargyaHiba_MunkaTargyaId_FK" Association="KotorDb.MunkaTargyaHiba_MunkaTargyaId_FK">
+            <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
+            <End Role="MunkaTargyaHiba_t" EntitySet="MunkaTargyaHiba_t" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Munkatars_t">
+          <Key>
+            <PropertyRef Name="MunkatarsId" />
+          </Key>
+          <Property Name="MunkatarsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HRId" Type="Int32" />
+          <Property Name="Nev" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MunkakorKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="KepzettsegKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MesterkorzetId" Type="Int32" />
+          <Property Name="RegioId" Type="Int32" Nullable="false" />
+          <Property Name="FelettesId" Type="Int32" />
+          <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="MunkaviszonyKezdete" Type="DateTime" Precision="3" />
+          <Property Name="MunkaviszonyVege" Type="DateTime" Precision="3" />
+          <Property Name="SzuletesDatuma" Type="DateTime" Precision="3" />
+          <Property Name="Kulsos" Type="Boolean" Nullable="false" />
+          <Property Name="Aktiv" Type="Boolean" Nullable="false" />
+          <Property Name="LoginNev" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DomainPrefix" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Jelszo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="OklevelSzama" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Old_TavirDolgozoId" Type="Int32" />
+          <Property Name="Old_TavirMunkakorId" Type="Int32" />
+          <Property Name="Old_TavirOnelkerId" Type="Int32" />
+          <Property Name="Old_TavirMunkakor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Old_TavirJelszo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JelszoClearText" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ADUserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADLogin" Type="Boolean" Nullable="false" />
+          <Property Name="ElszamolasAlairoId" Type="Int32" />
+          <Property Name="Vonalkod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cim_t" Relationship="KotorDb.Cim_EllenorzoId_FK" FromRole="Munkatars_t" ToRole="Cim_t" />
+          <NavigationProperty Name="Cim_t1" Relationship="KotorDb.Cim_UtolsoModositoId_FK" FromRole="Munkatars_t" ToRole="Cim_t" />
+          <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.Munkatars_ElszamolasAlairoId_FK" FromRole="Munkatars_t" ToRole="Munkatars_t1" />
+          <NavigationProperty Name="Munkatars_t2" Relationship="KotorDb.Munkatars_ElszamolasAlairoId_FK" FromRole="Munkatars_t1" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Munkatars_t11" Relationship="KotorDb.Munkatars_FelettesId_FK" FromRole="Munkatars_t" ToRole="Munkatars_t1" />
+          <NavigationProperty Name="Munkatars_t3" Relationship="KotorDb.Munkatars_FelettesId_FK" FromRole="Munkatars_t1" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Tanusitvany_t" Relationship="KotorDb.Tanusitvany_BeolvasoId_FK" FromRole="Munkatars_t" ToRole="Tanusitvany_t" />
+          <NavigationProperty Name="Tanusitvany_t1" Relationship="KotorDb.Tanusitvany_KiallitoId_FK" FromRole="Munkatars_t" ToRole="Tanusitvany_t" />
+          <NavigationProperty Name="ORE_t" Relationship="KotorDb.ORE_EllenorzoId_FK" FromRole="Munkatars_t" ToRole="ORE_t" />
+          <NavigationProperty Name="ORE_t1" Relationship="KotorDb.ORE_UtolsoModositoId_FK" FromRole="Munkatars_t" ToRole="ORE_t" />
+          <NavigationProperty Name="Rendeles_t" Relationship="KotorDb.Kozt_JovahagyoId_FK" FromRole="Munkatars_t" ToRole="Rendeles_t" />
+          <NavigationProperty Name="Mesterkorzet_t" Relationship="KotorDb.Mesterkorzet_VezetoId_FK" FromRole="Munkatars_t" ToRole="Mesterkorzet_t" />
+          <NavigationProperty Name="Mesterkorzet_t1" Relationship="KotorDb.Munkatars_MesterkorzetId_FK" FromRole="Munkatars_t" ToRole="Mesterkorzet_t" />
+          <NavigationProperty Name="Regio_t" Relationship="KotorDb.Munkatars_RegioId_FK" FromRole="Munkatars_t" ToRole="Regio_t" />
+          <NavigationProperty Name="Regio_t1" Relationship="KotorDb.Regio_VezetoId_FK" FromRole="Munkatars_t" ToRole="Regio_t" />
+        </EntityType>
+        <Association Name="Cim_EllenorzoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Cim_t" Role="Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="EllenorzoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cim_UtolsoModositoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="1" />
+          <End Type="KotorDb.Cim_t" Role="Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="UtolsoModositoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_ElszamolasAlairoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Munkatars_t1">
+              <PropertyRef Name="ElszamolasAlairoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_FelettesId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Munkatars_t1">
+              <PropertyRef Name="FelettesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_BeolvasoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Tanusitvany_t" Role="Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="BeolvasoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_KiallitoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Tanusitvany_t" Role="Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="KiallitoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NyomtatvanyTipus_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nev" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Tanusitvany_t" Relationship="KotorDb.Tanusitvany_NyomtatvanyTipusKod_FK" FromRole="NyomtatvanyTipus_m" ToRole="Tanusitvany_t" />
+          <NavigationProperty Name="VonalkodTartomany_t" Relationship="KotorDb.VonalkodTartomany_NyomtatvanytipusKod_FK" FromRole="NyomtatvanyTipus_m" ToRole="VonalkodTartomany_t" />
+        </EntityType>
+        <Association Name="Tanusitvany_NyomtatvanyTipusKod_FK">
+          <End Type="KotorDb.NyomtatvanyTipus_m" Role="NyomtatvanyTipus_m" Multiplicity="0..1" />
+          <End Type="KotorDb.Tanusitvany_t" Role="Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NyomtatvanyTipus_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="NyomtatvanyTipusKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VonalkodTartomany_NyomtatvanytipusKod_FK">
+          <End Type="KotorDb.NyomtatvanyTipus_m" Role="NyomtatvanyTipus_m" Multiplicity="0..1" />
+          <End Type="KotorDb.VonalkodTartomany_t" Role="VonalkodTartomany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NyomtatvanyTipus_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="VonalkodTartomany_t">
+              <PropertyRef Name="NyomtatvanytipusKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MunkaTargyaHiba_t">
+          <Key>
+            <PropertyRef Name="MunkaTargyaHibaId" />
+          </Key>
+          <Property Name="MunkaTargyaHibaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HibaTipusKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MunkaTargyaId" Type="Int32" Nullable="false" />
+          <Property Name="FigyelmeztetoVonalkod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EszlelesDatuma" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ElozolegIsFennallt" Type="Boolean" Nullable="false" />
+          <Property Name="Elharult" Type="Boolean" Nullable="false" />
+          <Property Name="Leiras" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="KemenyCsoport" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Oid" Type="Int32" />
+          <NavigationProperty Name="ORE_t" Relationship="KotorDb.MunkaTargyaHiba_Oid_FK" FromRole="MunkaTargyaHiba_t" ToRole="ORE_t" />
+          <NavigationProperty Name="MunkaTargya_cs" Relationship="KotorDb.MunkaTargyaHiba_MunkaTargyaId_FK" FromRole="MunkaTargyaHiba_t" ToRole="MunkaTargya_cs" />
+        </EntityType>
+        <EntityType Name="ORE_t">
+          <Key>
+            <PropertyRef Name="Oid" />
+          </Key>
+          <Property Name="Oid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Eid" Type="Int32" Nullable="false" />
+          <Property Name="Cid" Type="Int32" Nullable="false" />
+          <Property Name="Lepcsohaz" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Emelet" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Ajto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Ajtotores" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HRSZ3" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OREHasznalatModjaKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LegterOsszekottetesekSzama" Type="Int32" Nullable="false" />
+          <Property Name="COMeroKoteles" Type="Boolean" Nullable="false" />
+          <Property Name="UtolsoCOMeresDatuma" Type="DateTime" Precision="3" />
+          <Property Name="UtolsoMuszakiFelulvizsgalatDatuma" Type="DateTime" Precision="3" />
+          <Property Name="UtolsoSormunkavegzesDatuma" Type="DateTime" Precision="3" />
+          <Property Name="Megjegyzes" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Ervenyes" Type="Boolean" Nullable="false" />
+          <Property Name="UtolsoModositasDatuma" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UtolsoModositoId" Type="Int32" Nullable="false" />
+          <Property Name="EllenorzesDatuma" Type="DateTime" Precision="3" />
+          <Property Name="EllenorzoId" Type="Int32" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="COMeroErvenyesseg" Type="DateTime" Precision="3" />
+          <Property Name="Old_2014TavirVonalkod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Old_2014SzigoruLakasvonalkod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IdoszakosanHasznalt" Type="Boolean" Nullable="false" />
+          <Property Name="SormunkaPeriodus" Type="Int32" Nullable="false" />
+          <Property Name="CimFilterMask" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_2014tanTulaj" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_2014tanKezelo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_2014tanEpulet" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_2014tanHasznalo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_2014tanEpulettores" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Old_2014TavirKS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Old_2014TavirEpulID" Type="Int32" />
+          <Property Name="Old_2014SzigoruTuzeloBerendezesMenny" Type="Int32" />
+          <Property Name="Torolve" Type="Boolean" Nullable="false" />
+          <Property Name="EmeletJelKod" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="IdoszakosHasznalatBejelentesDatuma" Type="DateTime" Precision="3" />
+          <Property Name="kacs_AzonosOre" Type="Int32" />
+          <NavigationProperty Name="Cim_t" Relationship="KotorDb.ORE_Cid_FK" FromRole="ORE_t" ToRole="Cim_t" />
+          <NavigationProperty Name="MunkaTargyaHiba_t" Relationship="KotorDb.MunkaTargyaHiba_Oid_FK" FromRole="ORE_t" ToRole="MunkaTargyaHiba_t" />
+          <NavigationProperty Name="Munkatars_t" Relationship="KotorDb.ORE_EllenorzoId_FK" FromRole="ORE_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.ORE_UtolsoModositoId_FK" FromRole="ORE_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Tanusitvany_t" Relationship="KotorDb.Tanusitvany_Oid_FK" FromRole="ORE_t" ToRole="Tanusitvany_t" />
+          <NavigationProperty Name="Rendeles_t" Relationship="KotorDb.Rendeles_ORE_FK" FromRole="ORE_t" ToRole="Rendeles_t" />
+          <NavigationProperty Name="MunkaTargya_cs" Relationship="KotorDb.MunkaTargya_Oid_FK" FromRole="ORE_t" ToRole="MunkaTargya_cs" />
+        </EntityType>
+        <Association Name="ORE_Cid_FK">
+          <End Type="KotorDb.Cim_t" Role="Cim_t" Multiplicity="1" />
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cim_t">
+              <PropertyRef Name="Cid" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="Cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargyaHiba_Oid_FK">
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="0..1" />
+          <End Type="KotorDb.MunkaTargyaHiba_t" Role="MunkaTargyaHiba_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="MunkaTargyaHiba_t">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORE_EllenorzoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="EllenorzoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORE_UtolsoModositoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="1" />
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="UtolsoModositoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_Oid_FK">
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Tanusitvany_t" Role="Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Rendeles_t">
+          <Key>
+            <PropertyRef Name="RendelesId" />
+          </Key>
+          <Property Name="RendelesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rendelesszam" Type="String" Nullable="false" MaxLength="23" FixedLength="false" Unicode="true" />
+          <Property Name="RendelesStatuszKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Iid" Type="Int32" />
+          <Property Name="Eid" Type="Int32" />
+          <Property Name="Oid" Type="Int32" />
+          <Property Name="MunkaTipusKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Szamlazando" Type="Boolean" Nullable="false" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="SzamlazasraAtadas" Type="DateTime" Precision="3" />
+          <Property Name="Kiszamlazva" Type="DateTime" Precision="3" />
+          <Property Name="MegrendeloId" Type="Int32" />
+          <Property Name="ErtesitendoSzemelyId" Type="Int32" />
+          <Property Name="TervezoId" Type="Int32" />
+          <Property Name="RendelesFelvetelDatuma" Type="DateTime" Precision="3" />
+          <Property Name="KivitelezoId" Type="Int32" />
+          <Property Name="SzamlazoRendszerKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MunkatVegzoRegioId" Type="Int32" Nullable="false" />
+          <Property Name="JovahagyasDatuma" Type="DateTime" Precision="3" />
+          <Property Name="JovahagyoId" Type="Int32" />
+          <Property Name="NyilatkozatKotelezo" Type="Boolean" Nullable="false" />
+          <Property Name="KellNyilatkozat" Type="Boolean" Nullable="false" />
+          <Property Name="EpuletUtolsoSormunkavegzesDatumaIrodjon" Type="Boolean" Nullable="false" />
+          <Property Name="EpuletUtolsoMuszakiFelulvizsgalatDatumaIrodjon" Type="Boolean" Nullable="false" />
+          <Property Name="TajekoztatoId" Type="Int32" />
+          <Property Name="SzamlazasDatumaTan" Type="DateTime" Precision="0" />
+          <Property Name="RendelesBeerkezesDatuma" Type="DateTime" Precision="3" />
+          <Property Name="kacs_SzamlazvaVisszajelzesTan" Type="DateTime" Precision="0" />
+          <Property Name="kacs_2014SormunkaPotmunkaja" Type="Boolean" />
+          <Property Name="kacs_DuplaRendelesRogzitesEllenorizve" Type="Boolean" />
+          <Property Name="kacs_EmailkeresDatum" Type="DateTime" Precision="0" />
+          <Property Name="kacs_EmailkeresSzovegKod" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_EmailkeresEredmeny" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_SmskeresDatum" Type="DateTime" Precision="0" />
+          <Property Name="kacs_SmskeresSzovegKod" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_SmskeresEredmeny" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_KeziSzamlazasTiltott" Type="Boolean" />
+          <Property Name="kacs_NemszamlazandoIndoklas" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_NemszamlazandoJogos" Type="Boolean" />
+          <Property Name="ElszamolasEve" Type="Int32" />
+          <Property Name="LakossagiAr" Type="Boolean" />
+          <Property Name="SzlafizPartnerId" Type="Int32" />
+          <Property Name="SzlafizGazdformcsopKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="kacs_NincsSzamlazhatoMunkatargyaRendben" Type="Boolean" Nullable="false" />
+          <Property Name="TeljesitesDatuma" Type="DateTime" Precision="0" />
+          <Property Name="SzamlazasUtolsoKvhHibakod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Munkatars_t" Relationship="KotorDb.Kozt_JovahagyoId_FK" FromRole="Rendeles_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="ORE_t" Relationship="KotorDb.Rendeles_ORE_FK" FromRole="Rendeles_t" ToRole="ORE_t" />
+          <NavigationProperty Name="Munka_t" Relationship="KotorDb.Munka_RendelesId_FK" FromRole="Rendeles_t" ToRole="Munka_t" />
+          <NavigationProperty Name="RendelesStatusz_m" Relationship="KotorDb.Rendeles_RendelesStatusz_FK" FromRole="Rendeles_t" ToRole="RendelesStatusz_m" />
+          <NavigationProperty Name="Regio_t" Relationship="KotorDb.Rendeles_MunkatVegzoRegioId_FK" FromRole="Rendeles_t" ToRole="Regio_t" />
+        </EntityType>
+        <Association Name="Kozt_JovahagyoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Rendeles_t" Role="Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="JovahagyoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rendeles_ORE_FK">
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Rendeles_t" Role="Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Munka_t">
+          <Key>
+            <PropertyRef Name="MunkaId" />
+          </Key>
+          <Property Name="MunkaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Munkaszam" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="MunkaStatuszKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RendelesId" Type="Int32" Nullable="false" />
+          <Property Name="TervezesiEgysegId" Type="Int32" />
+          <Property Name="TervezettMunkaKezdes" Type="DateTime" Precision="3" />
+          <Property Name="TervezettMunkaBefejezes" Type="DateTime" Precision="3" />
+          <Property Name="MunkaVegezesKezdes" Type="DateTime" Precision="3" />
+          <Property Name="MunkaVegezesBefejezes" Type="DateTime" Precision="3" />
+          <Property Name="TervezettPlakatolasKezdes" Type="DateTime" Precision="3" />
+          <Property Name="TervezettPlakatolasBefejezes" Type="DateTime" Precision="3" />
+          <Property Name="PlakatolasKezdes" Type="DateTime" Precision="3" />
+          <Property Name="PlakatolasBefejezes" Type="DateTime" Precision="3" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="TervezettMunkaKezdesSor2" Type="DateTime" Precision="3" />
+          <Property Name="TervezettMunkaBefejezesSor2" Type="DateTime" Precision="3" />
+          <Property Name="MunkaVegezesKezdesSor2" Type="DateTime" Precision="3" />
+          <Property Name="MunkaVegezesBefejezesSor2" Type="DateTime" Precision="3" />
+          <Property Name="MegrendelovelEgyeztetettKezdes" Type="DateTime" Precision="3" />
+          <Property Name="MegrendelovelEgyeztetettBefejezes" Type="DateTime" Precision="3" />
+          <Property Name="Plakatolando" Type="Boolean" Nullable="false" />
+          <Property Name="KalkulaltMunkaegyenertek" Type="Double" />
+          <Property Name="KalkulaltMunkaegyenertek2" Type="Double" />
+          <Property Name="TervezettMunkaNapszakSor2Kod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rendeles_t" Relationship="KotorDb.Munka_RendelesId_FK" FromRole="Munka_t" ToRole="Rendeles_t" />
+          <NavigationProperty Name="TervezesiEgyseg_t" Relationship="KotorDb.Munka_TervezesiEgysegId_FK" FromRole="Munka_t" ToRole="TervezesiEgyseg_t" />
+          <NavigationProperty Name="Tanusitvany_t" Relationship="KotorDb.Tanusitvany_MunkaId_FK" FromRole="Munka_t" ToRole="Tanusitvany_t" />
+          <NavigationProperty Name="MunkaTargya_cs" Relationship="KotorDb.MunkaTargya_MunkaId_FK" FromRole="Munka_t" ToRole="MunkaTargya_cs" />
+        </EntityType>
+        <Association Name="Munka_RendelesId_FK">
+          <End Type="KotorDb.Rendeles_t" Role="Rendeles_t" Multiplicity="1" />
+          <End Type="KotorDb.Munka_t" Role="Munka_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rendeles_t">
+              <PropertyRef Name="RendelesId" />
+            </Principal>
+            <Dependent Role="Munka_t">
+              <PropertyRef Name="RendelesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munka_TervezesiEgysegId_FK">
+          <End Type="KotorDb.TervezesiEgyseg_t" Role="TervezesiEgyseg_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Munka_t" Role="Munka_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TervezesiEgyseg_t">
+              <PropertyRef Name="TervezesiEgysegId" />
+            </Principal>
+            <Dependent Role="Munka_t">
+              <PropertyRef Name="TervezesiEgysegId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tanusitvany_MunkaId_FK">
+          <End Type="KotorDb.Munka_t" Role="Munka_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Tanusitvany_t" Role="Tanusitvany_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munka_t">
+              <PropertyRef Name="MunkaId" />
+            </Principal>
+            <Dependent Role="Tanusitvany_t">
+              <PropertyRef Name="MunkaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RendelesStatusz_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Rendeles_t" Relationship="KotorDb.Rendeles_RendelesStatusz_FK" FromRole="RendelesStatusz_m" ToRole="Rendeles_t" />
+        </EntityType>
+        <Association Name="Rendeles_RendelesStatusz_FK">
+          <End Type="KotorDb.RendelesStatusz_m" Role="RendelesStatusz_m" Multiplicity="1" />
+          <End Type="KotorDb.Rendeles_t" Role="Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RendelesStatusz_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="RendelesStatuszKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Mesterkorzet_t">
+          <Key>
+            <PropertyRef Name="MesterkorzetId" />
+          </Key>
+          <Property Name="MesterkorzetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nev" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VezetoId" Type="Int32" />
+          <Property Name="RegioId" Type="Int32" Nullable="false" />
+          <Property Name="ProduktivitasiKorekcio" Type="Double" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Munkatars_t" Relationship="KotorDb.Mesterkorzet_VezetoId_FK" FromRole="Mesterkorzet_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.Munkatars_MesterkorzetId_FK" FromRole="Mesterkorzet_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Regio_t" Relationship="KotorDb.Mesterkorzet_RegioId_FK" FromRole="Mesterkorzet_t" ToRole="Regio_t" />
+        </EntityType>
+        <Association Name="Mesterkorzet_VezetoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Mesterkorzet_t" Role="Mesterkorzet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Mesterkorzet_t">
+              <PropertyRef Name="VezetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_MesterkorzetId_FK">
+          <End Type="KotorDb.Mesterkorzet_t" Role="Mesterkorzet_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesterkorzet_t">
+              <PropertyRef Name="MesterkorzetId" />
+            </Principal>
+            <Dependent Role="Munkatars_t">
+              <PropertyRef Name="MesterkorzetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Regio_t">
+          <Key>
+            <PropertyRef Name="RegioId" />
+          </Key>
+          <Property Name="RegioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nev" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cid" Type="Int32" />
+          <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="VezetoId" Type="Int32" />
+          <Property Name="RegioKod" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="KeszenletiCsoport" Type="Boolean" Nullable="false" />
+          <Property Name="CimSzoveg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cim_t" Relationship="KotorDb.Regio_Cid_FK" FromRole="Regio_t" ToRole="Cim_t" />
+          <NavigationProperty Name="Mesterkorzet_t" Relationship="KotorDb.Mesterkorzet_RegioId_FK" FromRole="Regio_t" ToRole="Mesterkorzet_t" />
+          <NavigationProperty Name="Munkatars_t" Relationship="KotorDb.Munkatars_RegioId_FK" FromRole="Regio_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.Regio_VezetoId_FK" FromRole="Regio_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="Rendeles_t" Relationship="KotorDb.Rendeles_MunkatVegzoRegioId_FK" FromRole="Regio_t" ToRole="Rendeles_t" />
+        </EntityType>
+        <Association Name="Regio_Cid_FK">
+          <End Type="KotorDb.Cim_t" Role="Cim_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Regio_t" Role="Regio_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cim_t">
+              <PropertyRef Name="Cid" />
+            </Principal>
+            <Dependent Role="Regio_t">
+              <PropertyRef Name="Cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Mesterkorzet_RegioId_FK">
+          <End Type="KotorDb.Regio_t" Role="Regio_t" Multiplicity="1" />
+          <End Type="KotorDb.Mesterkorzet_t" Role="Mesterkorzet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regio_t">
+              <PropertyRef Name="RegioId" />
+            </Principal>
+            <Dependent Role="Mesterkorzet_t">
+              <PropertyRef Name="RegioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Munkatars_RegioId_FK">
+          <End Type="KotorDb.Regio_t" Role="Regio_t" Multiplicity="1" />
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regio_t">
+              <PropertyRef Name="RegioId" />
+            </Principal>
+            <Dependent Role="Munkatars_t">
+              <PropertyRef Name="RegioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Regio_VezetoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Regio_t" Role="Regio_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Regio_t">
+              <PropertyRef Name="VezetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rendeles_MunkatVegzoRegioId_FK">
+          <End Type="KotorDb.Regio_t" Role="Regio_t" Multiplicity="1" />
+          <End Type="KotorDb.Rendeles_t" Role="Rendeles_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regio_t">
+              <PropertyRef Name="RegioId" />
+            </Principal>
+            <Dependent Role="Rendeles_t">
+              <PropertyRef Name="MunkatVegzoRegioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MunkaTargya_cs">
+          <Key>
+            <PropertyRef Name="MunkaTargyaId" />
+          </Key>
+          <Property Name="MunkaTargyaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MunkaId" Type="Int32" Nullable="false" />
+          <Property Name="TanusitvanyId" Type="Int32" />
+          <Property Name="Kid" Type="Int32" />
+          <Property Name="OsszekotoelemId" Type="Int32" />
+          <Property Name="TuzeloberendezesId" Type="Int32" />
+          <Property Name="Oid" Type="Int32" />
+          <Property Name="Potdijkoteles" Type="Boolean" Nullable="false" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MunkaTargyaTipusKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Zart" Type="Boolean" Nullable="false" />
+          <Property Name="KemenyJelKod" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UtolsoSormunkavegzesDatumaIrodjon" Type="Boolean" Nullable="false" />
+          <Property Name="UtolsoMuszakiFelulvizsgalatDatumaIrodjon" Type="Boolean" Nullable="false" />
+          <Property Name="COMeresEredmeny" Type="Double" />
+          <Property Name="ReszbenZart" Type="Boolean" Nullable="false" />
+          <Property Name="Megjegyzes" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Eid" Type="Int32" />
+          <NavigationProperty Name="Munka_t" Relationship="KotorDb.MunkaTargya_MunkaId_FK" FromRole="MunkaTargya_cs" ToRole="Munka_t" />
+          <NavigationProperty Name="ORE_t" Relationship="KotorDb.MunkaTargya_Oid_FK" FromRole="MunkaTargya_cs" ToRole="ORE_t" />
+          <NavigationProperty Name="Tanusitvany_t" Relationship="KotorDb.MunkaTargya_TanusitvanyId_FK" FromRole="MunkaTargya_cs" ToRole="Tanusitvany_t" />
+          <NavigationProperty Name="MunkaTargyaHiba_t" Relationship="KotorDb.MunkaTargyaHiba_MunkaTargyaId_FK" FromRole="MunkaTargya_cs" ToRole="MunkaTargyaHiba_t" />
+        </EntityType>
+        <Association Name="MunkaTargya_MunkaId_FK">
+          <End Type="KotorDb.Munka_t" Role="Munka_t" Multiplicity="1" />
+          <End Type="KotorDb.MunkaTargya_cs" Role="MunkaTargya_cs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munka_t">
+              <PropertyRef Name="MunkaId" />
+            </Principal>
+            <Dependent Role="MunkaTargya_cs">
+              <PropertyRef Name="MunkaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargya_Oid_FK">
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="0..1" />
+          <End Type="KotorDb.MunkaTargya_cs" Role="MunkaTargya_cs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORE_t">
+              <PropertyRef Name="Oid" />
+            </Principal>
+            <Dependent Role="MunkaTargya_cs">
+              <PropertyRef Name="Oid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargya_TanusitvanyId_FK">
+          <End Type="KotorDb.Tanusitvany_t" Role="Tanusitvany_t" Multiplicity="0..1" />
+          <End Type="KotorDb.MunkaTargya_cs" Role="MunkaTargya_cs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tanusitvany_t">
+              <PropertyRef Name="TanusitvanyId" />
+            </Principal>
+            <Dependent Role="MunkaTargya_cs">
+              <PropertyRef Name="TanusitvanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MunkaTargyaHiba_MunkaTargyaId_FK">
+          <End Type="KotorDb.MunkaTargya_cs" Role="MunkaTargya_cs" Multiplicity="1" />
+          <End Type="KotorDb.MunkaTargyaHiba_t" Role="MunkaTargyaHiba_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MunkaTargya_cs">
+              <PropertyRef Name="MunkaTargyaId" />
+            </Principal>
+            <Dependent Role="MunkaTargyaHiba_t">
+              <PropertyRef Name="MunkaTargyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KotorDbStoreContainer" CdmEntityContainer="KotorEntities">
+          <EntitySetMapping Name="Cim_t">
+            <EntityTypeMapping TypeName="KotorDb.Cim_t">
+              <MappingFragment StoreEntitySet="Cim_t">
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Iranyitoszam" ColumnName="Iranyitoszam" />
+                <ScalarProperty Name="KozteruletId" ColumnName="KozteruletId" />
+                <ScalarProperty Name="Hazszam1" ColumnName="Hazszam1" />
+                <ScalarProperty Name="Hazszamtores1" ColumnName="Hazszamtores1" />
+                <ScalarProperty Name="Hazszam2" ColumnName="Hazszam2" />
+                <ScalarProperty Name="Hazszamtores2" ColumnName="Hazszamtores2" />
+                <ScalarProperty Name="Epuletjel" ColumnName="Epuletjel" />
+                <ScalarProperty Name="Epulettores" ColumnName="Epulettores" />
+                <ScalarProperty Name="Lepcsohaz" ColumnName="Lepcsohaz" />
+                <ScalarProperty Name="Emelet" ColumnName="Emelet" />
+                <ScalarProperty Name="Ajto" ColumnName="Ajto" />
+                <ScalarProperty Name="Ajtotores" ColumnName="Ajtotores" />
+                <ScalarProperty Name="HRSZ" ColumnName="HRSZ" />
+                <ScalarProperty Name="HRSZ1" ColumnName="HRSZ1" />
+                <ScalarProperty Name="HRSZ2" ColumnName="HRSZ2" />
+                <ScalarProperty Name="HRSZ3" ColumnName="HRSZ3" />
+                <ScalarProperty Name="Forras" ColumnName="Forras" />
+                <ScalarProperty Name="EgyediCim" ColumnName="EgyediCim" />
+                <ScalarProperty Name="Ervenyes" ColumnName="Ervenyes" />
+                <ScalarProperty Name="UtolsoModositasDatuma" ColumnName="UtolsoModositasDatuma" />
+                <ScalarProperty Name="UtolsoModositoId" ColumnName="UtolsoModositoId" />
+                <ScalarProperty Name="EllenorzesDatuma" ColumnName="EllenorzesDatuma" />
+                <ScalarProperty Name="EllenorzoId" ColumnName="EllenorzoId" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Old_TavirCimid" ColumnName="Old_TavirCimid" />
+                <ScalarProperty Name="Old_TavirUtcakod" ColumnName="Old_TavirUtcakod" />
+                <ScalarProperty Name="Old_TavirVaroskod" ColumnName="Old_TavirVaroskod" />
+                <ScalarProperty Name="CimFilterMask" ColumnName="CimFilterMask" />
+                <ScalarProperty Name="EmeletJelKod" ColumnName="EmeletJelKod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tanusitvany_t">
+            <EntityTypeMapping TypeName="KotorDb.Tanusitvany_t">
+              <MappingFragment StoreEntitySet="Tanusitvany_t">
+                <ScalarProperty Name="TanusitvanyId" ColumnName="TanusitvanyId" />
+                <ScalarProperty Name="SzulotanusitvanyId" ColumnName="SzulotanusitvanyId" />
+                <ScalarProperty Name="MunkaId" ColumnName="MunkaId" />
+                <ScalarProperty Name="Vonalkod" ColumnName="Vonalkod" />
+                <ScalarProperty Name="NyomtatvanyTipusKod" ColumnName="NyomtatvanyTipusKod" />
+                <ScalarProperty Name="Oid" ColumnName="Oid" />
+                <ScalarProperty Name="Dokumentum" ColumnName="Dokumentum" />
+                <ScalarProperty Name="BeolvasasIdopontja" ColumnName="BeolvasasIdopontja" />
+                <ScalarProperty Name="BeolvasoId" ColumnName="BeolvasoId" />
+                <ScalarProperty Name="AtvevoId" ColumnName="AtvevoId" />
+                <ScalarProperty Name="Sormunka1" ColumnName="Sormunka1" />
+                <ScalarProperty Name="Sormunka2" ColumnName="Sormunka2" />
+                <ScalarProperty Name="Zart" ColumnName="Zart" />
+                <ScalarProperty Name="Elvegzett" ColumnName="Elvegzett" />
+                <ScalarProperty Name="Bianko" ColumnName="Bianko" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Technikai" ColumnName="Technikai" />
+                <ScalarProperty Name="KiallitasIdopontja" ColumnName="KiallitasIdopontja" />
+                <ScalarProperty Name="KiallitoId" ColumnName="KiallitoId" />
+                <ScalarProperty Name="kacs_Megjegyzes" ColumnName="kacs_Megjegyzes" />
+                <ScalarProperty Name="GazElzarasahozHozzajarult" ColumnName="GazElzarasahozHozzajarult" />
+                <ScalarProperty Name="Megjegyzes" ColumnName="Megjegyzes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TervezesiEgyseg_t">
+            <EntityTypeMapping TypeName="KotorDb.TervezesiEgyseg_t">
+              <MappingFragment StoreEntitySet="TervezesiEgyseg_t">
+                <ScalarProperty Name="TervezesiEgysegId" ColumnName="TervezesiEgysegId" />
+                <ScalarProperty Name="TervezesiEgysegCsoportId" ColumnName="TervezesiEgysegCsoportId" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Sorszam" ColumnName="Sorszam" />
+                <ScalarProperty Name="KalkulaltMunkaegyenertek" ColumnName="KalkulaltMunkaegyenertek" />
+                <ScalarProperty Name="MegadottMunkaegyenertek" ColumnName="MegadottMunkaegyenertek" />
+                <ScalarProperty Name="MegadottRaforditasPercben" ColumnName="MegadottRaforditasPercben" />
+                <ScalarProperty Name="Megjegyzes" ColumnName="Megjegyzes" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Lezart" ColumnName="Lezart" />
+                <ScalarProperty Name="Periodus" ColumnName="Periodus" />
+                <ScalarProperty Name="Vonalkod" ColumnName="Vonalkod" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="LetrehozasDatuma" ColumnName="LetrehozasDatuma" />
+                <ScalarProperty Name="MuszakiFelulvizsgalat" ColumnName="MuszakiFelulvizsgalat" />
+                <ScalarProperty Name="kacs_Vonalkod2014" ColumnName="kacs_Vonalkod2014" />
+                <ScalarProperty Name="kacs_RegioId" ColumnName="kacs_RegioId" />
+                <ScalarProperty Name="kacs_MesterkorzetId" ColumnName="kacs_MesterkorzetId" />
+                <ScalarProperty Name="kacs_KemenyseproparId" ColumnName="kacs_KemenyseproparId" />
+                <ScalarProperty Name="Ev" ColumnName="Ev" />
+                <ScalarProperty Name="kacs_Tanusitvany2015NyomdabaAdva" ColumnName="kacs_Tanusitvany2015NyomdabaAdva" />
+                <ScalarProperty Name="kacs_Tanusitvany2015NyomdabaAdando" ColumnName="kacs_Tanusitvany2015NyomdabaAdando" />
+                <ScalarProperty Name="Torolve" ColumnName="Torolve" />
+                <ScalarProperty Name="Ervenyes" ColumnName="Ervenyes" />
+                <ScalarProperty Name="kacs_TeNevBeallitva" ColumnName="kacs_TeNevBeallitva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VonalkodTartomany_t">
+            <EntityTypeMapping TypeName="KotorDb.VonalkodTartomany_t">
+              <MappingFragment StoreEntitySet="VonalkodTartomany_t">
+                <ScalarProperty Name="Kod" ColumnName="Kod" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="Eleje" ColumnName="Eleje" />
+                <ScalarProperty Name="Vege" ColumnName="Vege" />
+                <ScalarProperty Name="NyomtatvanytipusKod" ColumnName="NyomtatvanytipusKod" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="KarakterKod" ColumnName="KarakterKod" />
+                <ScalarProperty Name="KioszthatoSorszam" ColumnName="KioszthatoSorszam" />
+                <ScalarProperty Name="Ev" ColumnName="Ev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tanusitvany2015FO">
+            <EntityTypeMapping TypeName="KotorDb.Tanusitvany2015FO">
+              <MappingFragment StoreEntitySet="Tanusitvany2015FO">
+                <ScalarProperty Name="EpuletID" ColumnName="EpuletID" />
+                <ScalarProperty Name="hrsztan" ColumnName="hrsztan" />
+                <ScalarProperty Name="Vonalkod" ColumnName="Vonalkod" />
+                <ScalarProperty Name="Kirnev" ColumnName="Kirnev" />
+                <ScalarProperty Name="Kircim" ColumnName="Kircim" />
+                <ScalarProperty Name="IdHaszn" ColumnName="IdHaszn" />
+                <ScalarProperty Name="Ingatlancim" ColumnName="Ingatlancim" />
+                <ScalarProperty Name="TulajdonosNev" ColumnName="TulajdonosNev" />
+                <ScalarProperty Name="TulajdonosCim" ColumnName="TulajdonosCim" />
+                <ScalarProperty Name="Használónév" ColumnName="Használónév" />
+                <ScalarProperty Name="HasználóCím" ColumnName="HasználóCím" />
+                <ScalarProperty Name="MuszakiEv" ColumnName="MuszakiEv" />
+                <ScalarProperty Name="KezelőNév" ColumnName="KezelőNév" />
+                <ScalarProperty Name="KezelőCím" ColumnName="KezelőCím" />
+                <ScalarProperty Name="KezelőEmail" ColumnName="KezelőEmail" />
+                <ScalarProperty Name="KezelőTelefon" ColumnName="KezelőTelefon" />
+                <ScalarProperty Name="Jel01" ColumnName="Jel01" />
+                <ScalarProperty Name="Db01" ColumnName="Db01" />
+                <ScalarProperty Name="Jel02" ColumnName="Jel02" />
+                <ScalarProperty Name="Db02" ColumnName="Db02" />
+                <ScalarProperty Name="Jel03" ColumnName="Jel03" />
+                <ScalarProperty Name="Db03" ColumnName="Db03" />
+                <ScalarProperty Name="Jel04" ColumnName="Jel04" />
+                <ScalarProperty Name="Db04" ColumnName="Db04" />
+                <ScalarProperty Name="Jel05" ColumnName="Jel05" />
+                <ScalarProperty Name="Db05" ColumnName="Db05" />
+                <ScalarProperty Name="Jel06" ColumnName="Jel06" />
+                <ScalarProperty Name="Db06" ColumnName="Db06" />
+                <ScalarProperty Name="fmszint06" ColumnName="fmszint06" />
+                <ScalarProperty Name="Jel07" ColumnName="Jel07" />
+                <ScalarProperty Name="Db07" ColumnName="Db07" />
+                <ScalarProperty Name="fmszint07" ColumnName="fmszint07" />
+                <ScalarProperty Name="Jel08" ColumnName="Jel08" />
+                <ScalarProperty Name="Db08" ColumnName="Db08" />
+                <ScalarProperty Name="fmszint08" ColumnName="fmszint08" />
+                <ScalarProperty Name="Jel09" ColumnName="Jel09" />
+                <ScalarProperty Name="Db09" ColumnName="Db09" />
+                <ScalarProperty Name="fmszint09" ColumnName="fmszint09" />
+                <ScalarProperty Name="Jel10" ColumnName="Jel10" />
+                <ScalarProperty Name="Db10" ColumnName="Db10" />
+                <ScalarProperty Name="fmszint10" ColumnName="fmszint10" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Iid" ColumnName="Iid" />
+                <ScalarProperty Name="EIDnbelüliFotan" ColumnName="EIDnbelüliFotan" />
+                <ScalarProperty Name="TervezettMunkavegzesDatuma" ColumnName="TervezettMunkavegzesDatuma" />
+                <ScalarProperty Name="RegioID" ColumnName="RegioID" />
+                <ScalarProperty Name="Kemenyseproparid" ColumnName="Kemenyseproparid" />
+                <ScalarProperty Name="Kemenyseproparnev" ColumnName="Kemenyseproparnev" />
+                <ScalarProperty Name="Munkavegzeshonapja" ColumnName="Munkavegzeshonapja" />
+                <ScalarProperty Name="Sorrend" ColumnName="Sorrend" />
+                <ScalarProperty Name="TervezesiegysegID" ColumnName="TervezesiegysegID" />
+                <ScalarProperty Name="TervezesiegysegCsoportID" ColumnName="TervezesiegysegCsoportID" />
+                <ScalarProperty Name="NyomdabaadasDatuma" ColumnName="NyomdabaadasDatuma" />
+                <ScalarProperty Name="EpuletOREMennyisegTenyleges" ColumnName="EpuletOREMennyisegTenyleges" />
+                <ScalarProperty Name="MesterkorzetId" ColumnName="MesterkorzetId" />
+                <ScalarProperty Name="Ev" ColumnName="Ev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tanusitvany2015ORE">
+            <EntityTypeMapping TypeName="KotorDb.Tanusitvany2015ORE">
+              <MappingFragment StoreEntitySet="Tanusitvany2015ORE">
+                <ScalarProperty Name="Epuletid" ColumnName="Epuletid" />
+                <ScalarProperty Name="OREVonalkod" ColumnName="OREVonalkod" />
+                <ScalarProperty Name="Kirnev" ColumnName="Kirnev" />
+                <ScalarProperty Name="Kircim" ColumnName="Kircim" />
+                <ScalarProperty Name="Ingatlancim" ColumnName="Ingatlancim" />
+                <ScalarProperty Name="EpuletOREMennyisegTenyleges" ColumnName="EpuletOREMennyisegTenyleges" />
+                <ScalarProperty Name="eid" ColumnName="eid" />
+                <ScalarProperty Name="iid" ColumnName="iid" />
+                <ScalarProperty Name="TervezettMunkavegzesDatuma" ColumnName="TervezettMunkavegzesDatuma" />
+                <ScalarProperty Name="RegioID" ColumnName="RegioID" />
+                <ScalarProperty Name="Kemenyseproparid" ColumnName="Kemenyseproparid" />
+                <ScalarProperty Name="Kemenyseproparnev" ColumnName="Kemenyseproparnev" />
+                <ScalarProperty Name="MunkavegzesHonapja" ColumnName="MunkavegzesHonapja" />
+                <ScalarProperty Name="FotanusitvanyVonalkod" ColumnName="FotanusitvanyVonalkod" />
+                <ScalarProperty Name="Sorrend" ColumnName="Sorrend" />
+                <ScalarProperty Name="TervezesiegysegID" ColumnName="TervezesiegysegID" />
+                <ScalarProperty Name="TervezesiegysegCsoportID" ColumnName="TervezesiegysegCsoportID" />
+                <ScalarProperty Name="NyomdabaadasDatuma" ColumnName="NyomdabaadasDatuma" />
+                <ScalarProperty Name="MesterkorzetId" ColumnName="MesterkorzetId" />
+                <ScalarProperty Name="Ev" ColumnName="Ev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vCim">
+            <EntityTypeMapping TypeName="KotorDb.vCim">
+              <MappingFragment StoreEntitySet="vCim">
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Iranyitoszam" ColumnName="Iranyitoszam" />
+                <ScalarProperty Name="TelepulesNev" ColumnName="TelepulesNev" />
+                <ScalarProperty Name="KozteruletNev" ColumnName="KozteruletNev" />
+                <ScalarProperty Name="KozteruletJellegNev" ColumnName="KozteruletJellegNev" />
+                <ScalarProperty Name="Hazszam1" ColumnName="Hazszam1" />
+                <ScalarProperty Name="Hazszamtores1" ColumnName="Hazszamtores1" />
+                <ScalarProperty Name="Hazszam2" ColumnName="Hazszam2" />
+                <ScalarProperty Name="Hazszamtores2" ColumnName="Hazszamtores2" />
+                <ScalarProperty Name="Epuletjel" ColumnName="Epuletjel" />
+                <ScalarProperty Name="Epulettores" ColumnName="Epulettores" />
+                <ScalarProperty Name="Lepcsohaz" ColumnName="Lepcsohaz" />
+                <ScalarProperty Name="Emelet" ColumnName="Emelet" />
+                <ScalarProperty Name="Ajto" ColumnName="Ajto" />
+                <ScalarProperty Name="Ajtotores" ColumnName="Ajtotores" />
+                <ScalarProperty Name="CimSzoveg" ColumnName="CimSzoveg" />
+                <ScalarProperty Name="CimHRSZ" ColumnName="CimHRSZ" />
+                <ScalarProperty Name="UtcaHazszam" ColumnName="UtcaHazszam" />
+                <ScalarProperty Name="Hazszam" ColumnName="Hazszam" />
+                <ScalarProperty Name="EpuletSzoveg" ColumnName="EpuletSzoveg" />
+                <ScalarProperty Name="LhSzoveg" ColumnName="LhSzoveg" />
+                <ScalarProperty Name="AjtoSzoveg" ColumnName="AjtoSzoveg" />
+                <ScalarProperty Name="HazszamSzoveg" ColumnName="HazszamSzoveg" />
+                <ScalarProperty Name="EmeletKod" ColumnName="EmeletKod" />
+                <ScalarProperty Name="KozteruletId" ColumnName="KozteruletId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEpuletElsCim">
+            <EntityTypeMapping TypeName="KotorDb.vEpuletElsCim">
+              <MappingFragment StoreEntitySet="vEpuletElsCim">
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="IRSZ" ColumnName="IRSZ" />
+                <ScalarProperty Name="CimSzoveg" ColumnName="CimSzoveg" />
+                <ScalarProperty Name="Iid" ColumnName="Iid" />
+                <ScalarProperty Name="CimHRSZ" ColumnName="CimHRSZ" />
+                <ScalarProperty Name="EpHRSZ" ColumnName="EpHRSZ" />
+                <ScalarProperty Name="UtcaHazszam" ColumnName="UtcaHazszam" />
+                <ScalarProperty Name="TelepulesNev" ColumnName="TelepulesNev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vOreCim">
+            <EntityTypeMapping TypeName="KotorDb.vOreCim">
+              <MappingFragment StoreEntitySet="vOreCim">
+                <ScalarProperty Name="Oid" ColumnName="Oid" />
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Lepcsohaz" ColumnName="Lepcsohaz" />
+                <ScalarProperty Name="Emelet" ColumnName="Emelet" />
+                <ScalarProperty Name="EmeletJelKod" ColumnName="EmeletJelKod" />
+                <ScalarProperty Name="Ajto" ColumnName="Ajto" />
+                <ScalarProperty Name="Ajtotores" ColumnName="Ajtotores" />
+                <ScalarProperty Name="IRSZ" ColumnName="IRSZ" />
+                <ScalarProperty Name="Cimszoveg" ColumnName="Cimszoveg" />
+                <ScalarProperty Name="eid" ColumnName="eid" />
+                <ScalarProperty Name="iid" ColumnName="iid" />
+                <ScalarProperty Name="OreHRSZ" ColumnName="OreHRSZ" />
+                <ScalarProperty Name="CimHRSZ" ColumnName="CimHRSZ" />
+                <ScalarProperty Name="UtcaHazszam" ColumnName="UtcaHazszam" />
+                <ScalarProperty Name="TelepulesNev" ColumnName="TelepulesNev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Munkatars_t">
+            <EntityTypeMapping TypeName="KotorDb.Munkatars_t">
+              <MappingFragment StoreEntitySet="Munkatars_t">
+                <ScalarProperty Name="Vonalkod" ColumnName="Vonalkod" />
+                <ScalarProperty Name="ElszamolasAlairoId" ColumnName="ElszamolasAlairoId" />
+                <ScalarProperty Name="ADLogin" ColumnName="ADLogin" />
+                <ScalarProperty Name="ADUserID" ColumnName="ADUserID" />
+                <ScalarProperty Name="JelszoClearText" ColumnName="JelszoClearText" />
+                <ScalarProperty Name="Old_TavirJelszo" ColumnName="Old_TavirJelszo" />
+                <ScalarProperty Name="Old_TavirMunkakor" ColumnName="Old_TavirMunkakor" />
+                <ScalarProperty Name="Old_TavirOnelkerId" ColumnName="Old_TavirOnelkerId" />
+                <ScalarProperty Name="Old_TavirMunkakorId" ColumnName="Old_TavirMunkakorId" />
+                <ScalarProperty Name="Old_TavirDolgozoId" ColumnName="Old_TavirDolgozoId" />
+                <ScalarProperty Name="OklevelSzama" ColumnName="OklevelSzama" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Jelszo" ColumnName="Jelszo" />
+                <ScalarProperty Name="DomainPrefix" ColumnName="DomainPrefix" />
+                <ScalarProperty Name="LoginNev" ColumnName="LoginNev" />
+                <ScalarProperty Name="Aktiv" ColumnName="Aktiv" />
+                <ScalarProperty Name="Kulsos" ColumnName="Kulsos" />
+                <ScalarProperty Name="SzuletesDatuma" ColumnName="SzuletesDatuma" />
+                <ScalarProperty Name="MunkaviszonyVege" ColumnName="MunkaviszonyVege" />
+                <ScalarProperty Name="MunkaviszonyKezdete" ColumnName="MunkaviszonyKezdete" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="FelettesId" ColumnName="FelettesId" />
+                <ScalarProperty Name="RegioId" ColumnName="RegioId" />
+                <ScalarProperty Name="MesterkorzetId" ColumnName="MesterkorzetId" />
+                <ScalarProperty Name="KepzettsegKod" ColumnName="KepzettsegKod" />
+                <ScalarProperty Name="MunkakorKod" ColumnName="MunkakorKod" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="HRId" ColumnName="HRId" />
+                <ScalarProperty Name="MunkatarsId" ColumnName="MunkatarsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NyomtatvanyTipus_m">
+            <EntityTypeMapping TypeName="KotorDb.NyomtatvanyTipus_m">
+              <MappingFragment StoreEntitySet="NyomtatvanyTipus_m">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="Kod" ColumnName="Kod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MunkaTargyaHiba_t">
+            <EntityTypeMapping TypeName="KotorDb.MunkaTargyaHiba_t">
+              <MappingFragment StoreEntitySet="MunkaTargyaHiba_t">
+                <ScalarProperty Name="Oid" ColumnName="Oid" />
+                <ScalarProperty Name="KemenyCsoport" ColumnName="KemenyCsoport" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Leiras" ColumnName="Leiras" />
+                <ScalarProperty Name="Elharult" ColumnName="Elharult" />
+                <ScalarProperty Name="ElozolegIsFennallt" ColumnName="ElozolegIsFennallt" />
+                <ScalarProperty Name="EszlelesDatuma" ColumnName="EszlelesDatuma" />
+                <ScalarProperty Name="FigyelmeztetoVonalkod" ColumnName="FigyelmeztetoVonalkod" />
+                <ScalarProperty Name="MunkaTargyaId" ColumnName="MunkaTargyaId" />
+                <ScalarProperty Name="HibaTipusKod" ColumnName="HibaTipusKod" />
+                <ScalarProperty Name="MunkaTargyaHibaId" ColumnName="MunkaTargyaHibaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORE_t">
+            <EntityTypeMapping TypeName="KotorDb.ORE_t">
+              <MappingFragment StoreEntitySet="ORE_t">
+                <ScalarProperty Name="kacs_AzonosOre" ColumnName="kacs_AzonosOre" />
+                <ScalarProperty Name="IdoszakosHasznalatBejelentesDatuma" ColumnName="IdoszakosHasznalatBejelentesDatuma" />
+                <ScalarProperty Name="EmeletJelKod" ColumnName="EmeletJelKod" />
+                <ScalarProperty Name="Torolve" ColumnName="Torolve" />
+                <ScalarProperty Name="Old_2014SzigoruTuzeloBerendezesMenny" ColumnName="Old_2014SzigoruTuzeloBerendezesMenny" />
+                <ScalarProperty Name="Old_2014TavirEpulID" ColumnName="Old_2014TavirEpulID" />
+                <ScalarProperty Name="Old_2014TavirKS" ColumnName="Old_2014TavirKS" />
+                <ScalarProperty Name="kacs_2014tanEpulettores" ColumnName="kacs_2014tanEpulettores" />
+                <ScalarProperty Name="kacs_2014tanHasznalo" ColumnName="kacs_2014tanHasznalo" />
+                <ScalarProperty Name="kacs_2014tanEpulet" ColumnName="kacs_2014tanEpulet" />
+                <ScalarProperty Name="kacs_2014tanKezelo" ColumnName="kacs_2014tanKezelo" />
+                <ScalarProperty Name="kacs_2014tanTulaj" ColumnName="kacs_2014tanTulaj" />
+                <ScalarProperty Name="CimFilterMask" ColumnName="CimFilterMask" />
+                <ScalarProperty Name="SormunkaPeriodus" ColumnName="SormunkaPeriodus" />
+                <ScalarProperty Name="IdoszakosanHasznalt" ColumnName="IdoszakosanHasznalt" />
+                <ScalarProperty Name="Old_2014SzigoruLakasvonalkod" ColumnName="Old_2014SzigoruLakasvonalkod" />
+                <ScalarProperty Name="Old_2014TavirVonalkod" ColumnName="Old_2014TavirVonalkod" />
+                <ScalarProperty Name="COMeroErvenyesseg" ColumnName="COMeroErvenyesseg" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="EllenorzoId" ColumnName="EllenorzoId" />
+                <ScalarProperty Name="EllenorzesDatuma" ColumnName="EllenorzesDatuma" />
+                <ScalarProperty Name="UtolsoModositoId" ColumnName="UtolsoModositoId" />
+                <ScalarProperty Name="UtolsoModositasDatuma" ColumnName="UtolsoModositasDatuma" />
+                <ScalarProperty Name="Ervenyes" ColumnName="Ervenyes" />
+                <ScalarProperty Name="Megjegyzes" ColumnName="Megjegyzes" />
+                <ScalarProperty Name="UtolsoSormunkavegzesDatuma" ColumnName="UtolsoSormunkavegzesDatuma" />
+                <ScalarProperty Name="UtolsoMuszakiFelulvizsgalatDatuma" ColumnName="UtolsoMuszakiFelulvizsgalatDatuma" />
+                <ScalarProperty Name="UtolsoCOMeresDatuma" ColumnName="UtolsoCOMeresDatuma" />
+                <ScalarProperty Name="COMeroKoteles" ColumnName="COMeroKoteles" />
+                <ScalarProperty Name="LegterOsszekottetesekSzama" ColumnName="LegterOsszekottetesekSzama" />
+                <ScalarProperty Name="OREHasznalatModjaKod" ColumnName="OREHasznalatModjaKod" />
+                <ScalarProperty Name="HRSZ3" ColumnName="HRSZ3" />
+                <ScalarProperty Name="Ajtotores" ColumnName="Ajtotores" />
+                <ScalarProperty Name="Ajto" ColumnName="Ajto" />
+                <ScalarProperty Name="Emelet" ColumnName="Emelet" />
+                <ScalarProperty Name="Lepcsohaz" ColumnName="Lepcsohaz" />
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Oid" ColumnName="Oid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rendeles_t">
+            <EntityTypeMapping TypeName="KotorDb.Rendeles_t">
+              <MappingFragment StoreEntitySet="Rendeles_t">
+                <ScalarProperty Name="SzamlazasUtolsoKvhHibakod" ColumnName="SzamlazasUtolsoKvhHibakod" />
+                <ScalarProperty Name="TeljesitesDatuma" ColumnName="TeljesitesDatuma" />
+                <ScalarProperty Name="kacs_NincsSzamlazhatoMunkatargyaRendben" ColumnName="kacs_NincsSzamlazhatoMunkatargyaRendben" />
+                <ScalarProperty Name="SzlafizGazdformcsopKod" ColumnName="SzlafizGazdformcsopKod" />
+                <ScalarProperty Name="SzlafizPartnerId" ColumnName="SzlafizPartnerId" />
+                <ScalarProperty Name="LakossagiAr" ColumnName="LakossagiAr" />
+                <ScalarProperty Name="ElszamolasEve" ColumnName="ElszamolasEve" />
+                <ScalarProperty Name="kacs_NemszamlazandoJogos" ColumnName="kacs_NemszamlazandoJogos" />
+                <ScalarProperty Name="kacs_NemszamlazandoIndoklas" ColumnName="kacs_NemszamlazandoIndoklas" />
+                <ScalarProperty Name="kacs_KeziSzamlazasTiltott" ColumnName="kacs_KeziSzamlazasTiltott" />
+                <ScalarProperty Name="kacs_SmskeresEredmeny" ColumnName="kacs_SmskeresEredmeny" />
+                <ScalarProperty Name="kacs_SmskeresSzovegKod" ColumnName="kacs_SmskeresSzovegKod" />
+                <ScalarProperty Name="kacs_SmskeresDatum" ColumnName="kacs_SmskeresDatum" />
+                <ScalarProperty Name="kacs_EmailkeresEredmeny" ColumnName="kacs_EmailkeresEredmeny" />
+                <ScalarProperty Name="kacs_EmailkeresSzovegKod" ColumnName="kacs_EmailkeresSzovegKod" />
+                <ScalarProperty Name="kacs_EmailkeresDatum" ColumnName="kacs_EmailkeresDatum" />
+                <ScalarProperty Name="kacs_DuplaRendelesRogzitesEllenorizve" ColumnName="kacs_DuplaRendelesRogzitesEllenorizve" />
+                <ScalarProperty Name="kacs_2014SormunkaPotmunkaja" ColumnName="kacs_2014SormunkaPotmunkaja" />
+                <ScalarProperty Name="kacs_SzamlazvaVisszajelzesTan" ColumnName="kacs_SzamlazvaVisszajelzesTan" />
+                <ScalarProperty Name="RendelesBeerkezesDatuma" ColumnName="RendelesBeerkezesDatuma" />
+                <ScalarProperty Name="SzamlazasDatumaTan" ColumnName="SzamlazasDatumaTan" />
+                <ScalarProperty Name="TajekoztatoId" ColumnName="TajekoztatoId" />
+                <ScalarProperty Name="EpuletUtolsoMuszakiFelulvizsgalatDatumaIrodjon" ColumnName="EpuletUtolsoMuszakiFelulvizsgalatDatumaIrodjon" />
+                <ScalarProperty Name="EpuletUtolsoSormunkavegzesDatumaIrodjon" ColumnName="EpuletUtolsoSormunkavegzesDatumaIrodjon" />
+                <ScalarProperty Name="KellNyilatkozat" ColumnName="KellNyilatkozat" />
+                <ScalarProperty Name="NyilatkozatKotelezo" ColumnName="NyilatkozatKotelezo" />
+                <ScalarProperty Name="JovahagyoId" ColumnName="JovahagyoId" />
+                <ScalarProperty Name="JovahagyasDatuma" ColumnName="JovahagyasDatuma" />
+                <ScalarProperty Name="MunkatVegzoRegioId" ColumnName="MunkatVegzoRegioId" />
+                <ScalarProperty Name="SzamlazoRendszerKod" ColumnName="SzamlazoRendszerKod" />
+                <ScalarProperty Name="KivitelezoId" ColumnName="KivitelezoId" />
+                <ScalarProperty Name="RendelesFelvetelDatuma" ColumnName="RendelesFelvetelDatuma" />
+                <ScalarProperty Name="TervezoId" ColumnName="TervezoId" />
+                <ScalarProperty Name="ErtesitendoSzemelyId" ColumnName="ErtesitendoSzemelyId" />
+                <ScalarProperty Name="MegrendeloId" ColumnName="MegrendeloId" />
+                <ScalarProperty Name="Kiszamlazva" ColumnName="Kiszamlazva" />
+                <ScalarProperty Name="SzamlazasraAtadas" ColumnName="SzamlazasraAtadas" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Szamlazando" ColumnName="Szamlazando" />
+                <ScalarProperty Name="MunkaTipusKod" ColumnName="MunkaTipusKod" />
+                <ScalarProperty Name="Oid" ColumnName="Oid" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Iid" ColumnName="Iid" />
+                <ScalarProperty Name="RendelesStatuszKod" ColumnName="RendelesStatuszKod" />
+                <ScalarProperty Name="Rendelesszam" ColumnName="Rendelesszam" />
+                <ScalarProperty Name="RendelesId" ColumnName="RendelesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Munka_t">
+            <EntityTypeMapping TypeName="KotorDb.Munka_t">
+              <MappingFragment StoreEntitySet="Munka_t">
+                <ScalarProperty Name="TervezettMunkaNapszakSor2Kod" ColumnName="TervezettMunkaNapszakSor2Kod" />
+                <ScalarProperty Name="KalkulaltMunkaegyenertek2" ColumnName="KalkulaltMunkaegyenertek2" />
+                <ScalarProperty Name="KalkulaltMunkaegyenertek" ColumnName="KalkulaltMunkaegyenertek" />
+                <ScalarProperty Name="Plakatolando" ColumnName="Plakatolando" />
+                <ScalarProperty Name="MegrendelovelEgyeztetettBefejezes" ColumnName="MegrendelovelEgyeztetettBefejezes" />
+                <ScalarProperty Name="MegrendelovelEgyeztetettKezdes" ColumnName="MegrendelovelEgyeztetettKezdes" />
+                <ScalarProperty Name="MunkaVegezesBefejezesSor2" ColumnName="MunkaVegezesBefejezesSor2" />
+                <ScalarProperty Name="MunkaVegezesKezdesSor2" ColumnName="MunkaVegezesKezdesSor2" />
+                <ScalarProperty Name="TervezettMunkaBefejezesSor2" ColumnName="TervezettMunkaBefejezesSor2" />
+                <ScalarProperty Name="TervezettMunkaKezdesSor2" ColumnName="TervezettMunkaKezdesSor2" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="PlakatolasBefejezes" ColumnName="PlakatolasBefejezes" />
+                <ScalarProperty Name="PlakatolasKezdes" ColumnName="PlakatolasKezdes" />
+                <ScalarProperty Name="TervezettPlakatolasBefejezes" ColumnName="TervezettPlakatolasBefejezes" />
+                <ScalarProperty Name="TervezettPlakatolasKezdes" ColumnName="TervezettPlakatolasKezdes" />
+                <ScalarProperty Name="MunkaVegezesBefejezes" ColumnName="MunkaVegezesBefejezes" />
+                <ScalarProperty Name="MunkaVegezesKezdes" ColumnName="MunkaVegezesKezdes" />
+                <ScalarProperty Name="TervezettMunkaBefejezes" ColumnName="TervezettMunkaBefejezes" />
+                <ScalarProperty Name="TervezettMunkaKezdes" ColumnName="TervezettMunkaKezdes" />
+                <ScalarProperty Name="TervezesiEgysegId" ColumnName="TervezesiEgysegId" />
+                <ScalarProperty Name="RendelesId" ColumnName="RendelesId" />
+                <ScalarProperty Name="MunkaStatuszKod" ColumnName="MunkaStatuszKod" />
+                <ScalarProperty Name="Munkaszam" ColumnName="Munkaszam" />
+                <ScalarProperty Name="MunkaId" ColumnName="MunkaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RendelesStatusz_m">
+            <EntityTypeMapping TypeName="KotorDb.RendelesStatusz_m">
+              <MappingFragment StoreEntitySet="RendelesStatusz_m">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="Kod" ColumnName="Kod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mesterkorzet_t">
+            <EntityTypeMapping TypeName="KotorDb.Mesterkorzet_t">
+              <MappingFragment StoreEntitySet="Mesterkorzet_t">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="ProduktivitasiKorekcio" ColumnName="ProduktivitasiKorekcio" />
+                <ScalarProperty Name="RegioId" ColumnName="RegioId" />
+                <ScalarProperty Name="VezetoId" ColumnName="VezetoId" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="MesterkorzetId" ColumnName="MesterkorzetId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regio_t">
+            <EntityTypeMapping TypeName="KotorDb.Regio_t">
+              <MappingFragment StoreEntitySet="Regio_t">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CimSzoveg" ColumnName="CimSzoveg" />
+                <ScalarProperty Name="KeszenletiCsoport" ColumnName="KeszenletiCsoport" />
+                <ScalarProperty Name="RegioKod" ColumnName="RegioKod" />
+                <ScalarProperty Name="VezetoId" ColumnName="VezetoId" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="RegioId" ColumnName="RegioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MunkaTargya_cs">
+            <EntityTypeMapping TypeName="KotorDb.MunkaTargya_cs">
+              <MappingFragment StoreEntitySet="MunkaTargya_cs">
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Megjegyzes" ColumnName="Megjegyzes" />
+                <ScalarProperty Name="ReszbenZart" ColumnName="ReszbenZart" />
+                <ScalarProperty Name="COMeresEredmeny" ColumnName="COMeresEredmeny" />
+                <ScalarProperty Name="UtolsoMuszakiFelulvizsgalatDatumaIrodjon" ColumnName="UtolsoMuszakiFelulvizsgalatDatumaIrodjon" />
+                <ScalarProperty Name="UtolsoSormunkavegzesDatumaIrodjon" ColumnName="UtolsoSormunkavegzesDatumaIrodjon" />
+                <ScalarProperty Name="KemenyJelKod" ColumnName="KemenyJelKod" />
+                <ScalarProperty Name="Zart" ColumnName="Zart" />
+                <ScalarProperty Name="MunkaTargyaTipusKod" ColumnName="MunkaTargyaTipusKod" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Potdijkoteles" ColumnName="Potdijkoteles" />
+                <ScalarProperty Name="Oid" ColumnName="Oid" />
+                <ScalarProperty Name="TuzeloberendezesId" ColumnName="TuzeloberendezesId" />
+                <ScalarProperty Name="OsszekotoelemId" ColumnName="OsszekotoelemId" />
+                <ScalarProperty Name="Kid" ColumnName="Kid" />
+                <ScalarProperty Name="TanusitvanyId" ColumnName="TanusitvanyId" />
+                <ScalarProperty Name="MunkaId" ColumnName="MunkaId" />
+                <ScalarProperty Name="MunkaTargyaId" ColumnName="MunkaTargyaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AA09A62D-9F77-44E2-BF4F-EA58D3375D0B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vonalkod</RootNamespace>
+    <AssemblyName>Vonalkod</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Vonalkod.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cim_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KotorDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KotorDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KotorDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KotorDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KotorDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Mesterkorzet_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MunkaTargyaHiba_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MunkaTargya_cs.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Munkatars_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Munka_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NyomtatvanyTipus_m.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ORE_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regio_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RendelesStatusz_m.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rendeles_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tanusitvany2015FO.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tanusitvany2015ORE.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tanusitvany_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TervezesiEgyseg_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vCim.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vEpuletElsCim.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VonalkodBeolvasas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VonalkodBeolvasas.Designer.cs">
+      <DependentUpon>VonalkodBeolvasas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VonalkodTartomany_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vOreCim.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="VonalkodBeolvasas.resx">
+      <DependentUpon>VonalkodBeolvasas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="KotorDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KotorDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KotorDb.edmx.diagram">
+      <DependentUpon>KotorDb.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Tanusitvany_t.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KotorDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KotorDb.edmx</DependentUpon>
+      <LastGenOutput>KotorDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="KotorDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KotorDb.edmx</DependentUpon>
+      <LastGenOutput>KotorDb.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\0000.png" />
+    <None Include="Resources\9999.png" />
+    <None Include="Resources\00.png" />
+    <None Include="Resources\99.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
