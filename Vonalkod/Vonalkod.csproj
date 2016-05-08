@@ -64,6 +64,7 @@
     <Compile Include="Cim_t.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Lakas.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KotorDb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="LoginHelper.cs" />
     <Compile Include="Mesterkorzet_t.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
@@ -117,6 +119,8 @@
     <Compile Include="Rendeles_t.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sha1PasswordHasher.cs" />
+    <Compile Include="Tan.cs" />
     <Compile Include="Tanusitvany2015FO.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
@@ -129,18 +133,21 @@
     <Compile Include="TervezesiEgyseg_t.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserData.cs" />
     <Compile Include="vCim.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
     <Compile Include="vEpuletElsCim.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="vkInDb.cs" />
     <Compile Include="VonalkodBeolvasas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VonalkodBeolvasas.Designer.cs">
       <DependentUpon>VonalkodBeolvasas.cs</DependentUpon>
     </Compile>
+    <Compile Include="VonalkodTartomany.cs" />
     <Compile Include="VonalkodTartomany_t.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
