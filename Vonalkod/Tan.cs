@@ -27,11 +27,14 @@ namespace Vonalkod
         public vkInDb db;
         public string epuletcim;
         public bool Ketszerzart;
+        public bool KetszerzartRogzitve;
         public bool SzuloIdModositott;
         public bool NemMozgathato; // hiba van hozzárögzítve
         public bool NemTorolheto; // munkatárgya van hozzárögzítve
+        public bool Torlendo; // törlésre megjelölt
         public DateTime? Sor1;
         public DateTime? Sor2;
         public DateTime? BeolvasasIdopontja;
+        public bool EvesEllenorzes;
     }
 }

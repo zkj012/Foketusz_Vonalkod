@@ -44,7 +44,7 @@ namespace Vonalkod
 
                         LoginHelper.LoggedOnUser = (from d in ke.Munkatars_t
                                                     where d.LoginNev == textBoxUsername.Text
-                                                    select new UserData { userid = d.MunkatarsId, username = d.Nev, loginname = d.LoginNev, regionev = d.Mesterkorzet_t1.Regio_t.Nev, jelszohash = d.Jelszo }).FirstOrDefault();
+                                                    select new UserData { userid = d.MunkatarsId, username = d.Nev, loginname = d.LoginNev, regionev = d.Regio_t.Nev, regioid=d.RegioId, munkakorkod = d.MunkakorKod ,jelszohash = d.Jelszo }).FirstOrDefault();
 
                     }
                     catch (Exception ex) // EntityCommandExecutionException ex)
@@ -55,21 +55,26 @@ namespace Vonalkod
                     {
                         Cursor.Current = Cursors.Default;
                     }
-                    if (LoginHelper.LoggedOnUser == null)
+                    if (LoginHelper.LoggedOnUser == null || !pwd.VerifyHashedPassword(LoginHelper.LoggedOnUser.jelszohash, textBoxJelszo.Text)) 
                     {
-                        MessageBox.Show("Nincs ilyen felhasználó");
+                        MessageBox.Show("Hibás jelszó vagy felhasználónév");
                     }
-                    else if (pwd.VerifyHashedPassword(LoginHelper.LoggedOnUser.jelszohash, textBoxJelszo.Text))
+                    else
                     {
                         // sikeres bejelentkezés
+                        LoginHelper.LoggedOnUser.jelszohash = "";
+                        if(LoginHelper.LoggedOnUser.munkakorkod == "KEMENYSEPRO")
+                        {
+                            LoginHelper.LoggedOnUser.kemenysepro = true;
+                        }
+                        else
+                        {
+                            LoginHelper.LoggedOnUser.kemenysepro = false;
+                        }
                         this.Hide();
                         VonalkodBeolvasas vk = new VonalkodBeolvasas();
                         vk.ShowDialog();
                         this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Hibás jelszó");
                     }
                 }
                 finally

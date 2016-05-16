@@ -12,6 +12,9 @@ namespace Vonalkod
         public string username;
         public string loginname;
         public string regionev;
+        public int regioid;
+        public string munkakorkod;
+        public bool kemenysepro;
         public string jelszohash;
     }
 }
