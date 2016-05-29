@@ -43,6 +43,8 @@ namespace Vonalkod
         public string kacs_Megjegyzes { get; set; }
         public bool GazElzarasahozHozzajarult { get; set; }
         public string Megjegyzes { get; set; }
+        public bool Ketszerzart { get; set; }
+        public bool EvesEllenorzes { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tanusitvany_t> Tanusitvany_t1 { get; set; }

@@ -44,5 +44,6 @@ namespace Vonalkod
         public virtual DbSet<Mesterkorzet_t> Mesterkorzet_t { get; set; }
         public virtual DbSet<Regio_t> Regio_t { get; set; }
         public virtual DbSet<MunkaTargya_cs> MunkaTargya_cs { get; set; }
+        public virtual DbSet<EmeletJel_m> EmeletJel_m { get; set; }
     }
 }

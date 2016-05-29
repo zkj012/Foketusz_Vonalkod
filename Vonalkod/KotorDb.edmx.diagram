@@ -49,11 +49,14 @@
         <AssociationConnector Association="KotorDb.Munkatars_RegioId_FK" />
         <AssociationConnector Association="KotorDb.Regio_VezetoId_FK" />
         <AssociationConnector Association="KotorDb.Rendeles_MunkatVegzoRegioId_FK" />
-        <EntityTypeShape EntityType="KotorDb.MunkaTargya_cs" Width="1.5" PointX="24.125" PointY="6" />
+        <EntityTypeShape EntityType="KotorDb.MunkaTargya_cs" Width="2.875" PointX="24.125" PointY="6" />
         <AssociationConnector Association="KotorDb.MunkaTargya_MunkaId_FK" />
         <AssociationConnector Association="KotorDb.MunkaTargya_Oid_FK" />
         <AssociationConnector Association="KotorDb.MunkaTargya_TanusitvanyId_FK" />
         <AssociationConnector Association="KotorDb.MunkaTargyaHiba_MunkaTargyaId_FK" />
+        <EntityTypeShape EntityType="KotorDb.EmeletJel_m" Width="1.5" PointX="12.375" PointY="10.125" />
+        <AssociationConnector Association="KotorDb.FK_Cim_t_EmeletKod_m" />
+        <AssociationConnector Association="KotorDb.FK_ORE_t_EmeletKod_m" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

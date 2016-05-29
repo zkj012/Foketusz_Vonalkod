@@ -58,5 +58,6 @@ namespace Vonalkod
         public virtual ICollection<ORE_t> ORE_t { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Regio_t> Regio_t { get; set; }
+        public virtual EmeletJel_m EmeletJel_m { get; set; }
     }
 }

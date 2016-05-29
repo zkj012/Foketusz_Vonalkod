@@ -41,6 +41,15 @@
           <Property Name="CimFilterMask" Type="nvarchar" MaxLength="400" />
           <Property Name="EmeletJelKod" Type="nvarchar" MaxLength="3" />
         </EntityType>
+        <EntityType Name="EmeletJel_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="RovidNev" Type="nvarchar" MaxLength="10" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="40" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
         <EntityType Name="Mesterkorzet_t">
           <Key>
             <PropertyRef Name="MesterkorzetId" />
@@ -307,6 +316,8 @@
           <Property Name="kacs_Megjegyzes" Type="nvarchar" MaxLength="200" />
           <Property Name="GazElzarasahozHozzajarult" Type="bit" Nullable="false" />
           <Property Name="Megjegyzes" Type="nvarchar" MaxLength="200" />
+          <Property Name="Ketszerzart" Type="bit" Nullable="false" />
+          <Property Name="EvesEllenorzes" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KOTORTESZT.dbo.Tanusitvany2015FO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -542,6 +553,30 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             </Principal>
             <Dependent Role="Cim_t">
               <PropertyRef Name="UtolsoModositoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cim_t_EmeletKod_m">
+          <End Role="EmeletJel_m" Type="Self.EmeletJel_m" Multiplicity="0..1" />
+          <End Role="Cim_t" Type="Self.Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmeletJel_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="EmeletJelKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ORE_t_EmeletKod_m">
+          <End Role="EmeletJel_m" Type="Self.EmeletJel_m" Multiplicity="0..1" />
+          <End Role="ORE_t" Type="Self.ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmeletJel_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="EmeletJelKod" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -895,6 +930,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
         </Association>
         <EntityContainer Name="KotorDbStoreContainer">
           <EntitySet Name="Cim_t" EntityType="Self.Cim_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmeletJel_m" EntityType="Self.EmeletJel_m" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mesterkorzet_t" EntityType="Self.Mesterkorzet_t" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Munka_t" EntityType="Self.Munka_t" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MunkaTargya_cs" EntityType="Self.MunkaTargya_cs" Schema="dbo" store:Type="Tables" />
@@ -1061,6 +1097,14 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             <End Role="Munkatars_t" EntitySet="Munkatars_t" />
             <End Role="Cim_t" EntitySet="Cim_t" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cim_t_EmeletKod_m" Association="Self.FK_Cim_t_EmeletKod_m">
+            <End Role="EmeletJel_m" EntitySet="EmeletJel_m" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORE_t_EmeletKod_m" Association="Self.FK_ORE_t_EmeletKod_m">
+            <End Role="EmeletJel_m" EntitySet="EmeletJel_m" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
           <AssociationSet Name="Kozt_JovahagyoId_FK" Association="Self.Kozt_JovahagyoId_FK">
             <End Role="Munkatars_t" EntitySet="Munkatars_t" />
             <End Role="Rendeles_t" EntitySet="Rendeles_t" />
@@ -1220,6 +1264,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.Cim_UtolsoModositoId_FK" FromRole="Cim_t" ToRole="Munkatars_t" />
           <NavigationProperty Name="ORE_t" Relationship="KotorDb.ORE_Cid_FK" FromRole="Cim_t" ToRole="ORE_t" />
           <NavigationProperty Name="Regio_t" Relationship="KotorDb.Regio_Cid_FK" FromRole="Cim_t" ToRole="Regio_t" />
+          <NavigationProperty Name="EmeletJel_m" Relationship="KotorDb.FK_Cim_t_EmeletKod_m" FromRole="Cim_t" ToRole="EmeletJel_m" />
         </EntityType>
         <EntityType Name="Tanusitvany_t">
           <Key>
@@ -1255,6 +1300,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <NavigationProperty Name="ORE_t" Relationship="KotorDb.Tanusitvany_Oid_FK" FromRole="Tanusitvany_t" ToRole="ORE_t" />
           <NavigationProperty Name="Munka_t" Relationship="KotorDb.Tanusitvany_MunkaId_FK" FromRole="Tanusitvany_t" ToRole="Munka_t" />
           <NavigationProperty Name="MunkaTargya_cs" Relationship="KotorDb.MunkaTargya_TanusitvanyId_FK" FromRole="Tanusitvany_t" ToRole="MunkaTargya_cs" />
+          <Property Name="Ketszerzart" Type="Boolean" Nullable="false" />
+          <Property Name="EvesEllenorzes" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="TervezesiEgyseg_t">
           <Key>
@@ -1617,6 +1664,15 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             <End Role="MunkaTargya_cs" EntitySet="MunkaTargya_cs" />
             <End Role="MunkaTargyaHiba_t" EntitySet="MunkaTargyaHiba_t" />
           </AssociationSet>
+          <EntitySet Name="EmeletJel_m" EntityType="KotorDb.EmeletJel_m" />
+          <AssociationSet Name="FK_Cim_t_EmeletKod_m" Association="KotorDb.FK_Cim_t_EmeletKod_m">
+            <End Role="EmeletJel_m" EntitySet="EmeletJel_m" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORE_t_EmeletKod_m" Association="KotorDb.FK_ORE_t_EmeletKod_m">
+            <End Role="EmeletJel_m" EntitySet="EmeletJel_m" />
+            <End Role="ORE_t" EntitySet="ORE_t" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Munkatars_t">
           <Key>
@@ -1842,6 +1898,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <NavigationProperty Name="Tanusitvany_t" Relationship="KotorDb.Tanusitvany_Oid_FK" FromRole="ORE_t" ToRole="Tanusitvany_t" />
           <NavigationProperty Name="Rendeles_t" Relationship="KotorDb.Rendeles_ORE_FK" FromRole="ORE_t" ToRole="Rendeles_t" />
           <NavigationProperty Name="MunkaTargya_cs" Relationship="KotorDb.MunkaTargya_Oid_FK" FromRole="ORE_t" ToRole="MunkaTargya_cs" />
+          <NavigationProperty Name="EmeletJel_m" Relationship="KotorDb.FK_ORE_t_EmeletKod_m" FromRole="ORE_t" ToRole="EmeletJel_m" />
         </EntityType>
         <Association Name="ORE_Cid_FK">
           <End Type="KotorDb.Cim_t" Role="Cim_t" Multiplicity="1" />
@@ -2266,6 +2323,41 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EmeletJel_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="RovidNev" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Nev" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Cim_t" Relationship="KotorDb.FK_Cim_t_EmeletKod_m" FromRole="EmeletJel_m" ToRole="Cim_t" />
+          <NavigationProperty Name="ORE_t" Relationship="KotorDb.FK_ORE_t_EmeletKod_m" FromRole="EmeletJel_m" ToRole="ORE_t" />
+        </EntityType>
+        <Association Name="FK_Cim_t_EmeletKod_m">
+          <End Type="KotorDb.EmeletJel_m" Role="EmeletJel_m" Multiplicity="0..1" />
+          <End Type="KotorDb.Cim_t" Role="Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmeletJel_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="EmeletJelKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ORE_t_EmeletKod_m">
+          <End Type="KotorDb.EmeletJel_m" Role="EmeletJel_m" Multiplicity="0..1" />
+          <End Type="KotorDb.ORE_t" Role="ORE_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmeletJel_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="ORE_t">
+              <PropertyRef Name="EmeletJelKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2311,6 +2403,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <EntitySetMapping Name="Tanusitvany_t">
             <EntityTypeMapping TypeName="KotorDb.Tanusitvany_t">
               <MappingFragment StoreEntitySet="Tanusitvany_t">
+                <ScalarProperty Name="EvesEllenorzes" ColumnName="EvesEllenorzes" />
+                <ScalarProperty Name="Ketszerzart" ColumnName="Ketszerzart" />
                 <ScalarProperty Name="TanusitvanyId" ColumnName="TanusitvanyId" />
                 <ScalarProperty Name="SzulotanusitvanyId" ColumnName="SzulotanusitvanyId" />
                 <ScalarProperty Name="MunkaId" ColumnName="MunkaId" />
@@ -2785,6 +2879,16 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
                 <ScalarProperty Name="TanusitvanyId" ColumnName="TanusitvanyId" />
                 <ScalarProperty Name="MunkaId" ColumnName="MunkaId" />
                 <ScalarProperty Name="MunkaTargyaId" ColumnName="MunkaTargyaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmeletJel_m">
+            <EntityTypeMapping TypeName="KotorDb.EmeletJel_m">
+              <MappingFragment StoreEntitySet="EmeletJel_m">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="RovidNev" ColumnName="RovidNev" />
+                <ScalarProperty Name="Kod" ColumnName="Kod" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

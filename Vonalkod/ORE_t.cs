@@ -74,5 +74,6 @@ namespace Vonalkod
         public virtual ICollection<Rendeles_t> Rendeles_t { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MunkaTargya_cs> MunkaTargya_cs { get; set; }
+        public virtual EmeletJel_m EmeletJel_m { get; set; }
     }
 }

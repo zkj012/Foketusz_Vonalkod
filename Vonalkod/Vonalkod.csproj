@@ -100,6 +100,9 @@
     <Compile Include="Cim_t.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmeletJel_m.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
     <Compile Include="Lakas.cs" />
     <Compile Include="Login.cs">

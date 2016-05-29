@@ -56,8 +56,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tbAjto = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.tbEmelet = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.lblTorles = new System.Windows.Forms.Label();
             this.pbTorles = new System.Windows.Forms.PictureBox();
             this.pb99 = new System.Windows.Forms.PictureBox();
@@ -69,8 +67,13 @@
             this.label12 = new System.Windows.Forms.Label();
             this.chkEvesEllenorzes = new System.Windows.Forms.CheckBox();
             this.cbEmeletjel = new System.Windows.Forms.ComboBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.tbMegj = new System.Windows.Forms.TextBox();
+            this.lblMegj = new System.Windows.Forms.Label();
+            this.grLakasLista = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.pbTorles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb99)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grLakasLista)).BeginInit();
             this.SuspendLayout();
             // 
             // tbVk
@@ -240,7 +243,7 @@
             // tbLepcsohaz
             // 
             this.tbLepcsohaz.Enabled = false;
-            this.tbLepcsohaz.Location = new System.Drawing.Point(910, 144);
+            this.tbLepcsohaz.Location = new System.Drawing.Point(910, 152);
             this.tbLepcsohaz.Name = "tbLepcsohaz";
             this.tbLepcsohaz.Size = new System.Drawing.Size(100, 20);
             this.tbLepcsohaz.TabIndex = 20;
@@ -248,7 +251,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(810, 147);
+            this.label6.Location = new System.Drawing.Point(810, 155);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 19;
@@ -274,17 +277,16 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(810, 292);
+            this.label8.Location = new System.Drawing.Point(810, 194);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.Size = new System.Drawing.Size(42, 13);
             this.label8.TabIndex = 23;
-            this.label8.Text = "Emeletjel:";
-            this.label8.Visible = false;
+            this.label8.Text = "Emelet:";
             // 
             // tbAjtotores
             // 
             this.tbAjtotores.Enabled = false;
-            this.tbAjtotores.Location = new System.Drawing.Point(910, 250);
+            this.tbAjtotores.Location = new System.Drawing.Point(910, 258);
             this.tbAjtotores.Name = "tbAjtotores";
             this.tbAjtotores.Size = new System.Drawing.Size(100, 20);
             this.tbAjtotores.TabIndex = 26;
@@ -292,7 +294,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(810, 253);
+            this.label9.Location = new System.Drawing.Point(810, 261);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 13);
             this.label9.TabIndex = 25;
@@ -301,7 +303,7 @@
             // tbAjto
             // 
             this.tbAjto.Enabled = false;
-            this.tbAjto.Location = new System.Drawing.Point(910, 212);
+            this.tbAjto.Location = new System.Drawing.Point(910, 220);
             this.tbAjto.Name = "tbAjto";
             this.tbAjto.Size = new System.Drawing.Size(100, 20);
             this.tbAjto.TabIndex = 28;
@@ -309,28 +311,11 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(810, 215);
+            this.label10.Location = new System.Drawing.Point(814, 226);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(28, 13);
             this.label10.TabIndex = 27;
             this.label10.Text = "Ajtó:";
-            // 
-            // tbEmelet
-            // 
-            this.tbEmelet.Enabled = false;
-            this.tbEmelet.Location = new System.Drawing.Point(910, 177);
-            this.tbEmelet.Name = "tbEmelet";
-            this.tbEmelet.Size = new System.Drawing.Size(100, 20);
-            this.tbEmelet.TabIndex = 30;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(810, 180);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(42, 13);
-            this.label11.TabIndex = 29;
-            this.label11.Text = "Emelet:";
             // 
             // lblTorles
             // 
@@ -392,6 +377,7 @@
             this.chkKemenysepro.TabIndex = 35;
             this.chkKemenysepro.Text = "Kéménysöprő üzemmód";
             this.chkKemenysepro.UseVisualStyleBackColor = true;
+            this.chkKemenysepro.CheckedChanged += new System.EventHandler(this.chkKemenysepro_CheckedChanged);
             // 
             // chkSor2
             // 
@@ -412,7 +398,6 @@
             this.btnLakasadat.TabIndex = 38;
             this.btnLakasadat.Text = "Lakásadat módosítása";
             this.btnLakasadat.UseVisualStyleBackColor = true;
-            this.btnLakasadat.Visible = false;
             this.btnLakasadat.Click += new System.EventHandler(this.btnLakasadat_Click);
             // 
             // label12
@@ -438,18 +423,56 @@
             // cbEmeletjel
             // 
             this.cbEmeletjel.FormattingEnabled = true;
-            this.cbEmeletjel.Location = new System.Drawing.Point(910, 284);
+            this.cbEmeletjel.Location = new System.Drawing.Point(910, 186);
             this.cbEmeletjel.Name = "cbEmeletjel";
-            this.cbEmeletjel.Size = new System.Drawing.Size(105, 21);
+            this.cbEmeletjel.Size = new System.Drawing.Size(100, 21);
             this.cbEmeletjel.TabIndex = 41;
-            this.cbEmeletjel.Visible = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(361, 443);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(270, 23);
+            this.btnCancel.TabIndex = 42;
+            this.btnCancel.Text = "Új főtanúsítvány beolvasása (mentés nélkül)";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // tbMegj
+            // 
+            this.tbMegj.Enabled = false;
+            this.tbMegj.Location = new System.Drawing.Point(911, 288);
+            this.tbMegj.Name = "tbMegj";
+            this.tbMegj.Size = new System.Drawing.Size(100, 20);
+            this.tbMegj.TabIndex = 44;
+            // 
+            // lblMegj
+            // 
+            this.lblMegj.AutoSize = true;
+            this.lblMegj.Location = new System.Drawing.Point(811, 291);
+            this.lblMegj.Name = "lblMegj";
+            this.lblMegj.Size = new System.Drawing.Size(66, 13);
+            this.lblMegj.TabIndex = 43;
+            this.lblMegj.Text = "Megjegyzés:";
+            // 
+            // grLakasLista
+            // 
+            this.grLakasLista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grLakasLista.Location = new System.Drawing.Point(20, 490);
+            this.grLakasLista.Name = "grLakasLista";
+            this.grLakasLista.Size = new System.Drawing.Size(991, 225);
+            this.grLakasLista.TabIndex = 45;
             // 
             // VonalkodBeolvasas
             // 
             this.AcceptButton = this.btnBeolvas;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1027, 478);
+            this.ClientSize = new System.Drawing.Size(1060, 714);
+            this.Controls.Add(this.grLakasLista);
+            this.Controls.Add(this.tbMegj);
+            this.Controls.Add(this.lblMegj);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.cbEmeletjel);
             this.Controls.Add(this.chkEvesEllenorzes);
             this.Controls.Add(this.label12);
@@ -460,8 +483,6 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblTorles);
             this.Controls.Add(this.pbTorles);
-            this.Controls.Add(this.tbEmelet);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.tbAjto);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.tbAjtotores);
@@ -495,6 +516,7 @@
             this.Load += new System.EventHandler(this.VonalkodBeolvasas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbTorles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb99)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grLakasLista)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -530,8 +552,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tbAjto;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tbEmelet;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblTorles;
         private System.Windows.Forms.PictureBox pbTorles;
         private System.Windows.Forms.Button btnSave;
@@ -542,5 +562,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox chkEvesEllenorzes;
         private System.Windows.Forms.ComboBox cbEmeletjel;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox tbMegj;
+        private System.Windows.Forms.Label lblMegj;
+        private System.Windows.Forms.DataGridView grLakasLista;
     }
 }
