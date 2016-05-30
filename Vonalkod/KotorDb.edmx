@@ -50,6 +50,45 @@
           <Property Name="Nev" Type="nvarchar" MaxLength="40" />
           <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="Kozterulet_t">
+          <Key>
+            <PropertyRef Name="KozteruletId" />
+          </Key>
+          <Property Name="KozteruletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TelepulesId" Type="int" Nullable="false" />
+          <Property Name="IRSZ" Type="int" Nullable="false" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NevRegi" Type="nvarchar" MaxLength="255" />
+          <Property Name="KozteruletJellegKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Varosresz" Type="nvarchar" MaxLength="255" />
+          <Property Name="Szam1" Type="int" />
+          <Property Name="Jel1" Type="nvarchar" MaxLength="100" />
+          <Property Name="Szam2" Type="int" />
+          <Property Name="Jel2" Type="nvarchar" MaxLength="100" />
+          <Property Name="Kerulet" Type="nvarchar" MaxLength="100" />
+          <Property Name="Telepulesresz" Type="nvarchar" MaxLength="255" />
+          <Property Name="DijbeszedoNev" Type="nvarchar" MaxLength="255" />
+          <Property Name="FoldhivatalNev" Type="nvarchar" MaxLength="255" />
+          <Property Name="Old_TavirUtcakod" Type="int" />
+          <Property Name="Megjegyzes" Type="nvarchar" MaxLength="255" />
+          <Property Name="Forras" Type="nvarchar" MaxLength="100" />
+          <Property Name="UtolsoModositasDatuma" Type="datetime" Nullable="false" />
+          <Property Name="UtolsoModositoId" Type="int" Nullable="false" />
+          <Property Name="EllenorzesDatuma" Type="datetime" />
+          <Property Name="EllenorzoId" Type="int" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="Ervenyes" Type="bit" Nullable="false" />
+          <Property Name="Minositett_torzsadat" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KozteruletJelleg_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nev" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NevRovid" Type="nvarchar" MaxLength="50" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
         <EntityType Name="Mesterkorzet_t">
           <Key>
             <PropertyRef Name="MesterkorzetId" />
@@ -544,6 +583,18 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Cim_KozteruletId_FK">
+          <End Role="Kozterulet_t" Type="Self.Kozterulet_t" Multiplicity="0..1" />
+          <End Role="Cim_t" Type="Self.Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kozterulet_t">
+              <PropertyRef Name="KozteruletId" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="KozteruletId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Cim_UtolsoModositoId_FK">
           <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="1" />
           <End Role="Cim_t" Type="Self.Cim_t" Multiplicity="*" />
@@ -589,6 +640,42 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             </Principal>
             <Dependent Role="Rendeles_t">
               <PropertyRef Name="JovahagyoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kozterulet_EllenorzoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
+          <End Role="Kozterulet_t" Type="Self.Kozterulet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Kozterulet_t">
+              <PropertyRef Name="EllenorzoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kozterulet_KozteruletJellegKod_FK">
+          <End Role="KozteruletJelleg_m" Type="Self.KozteruletJelleg_m" Multiplicity="1" />
+          <End Role="Kozterulet_t" Type="Self.Kozterulet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KozteruletJelleg_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Kozterulet_t">
+              <PropertyRef Name="KozteruletJellegKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kozterulet_UtolsoModositoId_FK">
+          <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="1" />
+          <End Role="Kozterulet_t" Type="Self.Kozterulet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Kozterulet_t">
+              <PropertyRef Name="UtolsoModositoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -931,6 +1018,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
         <EntityContainer Name="KotorDbStoreContainer">
           <EntitySet Name="Cim_t" EntityType="Self.Cim_t" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmeletJel_m" EntityType="Self.EmeletJel_m" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kozterulet_t" EntityType="Self.Kozterulet_t" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KozteruletJelleg_m" EntityType="Self.KozteruletJelleg_m" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mesterkorzet_t" EntityType="Self.Mesterkorzet_t" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Munka_t" EntityType="Self.Munka_t" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MunkaTargya_cs" EntityType="Self.MunkaTargya_cs" Schema="dbo" store:Type="Tables" />
@@ -1093,6 +1182,10 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             <End Role="Munkatars_t" EntitySet="Munkatars_t" />
             <End Role="Cim_t" EntitySet="Cim_t" />
           </AssociationSet>
+          <AssociationSet Name="Cim_KozteruletId_FK" Association="Self.Cim_KozteruletId_FK">
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
           <AssociationSet Name="Cim_UtolsoModositoId_FK" Association="Self.Cim_UtolsoModositoId_FK">
             <End Role="Munkatars_t" EntitySet="Munkatars_t" />
             <End Role="Cim_t" EntitySet="Cim_t" />
@@ -1108,6 +1201,18 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <AssociationSet Name="Kozt_JovahagyoId_FK" Association="Self.Kozt_JovahagyoId_FK">
             <End Role="Munkatars_t" EntitySet="Munkatars_t" />
             <End Role="Rendeles_t" EntitySet="Rendeles_t" />
+          </AssociationSet>
+          <AssociationSet Name="Kozterulet_EllenorzoId_FK" Association="Self.Kozterulet_EllenorzoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Kozterulet_KozteruletJellegKod_FK" Association="Self.Kozterulet_KozteruletJellegKod_FK">
+            <End Role="KozteruletJelleg_m" EntitySet="KozteruletJelleg_m" />
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Kozterulet_UtolsoModositoId_FK" Association="Self.Kozterulet_UtolsoModositoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
           </AssociationSet>
           <AssociationSet Name="Mesterkorzet_RegioId_FK" Association="Self.Mesterkorzet_RegioId_FK">
             <End Role="Regio_t" EntitySet="Regio_t" />
@@ -1265,6 +1370,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <NavigationProperty Name="ORE_t" Relationship="KotorDb.ORE_Cid_FK" FromRole="Cim_t" ToRole="ORE_t" />
           <NavigationProperty Name="Regio_t" Relationship="KotorDb.Regio_Cid_FK" FromRole="Cim_t" ToRole="Regio_t" />
           <NavigationProperty Name="EmeletJel_m" Relationship="KotorDb.FK_Cim_t_EmeletKod_m" FromRole="Cim_t" ToRole="EmeletJel_m" />
+          <NavigationProperty Name="Kozterulet_t" Relationship="KotorDb.Cim_KozteruletId_FK" FromRole="Cim_t" ToRole="Kozterulet_t" />
         </EntityType>
         <EntityType Name="Tanusitvany_t">
           <Key>
@@ -1673,6 +1779,24 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             <End Role="EmeletJel_m" EntitySet="EmeletJel_m" />
             <End Role="ORE_t" EntitySet="ORE_t" />
           </AssociationSet>
+          <EntitySet Name="Kozterulet_t" EntityType="KotorDb.Kozterulet_t" />
+          <EntitySet Name="KozteruletJelleg_m" EntityType="KotorDb.KozteruletJelleg_m" />
+          <AssociationSet Name="Cim_KozteruletId_FK" Association="KotorDb.Cim_KozteruletId_FK">
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
+            <End Role="Cim_t" EntitySet="Cim_t" />
+          </AssociationSet>
+          <AssociationSet Name="Kozterulet_EllenorzoId_FK" Association="KotorDb.Kozterulet_EllenorzoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Kozterulet_KozteruletJellegKod_FK" Association="KotorDb.Kozterulet_KozteruletJellegKod_FK">
+            <End Role="KozteruletJelleg_m" EntitySet="KozteruletJelleg_m" />
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
+          </AssociationSet>
+          <AssociationSet Name="Kozterulet_UtolsoModositoId_FK" Association="KotorDb.Kozterulet_UtolsoModositoId_FK">
+            <End Role="Munkatars_t" EntitySet="Munkatars_t" />
+            <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Munkatars_t">
           <Key>
@@ -1723,6 +1847,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <NavigationProperty Name="Mesterkorzet_t1" Relationship="KotorDb.Munkatars_MesterkorzetId_FK" FromRole="Munkatars_t" ToRole="Mesterkorzet_t" />
           <NavigationProperty Name="Regio_t" Relationship="KotorDb.Munkatars_RegioId_FK" FromRole="Munkatars_t" ToRole="Regio_t" />
           <NavigationProperty Name="Regio_t1" Relationship="KotorDb.Regio_VezetoId_FK" FromRole="Munkatars_t" ToRole="Regio_t" />
+          <NavigationProperty Name="Kozterulet_t" Relationship="KotorDb.Kozterulet_EllenorzoId_FK" FromRole="Munkatars_t" ToRole="Kozterulet_t" />
+          <NavigationProperty Name="Kozterulet_t1" Relationship="KotorDb.Kozterulet_UtolsoModositoId_FK" FromRole="Munkatars_t" ToRole="Kozterulet_t" />
         </EntityType>
         <Association Name="Cim_EllenorzoId_FK">
           <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
@@ -2358,6 +2484,98 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Kozterulet_t">
+          <Key>
+            <PropertyRef Name="KozteruletId" />
+          </Key>
+          <Property Name="KozteruletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TelepulesId" Type="Int32" Nullable="false" />
+          <Property Name="IRSZ" Type="Int32" Nullable="false" />
+          <Property Name="Nev" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NevRegi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="KozteruletJellegKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Varosresz" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Szam1" Type="Int32" />
+          <Property Name="Jel1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Szam2" Type="Int32" />
+          <Property Name="Jel2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Kerulet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Telepulesresz" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DijbeszedoNev" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FoldhivatalNev" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Old_TavirUtcakod" Type="Int32" />
+          <Property Name="Megjegyzes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Forras" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UtolsoModositasDatuma" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UtolsoModositoId" Type="Int32" Nullable="false" />
+          <Property Name="EllenorzesDatuma" Type="DateTime" Precision="3" />
+          <Property Name="EllenorzoId" Type="Int32" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Ervenyes" Type="Boolean" Nullable="false" />
+          <Property Name="Minositett_torzsadat" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cim_t" Relationship="KotorDb.Cim_KozteruletId_FK" FromRole="Kozterulet_t" ToRole="Cim_t" />
+          <NavigationProperty Name="Munkatars_t" Relationship="KotorDb.Kozterulet_EllenorzoId_FK" FromRole="Kozterulet_t" ToRole="Munkatars_t" />
+          <NavigationProperty Name="KozteruletJelleg_m" Relationship="KotorDb.Kozterulet_KozteruletJellegKod_FK" FromRole="Kozterulet_t" ToRole="KozteruletJelleg_m" />
+          <NavigationProperty Name="Munkatars_t1" Relationship="KotorDb.Kozterulet_UtolsoModositoId_FK" FromRole="Kozterulet_t" ToRole="Munkatars_t" />
+        </EntityType>
+        <EntityType Name="KozteruletJelleg_m">
+          <Key>
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Kod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nev" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NevRovid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Kozterulet_t" Relationship="KotorDb.Kozterulet_KozteruletJellegKod_FK" FromRole="KozteruletJelleg_m" ToRole="Kozterulet_t" />
+        </EntityType>
+        <Association Name="Cim_KozteruletId_FK">
+          <End Type="KotorDb.Kozterulet_t" Role="Kozterulet_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Cim_t" Role="Cim_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kozterulet_t">
+              <PropertyRef Name="KozteruletId" />
+            </Principal>
+            <Dependent Role="Cim_t">
+              <PropertyRef Name="KozteruletId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kozterulet_EllenorzoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
+          <End Type="KotorDb.Kozterulet_t" Role="Kozterulet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Kozterulet_t">
+              <PropertyRef Name="EllenorzoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kozterulet_KozteruletJellegKod_FK">
+          <End Type="KotorDb.KozteruletJelleg_m" Role="KozteruletJelleg_m" Multiplicity="1" />
+          <End Type="KotorDb.Kozterulet_t" Role="Kozterulet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KozteruletJelleg_m">
+              <PropertyRef Name="Kod" />
+            </Principal>
+            <Dependent Role="Kozterulet_t">
+              <PropertyRef Name="KozteruletJellegKod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kozterulet_UtolsoModositoId_FK">
+          <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="1" />
+          <End Type="KotorDb.Kozterulet_t" Role="Kozterulet_t" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Munkatars_t">
+              <PropertyRef Name="MunkatarsId" />
+            </Principal>
+            <Dependent Role="Kozterulet_t">
+              <PropertyRef Name="UtolsoModositoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2888,6 +3106,47 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
                 <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="Nev" ColumnName="Nev" />
                 <ScalarProperty Name="RovidNev" ColumnName="RovidNev" />
+                <ScalarProperty Name="Kod" ColumnName="Kod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kozterulet_t">
+            <EntityTypeMapping TypeName="KotorDb.Kozterulet_t">
+              <MappingFragment StoreEntitySet="Kozterulet_t">
+                <ScalarProperty Name="Minositett_torzsadat" ColumnName="Minositett_torzsadat" />
+                <ScalarProperty Name="Ervenyes" ColumnName="Ervenyes" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="EllenorzoId" ColumnName="EllenorzoId" />
+                <ScalarProperty Name="EllenorzesDatuma" ColumnName="EllenorzesDatuma" />
+                <ScalarProperty Name="UtolsoModositoId" ColumnName="UtolsoModositoId" />
+                <ScalarProperty Name="UtolsoModositasDatuma" ColumnName="UtolsoModositasDatuma" />
+                <ScalarProperty Name="Forras" ColumnName="Forras" />
+                <ScalarProperty Name="Megjegyzes" ColumnName="Megjegyzes" />
+                <ScalarProperty Name="Old_TavirUtcakod" ColumnName="Old_TavirUtcakod" />
+                <ScalarProperty Name="FoldhivatalNev" ColumnName="FoldhivatalNev" />
+                <ScalarProperty Name="DijbeszedoNev" ColumnName="DijbeszedoNev" />
+                <ScalarProperty Name="Telepulesresz" ColumnName="Telepulesresz" />
+                <ScalarProperty Name="Kerulet" ColumnName="Kerulet" />
+                <ScalarProperty Name="Jel2" ColumnName="Jel2" />
+                <ScalarProperty Name="Szam2" ColumnName="Szam2" />
+                <ScalarProperty Name="Jel1" ColumnName="Jel1" />
+                <ScalarProperty Name="Szam1" ColumnName="Szam1" />
+                <ScalarProperty Name="Varosresz" ColumnName="Varosresz" />
+                <ScalarProperty Name="KozteruletJellegKod" ColumnName="KozteruletJellegKod" />
+                <ScalarProperty Name="NevRegi" ColumnName="NevRegi" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+                <ScalarProperty Name="IRSZ" ColumnName="IRSZ" />
+                <ScalarProperty Name="TelepulesId" ColumnName="TelepulesId" />
+                <ScalarProperty Name="KozteruletId" ColumnName="KozteruletId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KozteruletJelleg_m">
+            <EntityTypeMapping TypeName="KotorDb.KozteruletJelleg_m">
+              <MappingFragment StoreEntitySet="KozteruletJelleg_m">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="NevRovid" ColumnName="NevRovid" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
                 <ScalarProperty Name="Kod" ColumnName="Kod" />
               </MappingFragment>
             </EntityTypeMapping>

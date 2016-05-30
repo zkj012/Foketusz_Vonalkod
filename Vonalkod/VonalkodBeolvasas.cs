@@ -386,6 +386,8 @@ namespace Vonalkod
                                     // grLakasLista.Sort(grLakasLista.Columns["em"], ListSortDirection.Ascending);
                                     // grLakasLista.Refresh();
                                     grLakasLista.Visible = !chkKemenysepro.Checked;
+                                    // grLakasLista.Sort(grLakasLista.Columns["vk"],ListSortDirection.Ascending); // ezt kell átírni custom sort-ra. Rendezni meg csak iBindinglist-re lehet...
+                                    //(grLakasLista.DataSource as DataTable).DefaultView.Sort = "lh, em, aj, ajt"; // ezt így nem lehet
                                 }
 
                                 t3 = (from v in ke.Tanusitvany_t
@@ -1020,7 +1022,8 @@ namespace Vonalkod
                 lbl99.Visible = true;
             }
 
-            if(VkTan[Vonalkod].oid != null)
+            int? so = VkTan[Vonalkod].oid != null ? VkTan[Vonalkod].oid : VkTan[VkTan[Vonalkod].SzuloVk].oid;
+            if(so != null)
             {
                 grLakasLista.ClearSelection();
                 // set a flag for existance of row
@@ -1030,7 +1033,7 @@ namespace Vonalkod
                 for (int i = 0; i < grLakasLista.Rows.Count; i++)
                 {
                     // check to see if this is the row you want to remember
-                    if((int)grLakasLista.Rows[i].Cells["oid"].Value == VkTan[Vonalkod].oid)
+                    if((int)grLakasLista.Rows[i].Cells["oid"].Value == so)
                     {
                         // set CurrentCell equal to this row, you can choose any cell in the row
                         grLakasLista.Rows[i].Selected = true;
@@ -1049,7 +1052,6 @@ namespace Vonalkod
                     // grLakasLista.Rows[0].Selected = true;
                     grLakasLista.FirstDisplayedScrollingRowIndex = 0;
                 }
-                
             }
         }
 
@@ -1161,9 +1163,12 @@ namespace Vonalkod
 
         private void btnLakasadat_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("btnLakasadat_Click");
-            AdatbevitelStatusz = 1;
-            tbLepcsohaz.Select();
+            if(AdatbevitelStatusz == 0)
+            {
+                Console.WriteLine("Vonalkódolvasás utáni lakásadatszerkesztés (keresés után módosítás vagy új lakás hozzáadása jöhet)");
+                AdatbevitelStatusz = 1;
+                tbLepcsohaz.Select();
+            }
         }
 
         private void chkEvesEllenorzes_CheckedChanged(object sender, EventArgs e)
@@ -1209,6 +1214,78 @@ namespace Vonalkod
                 grLakasLista.Visible = !chkKemenysepro.Checked;
             }
             
+        }
+
+        private int? LakasKeresesGrid(string lh, string emj, string aj, string ajt)
+        {
+            int lhmatch = -1;
+            int emjmatch = -1;
+            int ajmatch = -1;
+            int ajtmatch = -1;
+
+            grLakasLista.ClearSelection();
+            
+            for (int i = 0; i < grLakasLista.Rows.Count; i++)
+            {
+                if (grLakasLista.Rows[i].Cells["vk"].Value == "") // csak a vonalkód nélküliekben keres
+                {
+                    lhmatch = grLakasLista.Rows[i].Cells["lh"].Value == lh ? i : lhmatch;
+                    emjmatch = grLakasLista.Rows[i].Cells["emj"].Value == emj ? i : lhmatch;
+                    ajmatch = grLakasLista.Rows[i].Cells["aj"].Value == aj ? i : lhmatch;
+                    ajtmatch = grLakasLista.Rows[i].Cells["ajt"].Value == ajt ? i : lhmatch;
+
+                }
+            }
+
+            // if row does not exist, set current cell to first row.
+ /*           if (!rowExists)
+            {
+                // grLakasLista.Rows[0].Selected = true;
+                grLakasLista.FirstDisplayedScrollingRowIndex = 0;
+            }*/
+            return null;
+        }
+        
+        private void grLakasLista_SelectionChanged(object sender, EventArgs e)
+        {
+            if(tbLak.Text != "")
+            {
+                int? so = VkTan[tbLak.Text].oid != null ? VkTan[tbLak.Text].oid : VkTan[VkTan[tbLak.Text].SzuloVk].oid;
+                if (so != null)
+                {
+                    grLakasLista.ClearSelection();
+                    // set a flag for existance of row
+                    bool rowExists = false;
+
+                    // loop through the rows in the data grid
+                    for (int i = 0; i < grLakasLista.Rows.Count; i++)
+                    {
+                        // check to see if this is the row you want to remember
+                        if ((int)grLakasLista.Rows[i].Cells["oid"].Value == so)
+                        {
+                            // set CurrentCell equal to this row, you can choose any cell in the row
+                            grLakasLista.Rows[i].Selected = true;
+
+                            // set flag for existance of row
+                            rowExists = true;
+                            grLakasLista.FirstDisplayedScrollingRowIndex = i == 0 ? 0 : i - 1;
+                            // break out, you don't need to loop anymore
+                            break;
+                        }
+                    }
+
+                    // if row does not exist, set current cell to first row.
+                    if (!rowExists)
+                    {
+                        // grLakasLista.Rows[0].Selected = true;
+                        grLakasLista.FirstDisplayedScrollingRowIndex = 0;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Nem lakáshoz rendelt tanúsítvány, választás+szerkesztés"); // választhat innen, amit módosít, vagy keres a lakásadatok módosítása alapján
+                }
+            }
         }
     }
 }

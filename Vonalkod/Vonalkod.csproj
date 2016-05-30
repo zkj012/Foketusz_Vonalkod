@@ -103,6 +103,12 @@
     <Compile Include="EmeletJel_m.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="KozteruletJelleg_m.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kozterulet_t.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
     <Compile Include="Lakas.cs" />
     <Compile Include="Login.cs">

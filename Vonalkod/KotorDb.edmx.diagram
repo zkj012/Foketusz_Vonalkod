@@ -57,6 +57,12 @@
         <EntityTypeShape EntityType="KotorDb.EmeletJel_m" Width="1.5" PointX="12.375" PointY="10.125" />
         <AssociationConnector Association="KotorDb.FK_Cim_t_EmeletKod_m" />
         <AssociationConnector Association="KotorDb.FK_ORE_t_EmeletKod_m" />
+        <EntityTypeShape EntityType="KotorDb.Kozterulet_t" Width="1.5" PointX="13.125" PointY="14.375" />
+        <EntityTypeShape EntityType="KotorDb.KozteruletJelleg_m" Width="1.5" PointX="10.875" PointY="18.75" />
+        <AssociationConnector Association="KotorDb.Cim_KozteruletId_FK" />
+        <AssociationConnector Association="KotorDb.Kozterulet_EllenorzoId_FK" />
+        <AssociationConnector Association="KotorDb.Kozterulet_KozteruletJellegKod_FK" />
+        <AssociationConnector Association="KotorDb.Kozterulet_UtolsoModositoId_FK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

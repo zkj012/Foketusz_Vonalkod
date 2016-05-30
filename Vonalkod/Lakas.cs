@@ -21,19 +21,5 @@ namespace Vonalkod
         public bool torlendo { get; set; }
         public bool uj { get; set; }
 
-/*
-        public int? oid;
-        public string emelet;
-        public string emeletjelkod;
-        public string lepcsohaz;
-        public string ajto;
-        public string ajtotores;
-        public string megjegyzes;
-        public bool torolve;
-        public string vonalkod;
-        public bool torlendo;
-        public bool uj;
- */
-
     }
 }

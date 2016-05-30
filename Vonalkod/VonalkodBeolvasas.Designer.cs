@@ -460,8 +460,10 @@
             this.grLakasLista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grLakasLista.Location = new System.Drawing.Point(20, 490);
             this.grLakasLista.Name = "grLakasLista";
+            this.grLakasLista.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grLakasLista.Size = new System.Drawing.Size(991, 225);
             this.grLakasLista.TabIndex = 45;
+            this.grLakasLista.SelectionChanged += new System.EventHandler(this.grLakasLista_SelectionChanged);
             // 
             // VonalkodBeolvasas
             // 

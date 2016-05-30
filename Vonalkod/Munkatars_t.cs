@@ -28,6 +28,8 @@ namespace Vonalkod
             this.Rendeles_t = new HashSet<Rendeles_t>();
             this.Mesterkorzet_t = new HashSet<Mesterkorzet_t>();
             this.Regio_t1 = new HashSet<Regio_t>();
+            this.Kozterulet_t = new HashSet<Kozterulet_t>();
+            this.Kozterulet_t1 = new HashSet<Kozterulet_t>();
         }
     
         public int MunkatarsId { get; set; }
@@ -87,5 +89,9 @@ namespace Vonalkod
         public virtual Regio_t Regio_t { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Regio_t> Regio_t1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kozterulet_t> Kozterulet_t { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kozterulet_t> Kozterulet_t1 { get; set; }
     }
 }

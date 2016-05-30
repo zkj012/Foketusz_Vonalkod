@@ -59,5 +59,6 @@ namespace Vonalkod
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Regio_t> Regio_t { get; set; }
         public virtual EmeletJel_m EmeletJel_m { get; set; }
+        public virtual Kozterulet_t Kozterulet_t { get; set; }
     }
 }
