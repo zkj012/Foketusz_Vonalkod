@@ -61,10 +61,16 @@
     <ManifestKeyFile>Vonalkod_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -109,6 +115,7 @@
     <Compile Include="Kozterulet_t.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="LakasComparer.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Lakas.cs" />
     <Compile Include="Login.cs">
@@ -227,6 +234,7 @@
       <DependentUpon>KotorDb.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Tanusitvany_t.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

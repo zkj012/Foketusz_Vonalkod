@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,6 +40,8 @@ namespace Vonalkod
         const string KetszerZartSzoveg = "; Kétszer zárt";
         Color KetszerzartBetuszin = Color.DarkOrchid;
 
+        private readonly IComparer<Lakas> lakasComparer = new LakasComparer();
+
         int AdatbevitelStatusz; // a vonalkód mező fókusz visszatérést szabályozza pl. lakásadatfrissítéskor
 
         public VonalkodBeolvasas()
@@ -72,7 +75,7 @@ namespace Vonalkod
                     }
 
                     EmeletjelLista.Add("<NA>", "<Nincs emelet>");
-                    foreach (var w in (from em in ke.EmeletJel_m select new { em.Kod,em.RovidNev }  ))
+                    foreach (var w in (from em in ke.EmeletJel_m select new { em.Kod, em.RovidNev }))
                     {
                         EmeletjelLista.Add(w.Kod, w.RovidNev);
                     }
@@ -91,7 +94,7 @@ namespace Vonalkod
                     chkEvesEllenorzes.Enabled = !chkKemenysepro.Checked;
                     grLakasLista.Visible = false; // üresen nem látható
 
-                    grLakasLista.Columns.Add(new DataGridViewTextBoxColumn { Name = "lh", DataPropertyName = "lepcsohaz", HeaderText = "Lépcsőház", ReadOnly=true });
+                    grLakasLista.Columns.Add(new DataGridViewTextBoxColumn { Name = "lh", DataPropertyName = "lepcsohaz", HeaderText = "Lépcsőház", ReadOnly = true });
                     grLakasLista.Columns.Add(new DataGridViewTextBoxColumn { Name = "em", DataPropertyName = "emelet", HeaderText = "Emelet", ReadOnly = true });
                     grLakasLista.Columns.Add(new DataGridViewTextBoxColumn { Name = "aj", DataPropertyName = "ajto", HeaderText = "Ajtó", ReadOnly = true });
                     grLakasLista.Columns.Add(new DataGridViewTextBoxColumn { Name = "ajt", DataPropertyName = "ajtotores", HeaderText = "Ajtótörés", ReadOnly = true });
@@ -144,7 +147,7 @@ namespace Vonalkod
 
                     using (KotorEntities ke = new KotorEntities())
                     {
-                        if(GetTanTipus(tbVk.Text) != "TORLES" && GetTanTipus(tbVk.Text) != "KETSZERZART")
+                        if (GetTanTipus(tbVk.Text) != "TORLES" && GetTanTipus(tbVk.Text) != "KETSZERZART")
                         {
                             tbLastVk.Text = tbVk.Text;
                         }
@@ -172,11 +175,11 @@ namespace Vonalkod
                                       nyomtatvanytipuskod = v.NyomtatvanyTipusKod,
                                       nyomtatvanytipus = (from x in ke.NyomtatvanyTipus_m where x.Kod == v.NyomtatvanyTipusKod select new { x.Nev }).FirstOrDefault().Nev,
                                       NemMozgathato = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
-                                      KetszerzartRogzitve = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod && w.HibaTipusKod.Substring(0,1) == "8" select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
+                                      KetszerzartRogzitve = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod && w.HibaTipusKod.Substring(0, 1) == "8" select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
                                       Ketszerzart = v.Ketszerzart,
                                       EvesEllenorzes = v.EvesEllenorzes
                                   }).FirstOrDefault();
-                            if(ta != null && ta.KetszerzartRogzitve == true)
+                            if (ta != null && ta.KetszerzartRogzitve == true)
                             {
                                 ta.Ketszerzart = ta.KetszerzartRogzitve;
                             }
@@ -186,7 +189,7 @@ namespace Vonalkod
                                 MessageBox.Show("Új, adatbázisban nem szereplő főtanúsítvány (adatbázisba illesztés)");
                                 // címet kell beírni, ha kéménysöprő; ha adminisztrátor, akkor munkához kell, hogy rendelje.
 
-                                if(chkKemenysepro.Checked)
+                                if (chkKemenysepro.Checked)
                                 {
                                     CimInput cimfrm = new CimInput();
                                     cimfrm.ShowDialog(this);
@@ -202,7 +205,7 @@ namespace Vonalkod
                                     Vonalkod = tbVk.Text,
                                     NyomtatvanyTipusKod = GetTanTipus(tbVk.Text),
                                     BeolvasasIdopontja = System.DateTime.Now,
-                                    Megjegyzes = "Cím: "+tbCim.Text, // kéményseprőmód esetén beírt cím, egyébként kiválasztott munka
+                                    Megjegyzes = "Cím: " + tbCim.Text, // kéményseprőmód esetén beírt cím, egyébként kiválasztott munka
                                     kacs_Megjegyzes = "Vonalkódolvasás-kéményseprő mód",
                                     Technikai = true
                                 });
@@ -265,7 +268,7 @@ namespace Vonalkod
                                           Ketszerzart = v.Ketszerzart,
                                           EvesEllenorzes = v.EvesEllenorzes,
                                           NemMozgathato = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
-                                          NemTorolheto = (from m in ke.MunkaTargya_cs where m.TanusitvanyId == ta.FotanId select new {vx = m.TanusitvanyId }).Count() != 0,
+                                          NemTorolheto = (from m in ke.MunkaTargya_cs where m.TanusitvanyId == ta.FotanId select new { vx = m.TanusitvanyId }).Count() != 0,
                                           lepcsohaz = v.Oid == null ? null : (from w in ke.ORE_t where w.Oid == v.Oid select new { lh = w.Lepcsohaz }).FirstOrDefault().lh,
                                           emelet = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { em = w.Emelet }).FirstOrDefault().em,
                                           emeletjel = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { emj = w.EmeletJelKod }).FirstOrDefault().emj,
@@ -273,7 +276,7 @@ namespace Vonalkod
                                           ajtotores = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { ajt = w.Ajtotores }).FirstOrDefault().ajt,
                                           OreMegjegyzes = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { mj = w.Megjegyzes }).FirstOrDefault().mj
                                       }).FirstOrDefault();
-                                if(t1.MunkaId != null && t1.KetszerzartRogzitve == true)
+                                if (t1.MunkaId != null && t1.KetszerzartRogzitve == true)
                                 {
                                     t1.Ketszerzart = t1.KetszerzartRogzitve;
                                 }
@@ -381,8 +384,10 @@ namespace Vonalkod
                                     }
 
                                     grLakasLista.AutoGenerateColumns = false;
-                                    grLakasLista.DataSource = Lakasok;
+
+                                    UpdateGridDataSource(Lakasok, x => !String.IsNullOrEmpty(x.vonalkod));
                                     grLakasLista.AutoResizeColumns();
+
                                     // grLakasLista.Sort(grLakasLista.Columns["em"], ListSortDirection.Ascending);
                                     // grLakasLista.Refresh();
                                     grLakasLista.Visible = !chkKemenysepro.Checked;
@@ -469,242 +474,242 @@ namespace Vonalkod
                                 switch (GetTanTipus(tbVk.Text))
                                 {
                                     case "KETSZERZART":
-                                    {
-                                        if(tbLak.Text != "")
                                         {
-                                            var kz = t2.Find(x => x.Vonalkod == tbLak.Text);
-                                            var ml = t3.Find(y => y.SzuloVk == kz.Vonalkod && y.nyomtatvanytipuskod == "ZARTLAKASERTESITO");
-
-                                            if (kz.KetszerzartRogzitve == false) // csak akkor állítható, ha még nincs az adatbázisban rögzítve a kétszer zárt állapot
+                                            if (tbLak.Text != "")
                                             {
-                                                if(!kz.Ketszerzart && ml != null) // eddig nem volt kétszer zárt->csak második látogatás értesítővel együtt lehet kétszer zárt
-                                                {
-                                                    kz.Ketszerzart = !kz.Ketszerzart;
-                                                }
-                                                else if(kz.Ketszerzart) // kétszer zárt állapotot lehet törölni
-                                                {
-                                                    kz.Ketszerzart = !kz.Ketszerzart;
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Nem lehet kétszer zárt, ha nincs második értesítő!");
-                                                }
+                                                var kz = t2.Find(x => x.Vonalkod == tbLak.Text);
+                                                var ml = t3.Find(y => y.SzuloVk == kz.Vonalkod && y.nyomtatvanytipuskod == "ZARTLAKASERTESITO");
 
-                                                VkTan[tbLak.Text].Ketszerzart = kz.Ketszerzart;
+                                                if (kz.KetszerzartRogzitve == false) // csak akkor állítható, ha még nincs az adatbázisban rögzítve a kétszer zárt állapot
+                                                {
+                                                    if (!kz.Ketszerzart && ml != null) // eddig nem volt kétszer zárt->csak második látogatás értesítővel együtt lehet kétszer zárt
+                                                    {
+                                                        kz.Ketszerzart = !kz.Ketszerzart;
+                                                    }
+                                                    else if (kz.Ketszerzart) // kétszer zárt állapotot lehet törölni
+                                                    {
+                                                        kz.Ketszerzart = !kz.Ketszerzart;
+                                                    }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("Nem lehet kétszer zárt, ha nincs második értesítő!");
+                                                    }
 
-                                                tvVonalkodok.BeginUpdate();
-                                                if (kz.Ketszerzart)
-                                                {
-                                                    VkTree[tbLak.Text].Text = VkTree[tbLak.Text].Text + KetszerZartSzoveg;
-                                                    VkTree[tbLak.Text].ForeColor = KetszerzartBetuszin;
-                                                }
-                                                else
-                                                {
-                                                    VkTree[tbLak.Text].Text = VkTree[tbLak.Text].Text.Replace(KetszerZartSzoveg, "");
-                                                    VkTree[tbLak.Text].ForeColor = Color.Empty;
-                                                }
-                                                tvVonalkodok.EndUpdate();
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("A kétszer zárt állapot a munkatárgyánál rögzített, innen nem lehet megszüntetni (a 8-as hibát kell törölni)");
-                                            }
-                                        }
-                                        else // főtanúsítvány-épület kétszer zárt
-                                        {
-                                            if(t1.KetszerzartRogzitve == false)
-                                            {
-                                                var ml = t2.Find(y => y.SzuloVk == tbFo.Text && y.nyomtatvanytipuskod == "ZARTLAKASERTESITO");
-
-                                                if (!VkTan[tbFo.Text].Ketszerzart && ml != null) // eddig nem volkt készr zárt->csak második látogatás értesítővel együtt lehet kétszer zárt
-                                                {
-                                                    VkTan[tbFo.Text].Ketszerzart = !VkTan[tbFo.Text].Ketszerzart;
-                                                }
-                                                else if (VkTan[tbFo.Text].Ketszerzart) // kétszer zárt állapotot lehet törölni
-                                                {
-                                                    VkTan[tbFo.Text].Ketszerzart = !VkTan[tbFo.Text].Ketszerzart;
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Nem lehet kétszer zárt, ha nincs második értesítő!");
-                                                }
-
-                                                tvVonalkodok.BeginUpdate();
-                                                if (VkTan[tbFo.Text].Ketszerzart)
-                                                {
-                                                    VkTree[tbFo.Text].Text = VkTree[tbFo.Text].Text + KetszerZartSzoveg;
-                                                    VkTree[tbFo.Text].ForeColor = KetszerzartBetuszin;
-                                                }
-                                                else
-                                                {
-                                                    VkTree[tbFo.Text].Text = VkTree[tbFo.Text].Text.Replace(KetszerZartSzoveg, "");
-                                                    VkTree[tbFo.Text].ForeColor = Color.Empty;
-                                                }
-                                                tvVonalkodok.EndUpdate();
-                                            }
-                                        }
-                                        break;
-                                    }
-                                    case "TORLES":
-                                    {
-                                        string SelectedVonalkod = VkTree.FirstOrDefault(x => x.Value == tvVonalkodok.SelectedNode).Key;
-
-                                        var ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[SelectedVonalkod].Vonalkod && (v.NemTorolheto == true || v.NemMozgathato == true) select v);
-                                        if (VkTan[SelectedVonalkod].NemMozgathato == false && VkTan[SelectedVonalkod].NemTorolheto == false && ch.Count() == 0)
-                                        {
-                                            ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[SelectedVonalkod].Vonalkod select v).ToList();
-                                            foreach (Tan x in ch)
-                                            {
-                                                if (x.db == vkInDb.IsmertVk)
-                                                {
-                                                    MessageBox.Show(string.Format("Adatbázisból törlendő tanúsítvány: {0} ({1})", x.Vonalkod, x.TanId.ToString()));
-                                                }
-                                                else
-                                                {
-                                                    t3.Remove(t3.Find(r => r.Vonalkod == x.Vonalkod));
-                                                    t2.Remove(t2.Find(r => r.Vonalkod == x.Vonalkod));
+                                                    VkTan[tbLak.Text].Ketszerzart = kz.Ketszerzart;
 
                                                     tvVonalkodok.BeginUpdate();
-                                                    tvVonalkodok.Nodes.Remove(VkTree[x.Vonalkod]);
+                                                    if (kz.Ketszerzart)
+                                                    {
+                                                        VkTree[tbLak.Text].Text = VkTree[tbLak.Text].Text + KetszerZartSzoveg;
+                                                        VkTree[tbLak.Text].ForeColor = KetszerzartBetuszin;
+                                                    }
+                                                    else
+                                                    {
+                                                        VkTree[tbLak.Text].Text = VkTree[tbLak.Text].Text.Replace(KetszerZartSzoveg, "");
+                                                        VkTree[tbLak.Text].ForeColor = Color.Empty;
+                                                    }
                                                     tvVonalkodok.EndUpdate();
-
-                                                    VkTree.Remove(x.Vonalkod);
-                                                    VkTan[x.Vonalkod].Torlendo = true;
-                                                    VkTan.Remove(x.Vonalkod);
-                                                }
-                                            }
-
-                                            if (VkTan[SelectedVonalkod].db == vkInDb.IsmertVk)
-                                            {
-                                                MessageBox.Show(string.Format("Adatbázisból törlendő tanúsítvány: {0} ({1})", VkTan[tbLastVk.Text].Vonalkod, VkTan[tbLastVk.Text].TanId.ToString()));
-                                            }
-                                            else
-                                            {
-                                                t3.Remove(t3.Find(r => r.Vonalkod == tbLastVk.Text));
-                                                t2.Remove(t2.Find(r => r.Vonalkod == tbLastVk.Text));
-
-                                                tvVonalkodok.BeginUpdate();
-                                                tvVonalkodok.Nodes.Remove(VkTree[SelectedVonalkod]);
-                                                tvVonalkodok.EndUpdate();
-
-                                                VkTree.Remove(SelectedVonalkod);
-                                                VkTan[SelectedVonalkod].Torlendo = true;
-                                                VkTan.Remove(SelectedVonalkod);
-                                            }
-                                        }
-                                        break;
-                                    }
-
-                                    case "FOTANUSITVANY":
-                                    {
-                                        tbLak.Text = "";
-                                        tvVonalkodok.SelectedNode = VkTree[tbVk.Text];
-                                        tvVonalkodok.SelectedNode.EnsureVisible();
-                                        break;
-                                    }
-
-                                    case "LAKASTANUSITVANY":
-                                    {
-                                        tvVonalkodok.BeginUpdate();
-                                        tbLak.Text = tbVk.Text;
-                                        tvVonalkodok.SelectedNode = VkTree[tbVk.Text];
-                                        tvVonalkodok.SelectedNode.EnsureVisible();
-                                        tvVonalkodok.EndUpdate();
-                                        break;
-                                    }
-
-                                    default:
-                                    {
-                                        var tp = t2.Find(x => x.Vonalkod == VkTan[tbVk.Text].SzuloVk);
-                                        if (tp != null) // lakástanúsítvány a szülő
-                                        {
-                                            if (tp.Vonalkod == tbLak.Text)
-                                            {
-                                                tvVonalkodok.BeginUpdate();
-                                                tvVonalkodok.SelectedNode = VkTree[tbVk.Text];
-                                                tvVonalkodok.SelectedNode.EnsureVisible();
-                                                tvVonalkodok.EndUpdate();
-                                            }
-                                            else
-                                            {
-                                                if (VkTan[tbVk.Text].NemMozgathato == true)
-                                                {
-                                                    MessageBox.Show("A " + tbVk.Text + " számú " + NyTip[VkTan[tbVk.Text].nyomtatvanytipuskod] + " nem mozgatható, van hozzá rögzített hiba");
                                                 }
                                                 else
                                                 {
-                                                    if (MessageBox.Show("Biztos, hogy " + (tbLak.Text == "" ? "az épülethez" : "más lakáshoz") + " tartozik a most beolvasott vonalkódú nyomtatvány?", "Nyomtatványáthelyezés", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                                    {
-                                                        VkTan[tbVk.Text].SzuloId = tbLak.Text == "" ? VkTan[tbFo.Text].TanId : VkTan[tbLak.Text].TanId;
-                                                        VkTan[tbVk.Text].SzuloVk = tbLak.Text == "" ? VkTan[tbFo.Text].Vonalkod : VkTan[tbLak.Text].Vonalkod;
-                                                        VkTan[tbVk.Text].SzuloNyomtTipKod = tbLak.Text == "" ? VkTan[tbFo.Text].nyomtatvanytipuskod : VkTan[tbLak.Text].nyomtatvanytipuskod;
-                                                        VkTan[tbVk.Text].SzuloIdModositott = true;
-                                                        VkTan[tbVk.Text].oid = tbLak.Text == "" ? VkTan[tbFo.Text].oid : VkTan[tbLak.Text].oid;
+                                                    MessageBox.Show("A kétszer zárt állapot a munkatárgyánál rögzített, innen nem lehet megszüntetni (a 8-as hibát kell törölni)");
+                                                }
+                                            }
+                                            else // főtanúsítvány-épület kétszer zárt
+                                            {
+                                                if (t1.KetszerzartRogzitve == false)
+                                                {
+                                                    var ml = t2.Find(y => y.SzuloVk == tbFo.Text && y.nyomtatvanytipuskod == "ZARTLAKASERTESITO");
 
-                                                        if (tbLak.Text == "") // lakás->főtanúsítvány mozgatás
-                                                        {
-                                                            t2.Add(VkTan[tbVk.Text]);
-                                                            t3.Remove(t3.Find(r => r.Vonalkod == tbVk.Text));
-                                                        }
-                                                        else // más lakáshoz tartozik, nincs szintváltás
-                                                        {
-                                                            Tan v = (from w in t3 where w.Vonalkod == tbVk.Text select w).FirstOrDefault();
-                                                            if(v!=null)
-                                                            {
-                                                                v.SzuloId = tbLak.Text == "" ? VkTan[tbFo.Text].TanId : VkTan[tbLak.Text].TanId;
-                                                                v.SzuloIdModositott = true;
-                                                            }
-                                                        }
+                                                    if (!VkTan[tbFo.Text].Ketszerzart && ml != null) // eddig nem volkt készr zárt->csak második látogatás értesítővel együtt lehet kétszer zárt
+                                                    {
+                                                        VkTan[tbFo.Text].Ketszerzart = !VkTan[tbFo.Text].Ketszerzart;
+                                                    }
+                                                    else if (VkTan[tbFo.Text].Ketszerzart) // kétszer zárt állapotot lehet törölni
+                                                    {
+                                                        VkTan[tbFo.Text].Ketszerzart = !VkTan[tbFo.Text].Ketszerzart;
+                                                    }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("Nem lehet kétszer zárt, ha nincs második értesítő!");
+                                                    }
+
+                                                    tvVonalkodok.BeginUpdate();
+                                                    if (VkTan[tbFo.Text].Ketszerzart)
+                                                    {
+                                                        VkTree[tbFo.Text].Text = VkTree[tbFo.Text].Text + KetszerZartSzoveg;
+                                                        VkTree[tbFo.Text].ForeColor = KetszerzartBetuszin;
+                                                    }
+                                                    else
+                                                    {
+                                                        VkTree[tbFo.Text].Text = VkTree[tbFo.Text].Text.Replace(KetszerZartSzoveg, "");
+                                                        VkTree[tbFo.Text].ForeColor = Color.Empty;
+                                                    }
+                                                    tvVonalkodok.EndUpdate();
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    case "TORLES":
+                                        {
+                                            string SelectedVonalkod = VkTree.FirstOrDefault(x => x.Value == tvVonalkodok.SelectedNode).Key;
+
+                                            var ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[SelectedVonalkod].Vonalkod && (v.NemTorolheto == true || v.NemMozgathato == true) select v);
+                                            if (VkTan[SelectedVonalkod].NemMozgathato == false && VkTan[SelectedVonalkod].NemTorolheto == false && ch.Count() == 0)
+                                            {
+                                                ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[SelectedVonalkod].Vonalkod select v).ToList();
+                                                foreach (Tan x in ch)
+                                                {
+                                                    if (x.db == vkInDb.IsmertVk)
+                                                    {
+                                                        MessageBox.Show(string.Format("Adatbázisból törlendő tanúsítvány: {0} ({1})", x.Vonalkod, x.TanId.ToString()));
+                                                    }
+                                                    else
+                                                    {
+                                                        t3.Remove(t3.Find(r => r.Vonalkod == x.Vonalkod));
+                                                        t2.Remove(t2.Find(r => r.Vonalkod == x.Vonalkod));
 
                                                         tvVonalkodok.BeginUpdate();
-
-                                                        VkTree[tbVk.Text].Remove();
-                                                        VkTree.Remove(tbVk.Text);
-                                                        TreeNode tln = VkTree[tbLak.Text == "" ? tbFo.Text : tbLak.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (" + NyTip[VkTan[tbVk.Text].nyomtatvanytipuskod] + ")");
-                                                        VkTree.Add(tbVk.Text, tln);
-
-                                                        tvVonalkodok.SelectedNode = tln;
-                                                        tvVonalkodok.SelectedNode.EnsureVisible();
-
+                                                        tvVonalkodok.Nodes.Remove(VkTree[x.Vonalkod]);
                                                         tvVonalkodok.EndUpdate();
+
+                                                        VkTree.Remove(x.Vonalkod);
+                                                        VkTan[x.Vonalkod].Torlendo = true;
+                                                        VkTan.Remove(x.Vonalkod);
+                                                    }
+                                                }
+
+                                                if (VkTan[SelectedVonalkod].db == vkInDb.IsmertVk)
+                                                {
+                                                    MessageBox.Show(string.Format("Adatbázisból törlendő tanúsítvány: {0} ({1})", VkTan[tbLastVk.Text].Vonalkod, VkTan[tbLastVk.Text].TanId.ToString()));
+                                                }
+                                                else
+                                                {
+                                                    t3.Remove(t3.Find(r => r.Vonalkod == tbLastVk.Text));
+                                                    t2.Remove(t2.Find(r => r.Vonalkod == tbLastVk.Text));
+
+                                                    tvVonalkodok.BeginUpdate();
+                                                    tvVonalkodok.Nodes.Remove(VkTree[SelectedVonalkod]);
+                                                    tvVonalkodok.EndUpdate();
+
+                                                    VkTree.Remove(SelectedVonalkod);
+                                                    VkTan[SelectedVonalkod].Torlendo = true;
+                                                    VkTan.Remove(SelectedVonalkod);
+                                                }
+                                            }
+                                            break;
+                                        }
+
+                                    case "FOTANUSITVANY":
+                                        {
+                                            tbLak.Text = "";
+                                            tvVonalkodok.SelectedNode = VkTree[tbVk.Text];
+                                            tvVonalkodok.SelectedNode.EnsureVisible();
+                                            break;
+                                        }
+
+                                    case "LAKASTANUSITVANY":
+                                        {
+                                            tvVonalkodok.BeginUpdate();
+                                            tbLak.Text = tbVk.Text;
+                                            tvVonalkodok.SelectedNode = VkTree[tbVk.Text];
+                                            tvVonalkodok.SelectedNode.EnsureVisible();
+                                            tvVonalkodok.EndUpdate();
+                                            break;
+                                        }
+
+                                    default:
+                                        {
+                                            var tp = t2.Find(x => x.Vonalkod == VkTan[tbVk.Text].SzuloVk);
+                                            if (tp != null) // lakástanúsítvány a szülő
+                                            {
+                                                if (tp.Vonalkod == tbLak.Text)
+                                                {
+                                                    tvVonalkodok.BeginUpdate();
+                                                    tvVonalkodok.SelectedNode = VkTree[tbVk.Text];
+                                                    tvVonalkodok.SelectedNode.EnsureVisible();
+                                                    tvVonalkodok.EndUpdate();
+                                                }
+                                                else
+                                                {
+                                                    if (VkTan[tbVk.Text].NemMozgathato == true)
+                                                    {
+                                                        MessageBox.Show("A " + tbVk.Text + " számú " + NyTip[VkTan[tbVk.Text].nyomtatvanytipuskod] + " nem mozgatható, van hozzá rögzített hiba");
+                                                    }
+                                                    else
+                                                    {
+                                                        if (MessageBox.Show("Biztos, hogy " + (tbLak.Text == "" ? "az épülethez" : "más lakáshoz") + " tartozik a most beolvasott vonalkódú nyomtatvány?", "Nyomtatványáthelyezés", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                                        {
+                                                            VkTan[tbVk.Text].SzuloId = tbLak.Text == "" ? VkTan[tbFo.Text].TanId : VkTan[tbLak.Text].TanId;
+                                                            VkTan[tbVk.Text].SzuloVk = tbLak.Text == "" ? VkTan[tbFo.Text].Vonalkod : VkTan[tbLak.Text].Vonalkod;
+                                                            VkTan[tbVk.Text].SzuloNyomtTipKod = tbLak.Text == "" ? VkTan[tbFo.Text].nyomtatvanytipuskod : VkTan[tbLak.Text].nyomtatvanytipuskod;
+                                                            VkTan[tbVk.Text].SzuloIdModositott = true;
+                                                            VkTan[tbVk.Text].oid = tbLak.Text == "" ? VkTan[tbFo.Text].oid : VkTan[tbLak.Text].oid;
+
+                                                            if (tbLak.Text == "") // lakás->főtanúsítvány mozgatás
+                                                            {
+                                                                t2.Add(VkTan[tbVk.Text]);
+                                                                t3.Remove(t3.Find(r => r.Vonalkod == tbVk.Text));
+                                                            }
+                                                            else // más lakáshoz tartozik, nincs szintváltás
+                                                            {
+                                                                Tan v = (from w in t3 where w.Vonalkod == tbVk.Text select w).FirstOrDefault();
+                                                                if (v != null)
+                                                                {
+                                                                    v.SzuloId = tbLak.Text == "" ? VkTan[tbFo.Text].TanId : VkTan[tbLak.Text].TanId;
+                                                                    v.SzuloIdModositott = true;
+                                                                }
+                                                            }
+
+                                                            tvVonalkodok.BeginUpdate();
+
+                                                            VkTree[tbVk.Text].Remove();
+                                                            VkTree.Remove(tbVk.Text);
+                                                            TreeNode tln = VkTree[tbLak.Text == "" ? tbFo.Text : tbLak.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (" + NyTip[VkTan[tbVk.Text].nyomtatvanytipuskod] + ")");
+                                                            VkTree.Add(tbVk.Text, tln);
+
+                                                            tvVonalkodok.SelectedNode = tln;
+                                                            tvVonalkodok.SelectedNode.EnsureVisible();
+
+                                                            tvVonalkodok.EndUpdate();
+                                                        }
                                                     }
                                                 }
                                             }
-                                        }
-                                        else if (tp == null && t1.TanId == VkTan[tbVk.Text].SzuloId && tbLak.Text != "") // főtanúsítvány->lakástanúsítvány mozgatás
-                                        {
-                                            if(VkTan[tbVk.Text].NemMozgathato)
+                                            else if (tp == null && t1.TanId == VkTan[tbVk.Text].SzuloId && tbLak.Text != "") // főtanúsítvány->lakástanúsítvány mozgatás
                                             {
-                                                MessageBox.Show(string.Format("A {0} nem mozgatható, a munkatárgyaknál rögzített hiba van.", GetTanTipus(tbVk.Text)));
+                                                if (VkTan[tbVk.Text].NemMozgathato)
+                                                {
+                                                    MessageBox.Show(string.Format("A {0} nem mozgatható, a munkatárgyaknál rögzített hiba van.", GetTanTipus(tbVk.Text)));
+                                                }
+
+                                                else if (MessageBox.Show("Biztos, hogy " + (tbLak.Text == "" ? "az épülethez" : "más lakáshoz") + " tartozik a most beolvasott vonalkódú nyomtatvány?", "Nyomtatványáthelyezés", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                                {
+                                                    VkTan[tbVk.Text].SzuloId = VkTan[tbLak.Text].TanId;
+                                                    VkTan[tbVk.Text].SzuloVk = VkTan[tbLak.Text].Vonalkod;
+                                                    VkTan[tbVk.Text].SzuloNyomtTipKod = VkTan[tbLak.Text].nyomtatvanytipuskod;
+                                                    VkTan[tbVk.Text].SzuloIdModositott = true;
+                                                    VkTan[tbVk.Text].oid = VkTan[tbLak.Text].oid;
+
+                                                    t3.Add(VkTan[tbVk.Text]);
+                                                    t2.Remove(t2.Find(r => r.Vonalkod == tbVk.Text));
+
+                                                    tvVonalkodok.BeginUpdate();
+
+                                                    VkTree[tbVk.Text].Remove();
+                                                    VkTree.Remove(tbVk.Text);
+                                                    TreeNode tln = VkTree[tbLak.Text == "" ? tbFo.Text : tbLak.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (" + NyTip[VkTan[tbVk.Text].nyomtatvanytipuskod] + ")");
+                                                    VkTree.Add(tbVk.Text, tln);
+
+                                                    tvVonalkodok.SelectedNode = tln;
+                                                    tvVonalkodok.SelectedNode.EnsureVisible();
+
+                                                    tvVonalkodok.EndUpdate();
+                                                }
                                             }
 
-                                            else if (MessageBox.Show("Biztos, hogy " + (tbLak.Text == "" ? "az épülethez" : "más lakáshoz") + " tartozik a most beolvasott vonalkódú nyomtatvány?", "Nyomtatványáthelyezés", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                            {
-                                                VkTan[tbVk.Text].SzuloId = VkTan[tbLak.Text].TanId;
-                                                VkTan[tbVk.Text].SzuloVk = VkTan[tbLak.Text].Vonalkod;
-                                                VkTan[tbVk.Text].SzuloNyomtTipKod = VkTan[tbLak.Text].nyomtatvanytipuskod;
-                                                VkTan[tbVk.Text].SzuloIdModositott = true;
-                                                VkTan[tbVk.Text].oid = VkTan[tbLak.Text].oid;
-
-                                                t3.Add(VkTan[tbVk.Text]);
-                                                t2.Remove(t2.Find(r => r.Vonalkod == tbVk.Text));
-
-                                                tvVonalkodok.BeginUpdate();
-
-                                                VkTree[tbVk.Text].Remove();
-                                                VkTree.Remove(tbVk.Text);
-                                                TreeNode tln = VkTree[tbLak.Text == "" ? tbFo.Text : tbLak.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (" + NyTip[VkTan[tbVk.Text].nyomtatvanytipuskod] + ")");
-                                                VkTree.Add(tbVk.Text, tln);
-
-                                                tvVonalkodok.SelectedNode = tln;
-                                                tvVonalkodok.SelectedNode.EnsureVisible();
-
-                                                tvVonalkodok.EndUpdate();
-                                            }
+                                            break;
                                         }
-
-                                        break;
-                                    }
                                 }
                             }
                             #endregion
@@ -730,71 +735,32 @@ namespace Vonalkod
                                     switch (GetTanTipus(tbVk.Text))
                                     {
                                         case "FOTANUSITVANY":
-                                        {
-                                            MessageBox.Show("Új főtanúsítvány, az előző rögzítését be kell fejezni");
-                                            break;
-                                        }
-                                        case "LAKASTANUSITVANY":
-                                        {
-                                            Tan tluj = new Tan();
-                                            tluj.Vonalkod = tbVk.Text;
-                                            tluj.SzuloId = t1.TanId;
-                                            tluj.SzuloVk = t1.Vonalkod;
-                                            tluj.SzuloNyomtTipKod = t1.nyomtatvanytipuskod;
-                                            tluj.MunkaId = t1.MunkaId;
-                                            tluj.FotanId = t1.TanId;
-                                            tluj.FotanVk = t1.Vonalkod;
-                                            tluj.nyomtatvanytipuskod = "LAKASTANUSITVANY";
-                                            tluj.db = vkInDb.UjVk;
-                                            tluj.Sor1 = t1.Sor1;
-                                            tluj.Sor2 = t1.Sor2;
-                                            tluj.BeolvasasIdopontja = DateTime.Now;
-
-                                            tbLak.Text = tluj.Vonalkod;
-
-                                            VkTan.Add(tluj.Vonalkod, tluj);
-                                            t2.Add(tluj);
-
-                                            tvVonalkodok.BeginUpdate();
-                                            TreeNode tln = VkTree[tbFo.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (Új " + NyTip[tluj.nyomtatvanytipuskod] + ")");
-                                            VkTree.Add(tbVk.Text, tln);
-
-                                            tvVonalkodok.SelectedNode = tln;
-                                            tvVonalkodok.SelectedNode.EnsureVisible();
-
-                                            tvVonalkodok.EndUpdate();
-
-                                            break;
-                                        }
-
-                                        default:
-                                        {
-                                            Tan tluj = new Tan();
-                                            tluj.Vonalkod = tbVk.Text;
-
-                                            if (tbLak.Text == "")
                                             {
-                                                // főtanúsítványhoz kell hozzáadni
-
+                                                MessageBox.Show("Új főtanúsítvány, az előző rögzítését be kell fejezni");
+                                                break;
+                                            }
+                                        case "LAKASTANUSITVANY":
+                                            {
+                                                Tan tluj = new Tan();
+                                                tluj.Vonalkod = tbVk.Text;
                                                 tluj.SzuloId = t1.TanId;
                                                 tluj.SzuloVk = t1.Vonalkod;
                                                 tluj.SzuloNyomtTipKod = t1.nyomtatvanytipuskod;
                                                 tluj.MunkaId = t1.MunkaId;
                                                 tluj.FotanId = t1.TanId;
                                                 tluj.FotanVk = t1.Vonalkod;
-                                                tluj.nyomtatvanytipuskod = GetTanTipus(tbVk.Text);
+                                                tluj.nyomtatvanytipuskod = "LAKASTANUSITVANY";
                                                 tluj.db = vkInDb.UjVk;
                                                 tluj.Sor1 = t1.Sor1;
                                                 tluj.Sor2 = t1.Sor2;
                                                 tluj.BeolvasasIdopontja = DateTime.Now;
 
-                                                //tbLak.Text = tluj.Vonalkod;
+                                                tbLak.Text = tluj.Vonalkod;
 
                                                 VkTan.Add(tluj.Vonalkod, tluj);
                                                 t2.Add(tluj);
 
                                                 tvVonalkodok.BeginUpdate();
-
                                                 TreeNode tln = VkTree[tbFo.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (Új " + NyTip[tluj.nyomtatvanytipuskod] + ")");
                                                 VkTree.Add(tbVk.Text, tln);
 
@@ -802,37 +768,76 @@ namespace Vonalkod
                                                 tvVonalkodok.SelectedNode.EnsureVisible();
 
                                                 tvVonalkodok.EndUpdate();
+
+                                                break;
                                             }
-                                            else
+
+                                        default:
                                             {
-                                                // lakástanúsítványhoz kell hozzáadni
+                                                Tan tluj = new Tan();
+                                                tluj.Vonalkod = tbVk.Text;
 
-                                                tluj.SzuloId = VkTan[tbLak.Text].TanId;
-                                                tluj.SzuloVk = VkTan[tbLak.Text].Vonalkod;
-                                                tluj.SzuloNyomtTipKod = VkTan[tbLak.Text].nyomtatvanytipuskod;
-                                                tluj.MunkaId = VkTan[tbLak.Text].MunkaId;
-                                                tluj.FotanId = VkTan[tbLak.Text].FotanId;
-                                                tluj.FotanVk = VkTan[tbLak.Text].FotanVk;
-                                                tluj.nyomtatvanytipuskod = GetTanTipus(tbVk.Text);
-                                                tluj.db = vkInDb.UjVk;
-                                                tluj.Sor1 = t1.Sor1;
-                                                tluj.Sor2 = t1.Sor2;
+                                                if (tbLak.Text == "")
+                                                {
+                                                    // főtanúsítványhoz kell hozzáadni
 
-                                                VkTan.Add(tluj.Vonalkod, tluj);
-                                                t3.Add(tluj);
+                                                    tluj.SzuloId = t1.TanId;
+                                                    tluj.SzuloVk = t1.Vonalkod;
+                                                    tluj.SzuloNyomtTipKod = t1.nyomtatvanytipuskod;
+                                                    tluj.MunkaId = t1.MunkaId;
+                                                    tluj.FotanId = t1.TanId;
+                                                    tluj.FotanVk = t1.Vonalkod;
+                                                    tluj.nyomtatvanytipuskod = GetTanTipus(tbVk.Text);
+                                                    tluj.db = vkInDb.UjVk;
+                                                    tluj.Sor1 = t1.Sor1;
+                                                    tluj.Sor2 = t1.Sor2;
+                                                    tluj.BeolvasasIdopontja = DateTime.Now;
 
-                                                tvVonalkodok.BeginUpdate();
+                                                    //tbLak.Text = tluj.Vonalkod;
 
-                                                TreeNode tln = VkTree[tbLak.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (Új " + NyTip[tluj.nyomtatvanytipuskod] + ")");
-                                                VkTree.Add(tbVk.Text, tln);
+                                                    VkTan.Add(tluj.Vonalkod, tluj);
+                                                    t2.Add(tluj);
 
-                                                tvVonalkodok.SelectedNode = tln;
-                                                tvVonalkodok.SelectedNode.EnsureVisible();
+                                                    tvVonalkodok.BeginUpdate();
 
-                                                tvVonalkodok.EndUpdate();
+                                                    TreeNode tln = VkTree[tbFo.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (Új " + NyTip[tluj.nyomtatvanytipuskod] + ")");
+                                                    VkTree.Add(tbVk.Text, tln);
+
+                                                    tvVonalkodok.SelectedNode = tln;
+                                                    tvVonalkodok.SelectedNode.EnsureVisible();
+
+                                                    tvVonalkodok.EndUpdate();
+                                                }
+                                                else
+                                                {
+                                                    // lakástanúsítványhoz kell hozzáadni
+
+                                                    tluj.SzuloId = VkTan[tbLak.Text].TanId;
+                                                    tluj.SzuloVk = VkTan[tbLak.Text].Vonalkod;
+                                                    tluj.SzuloNyomtTipKod = VkTan[tbLak.Text].nyomtatvanytipuskod;
+                                                    tluj.MunkaId = VkTan[tbLak.Text].MunkaId;
+                                                    tluj.FotanId = VkTan[tbLak.Text].FotanId;
+                                                    tluj.FotanVk = VkTan[tbLak.Text].FotanVk;
+                                                    tluj.nyomtatvanytipuskod = GetTanTipus(tbVk.Text);
+                                                    tluj.db = vkInDb.UjVk;
+                                                    tluj.Sor1 = t1.Sor1;
+                                                    tluj.Sor2 = t1.Sor2;
+
+                                                    VkTan.Add(tluj.Vonalkod, tluj);
+                                                    t3.Add(tluj);
+
+                                                    tvVonalkodok.BeginUpdate();
+
+                                                    TreeNode tln = VkTree[tbLak.Text].Nodes.Add(VkTan[tbVk.Text].Vonalkod + " (Új " + NyTip[tluj.nyomtatvanytipuskod] + ")");
+                                                    VkTree.Add(tbVk.Text, tln);
+
+                                                    tvVonalkodok.SelectedNode = tln;
+                                                    tvVonalkodok.SelectedNode.EnsureVisible();
+
+                                                    tvVonalkodok.EndUpdate();
+                                                }
+                                                break;
                                             }
-                                            break;
-                                        }
                                     }
                                 }
                                 #endregion
@@ -850,11 +855,11 @@ namespace Vonalkod
                 }
                 Cursor.Current = Cursors.Default;
                 tbVk.Text = "";
-                if(AdatbevitelStatusz == 0)
+                if (AdatbevitelStatusz == 0)
                 {
                     tbVk.Select();
                 }
-                
+
             }
             finally
             {
@@ -923,7 +928,7 @@ namespace Vonalkod
          */
 
         private void btnBeolvas_Click(object sender, EventArgs e)
-            {
+        {
             try
             {
                 this.Enabled = false;
@@ -942,61 +947,61 @@ namespace Vonalkod
             e.Node.BackColor = System.Drawing.SystemColors.ButtonFace;
             string Vonalkod = VkTree.FirstOrDefault(x => x.Value == e.Node).Key;
 
-            switch(GetTanTipus(Vonalkod))
+            switch (GetTanTipus(Vonalkod))
             {
                 case "FOTANUSITVANY":
-                {
-                    tbLak.Text = "";
-                    tbLepcsohaz.Text = VkTan[Vonalkod].lepcsohaz;
-                    if(VkTan[Vonalkod].emeletjel == null)
-                    {
-                        VkTan[Vonalkod].emeletjel = "<NA>";
-                        VkTan[Vonalkod].emelet = "<Nincs emelet>";
-                    }
-                    //tbEmelet.Text = VkTan[Vonalkod].emelet;
-                    cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(VkTan[Vonalkod].emelet); // lehet, hogy az emeletjelkód alapján kellene választani...
-                    tbAjto.Text = VkTan[Vonalkod].ajto;
-                    tbAjtotores.Text = VkTan[Vonalkod].ajtotores;
-                    tbOid.Text = VkTan[Vonalkod].oid.ToString();
-                    tbMegj.Text = VkTan[Vonalkod].OreMegjegyzes;
-                    break;
-                }
-                case "LAKASTANUSITVANY":
-                {
-                    tbLak.Text = Vonalkod;
-                    tbLepcsohaz.Text = VkTan[Vonalkod].lepcsohaz;
-                    //tbEmelet.Text = VkTan[Vonalkod].emelet;
-                    // tbEmeletjel.Text = VkTan[Vonalkod].emeletjel;
-                    if (VkTan[Vonalkod].emeletjel == null)
-                    {
-                        VkTan[Vonalkod].emeletjel = "<NA>";
-                        VkTan[Vonalkod].emelet = "<Nincs emelet>";
-                    }
-                    cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(VkTan[Vonalkod].emelet);
-                    tbAjto.Text = VkTan[Vonalkod].ajto;
-                    tbAjtotores.Text = VkTan[Vonalkod].ajtotores;
-                    tbOid.Text = VkTan[Vonalkod].oid.ToString();
-                    tbMegj.Text = VkTan[Vonalkod].OreMegjegyzes;
-                    break;
-                }
-                default:
-                {
-                    if(VkTan[Vonalkod].SzuloNyomtTipKod =="FOTANUSITVANY")
                     {
                         tbLak.Text = "";
+                        tbLepcsohaz.Text = VkTan[Vonalkod].lepcsohaz;
+                        if (VkTan[Vonalkod].emeletjel == null)
+                        {
+                            VkTan[Vonalkod].emeletjel = "<NA>";
+                            VkTan[Vonalkod].emelet = "<Nincs emelet>";
+                        }
+                        //tbEmelet.Text = VkTan[Vonalkod].emelet;
+                        cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(VkTan[Vonalkod].emelet); // lehet, hogy az emeletjelkód alapján kellene választani...
+                        tbAjto.Text = VkTan[Vonalkod].ajto;
+                        tbAjtotores.Text = VkTan[Vonalkod].ajtotores;
+                        tbOid.Text = VkTan[Vonalkod].oid.ToString();
+                        tbMegj.Text = VkTan[Vonalkod].OreMegjegyzes;
+                        break;
                     }
-                    else
+                case "LAKASTANUSITVANY":
                     {
-                        tbLak.Text = VkTan[Vonalkod].SzuloVk;
+                        tbLak.Text = Vonalkod;
+                        tbLepcsohaz.Text = VkTan[Vonalkod].lepcsohaz;
+                        //tbEmelet.Text = VkTan[Vonalkod].emelet;
+                        // tbEmeletjel.Text = VkTan[Vonalkod].emeletjel;
+                        if (VkTan[Vonalkod].emeletjel == null)
+                        {
+                            VkTan[Vonalkod].emeletjel = "<NA>";
+                            VkTan[Vonalkod].emelet = "<Nincs emelet>";
+                        }
+                        cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(VkTan[Vonalkod].emelet);
+                        tbAjto.Text = VkTan[Vonalkod].ajto;
+                        tbAjtotores.Text = VkTan[Vonalkod].ajtotores;
+                        tbOid.Text = VkTan[Vonalkod].oid.ToString();
+                        tbMegj.Text = VkTan[Vonalkod].OreMegjegyzes;
+                        break;
                     }
-                    tbLepcsohaz.Text = VkTan[VkTan[Vonalkod].SzuloVk].lepcsohaz;
-                    cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(VkTan[VkTan[Vonalkod].SzuloVk].emelet);
-                    tbAjto.Text = VkTan[VkTan[Vonalkod].SzuloVk].ajto;
-                    tbAjtotores.Text = VkTan[VkTan[Vonalkod].SzuloVk].ajtotores;
-                    tbOid.Text = VkTan[VkTan[Vonalkod].SzuloVk].oid.ToString();
-                    tbMegj.Text = VkTan[VkTan[Vonalkod].SzuloVk].OreMegjegyzes;
-                    break;
-                }
+                default:
+                    {
+                        if (VkTan[Vonalkod].SzuloNyomtTipKod == "FOTANUSITVANY")
+                        {
+                            tbLak.Text = "";
+                        }
+                        else
+                        {
+                            tbLak.Text = VkTan[Vonalkod].SzuloVk;
+                        }
+                        tbLepcsohaz.Text = VkTan[VkTan[Vonalkod].SzuloVk].lepcsohaz;
+                        cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(VkTan[VkTan[Vonalkod].SzuloVk].emelet);
+                        tbAjto.Text = VkTan[VkTan[Vonalkod].SzuloVk].ajto;
+                        tbAjtotores.Text = VkTan[VkTan[Vonalkod].SzuloVk].ajtotores;
+                        tbOid.Text = VkTan[VkTan[Vonalkod].SzuloVk].oid.ToString();
+                        tbMegj.Text = VkTan[VkTan[Vonalkod].SzuloVk].OreMegjegyzes;
+                        break;
+                    }
             }
 
             var ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[Vonalkod].Vonalkod && (v.NemTorolheto == true || v.NemMozgathato == true) select v);
@@ -1023,7 +1028,7 @@ namespace Vonalkod
             }
 
             int? so = VkTan[Vonalkod].oid != null ? VkTan[Vonalkod].oid : VkTan[VkTan[Vonalkod].SzuloVk].oid;
-            if(so != null)
+            if (so != null)
             {
                 grLakasLista.ClearSelection();
                 // set a flag for existance of row
@@ -1033,7 +1038,7 @@ namespace Vonalkod
                 for (int i = 0; i < grLakasLista.Rows.Count; i++)
                 {
                     // check to see if this is the row you want to remember
-                    if((int)grLakasLista.Rows[i].Cells["oid"].Value == so)
+                    if ((int)grLakasLista.Rows[i].Cells["oid"].Value == so)
                     {
                         // set CurrentCell equal to this row, you can choose any cell in the row
                         grLakasLista.Rows[i].Selected = true;
@@ -1047,7 +1052,7 @@ namespace Vonalkod
                 }
 
                 // if row does not exist, set current cell to first row.
-                if (!rowExists)
+                if (!rowExists && grLakasLista.RowCount > 0)
                 {
                     // grLakasLista.Rows[0].Selected = true;
                     grLakasLista.FirstDisplayedScrollingRowIndex = 0;
@@ -1138,7 +1143,7 @@ namespace Vonalkod
                         }
                         ke.SaveChanges();
                     }
-                    
+
                     Utilities.ResetAllControls(this);
 
                     lbl99.Visible = false;
@@ -1163,7 +1168,7 @@ namespace Vonalkod
 
         private void btnLakasadat_Click(object sender, EventArgs e)
         {
-            if(AdatbevitelStatusz == 0)
+            if (AdatbevitelStatusz == 0)
             {
                 Console.WriteLine("Vonalkódolvasás utáni lakásadatszerkesztés (keresés után módosítás vagy új lakás hozzáadása jöhet)");
                 AdatbevitelStatusz = 1;
@@ -1173,7 +1178,7 @@ namespace Vonalkod
 
         private void chkEvesEllenorzes_CheckedChanged(object sender, EventArgs e)
         {
-            if(tbLak.Text == "")
+            if (tbLak.Text == "")
             {
                 VkTan[tbFo.Text].EvesEllenorzes = chkEvesEllenorzes.Checked;
             }
@@ -1185,7 +1190,7 @@ namespace Vonalkod
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Biztos, hogy nem menti el a beolvasott adatokat?","",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Biztos, hogy nem menti el a beolvasott adatokat?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Utilities.ResetAllControls(this);
 
@@ -1209,11 +1214,11 @@ namespace Vonalkod
             btnLakasadat.Enabled = !chkKemenysepro.Checked;
             tbMegj.Enabled = !chkKemenysepro.Checked;
             chkEvesEllenorzes.Enabled = !chkKemenysepro.Checked;
-            if(grLakasLista.DataSource != null)
+            if (grLakasLista.DataSource != null)
             {
                 grLakasLista.Visible = !chkKemenysepro.Checked;
             }
-            
+
         }
 
         private int? LakasKeresesGrid(string lh, string emj, string aj, string ajt)
@@ -1224,31 +1229,31 @@ namespace Vonalkod
             int ajtmatch = -1;
 
             grLakasLista.ClearSelection();
-            
+
             for (int i = 0; i < grLakasLista.Rows.Count; i++)
             {
-                if (grLakasLista.Rows[i].Cells["vk"].Value == "") // csak a vonalkód nélküliekben keres
+                if ((string)grLakasLista.Rows[i].Cells["vk"].Value == "") // csak a vonalkód nélküliekben keres
                 {
-                    lhmatch = grLakasLista.Rows[i].Cells["lh"].Value == lh ? i : lhmatch;
-                    emjmatch = grLakasLista.Rows[i].Cells["emj"].Value == emj ? i : lhmatch;
-                    ajmatch = grLakasLista.Rows[i].Cells["aj"].Value == aj ? i : lhmatch;
-                    ajtmatch = grLakasLista.Rows[i].Cells["ajt"].Value == ajt ? i : lhmatch;
+                    lhmatch = (string)grLakasLista.Rows[i].Cells["lh"].Value == lh ? i : lhmatch;
+                    emjmatch = (string)grLakasLista.Rows[i].Cells["emj"].Value == emj ? i : lhmatch;
+                    ajmatch = (string)grLakasLista.Rows[i].Cells["aj"].Value == aj ? i : lhmatch;
+                    ajtmatch = (string)grLakasLista.Rows[i].Cells["ajt"].Value == ajt ? i : lhmatch;
 
                 }
             }
 
             // if row does not exist, set current cell to first row.
- /*           if (!rowExists)
-            {
-                // grLakasLista.Rows[0].Selected = true;
-                grLakasLista.FirstDisplayedScrollingRowIndex = 0;
-            }*/
+            /*           if (!rowExists)
+                       {
+                           // grLakasLista.Rows[0].Selected = true;
+                           grLakasLista.FirstDisplayedScrollingRowIndex = 0;
+                       }*/
             return null;
         }
-        
+
         private void grLakasLista_SelectionChanged(object sender, EventArgs e)
         {
-            if(tbLak.Text != "")
+            if (tbLak.Text != "")
             {
                 int? so = VkTan[tbLak.Text].oid != null ? VkTan[tbLak.Text].oid : VkTan[VkTan[tbLak.Text].SzuloVk].oid;
                 if (so != null)
@@ -1264,7 +1269,7 @@ namespace Vonalkod
                         if ((int)grLakasLista.Rows[i].Cells["oid"].Value == so)
                         {
                             // set CurrentCell equal to this row, you can choose any cell in the row
-                            grLakasLista.Rows[i].Selected = true;
+                            //grLakasLista.Rows[i].Selected = true;
 
                             // set flag for existance of row
                             rowExists = true;
@@ -1286,6 +1291,20 @@ namespace Vonalkod
                     Console.WriteLine("Nem lakáshoz rendelt tanúsítvány, választás+szerkesztés"); // választhat innen, amit módosít, vagy keres a lakásadatok módosítása alapján
                 }
             }
+        }
+
+        private void UpdateGridDataSource(IEnumerable<Lakas> originalData, params Func<Lakas, bool>[] filters)
+        {
+            var result = originalData;
+            foreach (var filter in filters)
+            {
+                result = result.Where(filter);
+            }
+
+            result.OrderBy(x => x, lakasComparer);
+
+            grLakasLista.DataSource = result;
+            grLakasLista.Refresh();
         }
     }
 }
