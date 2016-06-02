@@ -173,9 +173,9 @@ namespace Vonalkod
                                       FotanId = v.SzulotanusitvanyId == null ? v.TanusitvanyId : (v.Tanusitvany_t2.SzulotanusitvanyId == null ? v.Tanusitvany_t2.TanusitvanyId : v.Tanusitvany_t2.SzulotanusitvanyId),
                                       FotanVk = v.SzulotanusitvanyId == null ? v.Vonalkod : (v.Tanusitvany_t2.SzulotanusitvanyId == null ? v.Tanusitvany_t2.Vonalkod : v.Tanusitvany_t2.Tanusitvany_t2.Vonalkod),
                                       nyomtatvanytipuskod = v.NyomtatvanyTipusKod,
-                                      nyomtatvanytipus = (from x in ke.NyomtatvanyTipus_m where x.Kod == v.NyomtatvanyTipusKod select new { x.Nev }).FirstOrDefault().Nev,
-                                      NemMozgathato = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
-                                      KetszerzartRogzitve = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod && w.HibaTipusKod.Substring(0, 1) == "8" select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
+                                      nyomtatvanytipus = v.NyomtatvanyTipus_m.Nev,
+                                      NemMozgathato = ke.MunkaTargyaHiba_t.Where(w => w.FigyelmeztetoVonalkod == v.Vonalkod).Any(),
+                                      KetszerzartRogzitve = ke.MunkaTargyaHiba_t.Where(w => w.FigyelmeztetoVonalkod == v.Vonalkod && w.HibaTipusKod.Substring(0, 1) == "8").Any(),
                                       Ketszerzart = v.Ketszerzart,
                                       EvesEllenorzes = v.EvesEllenorzes
                                   }).FirstOrDefault();
@@ -226,9 +226,9 @@ namespace Vonalkod
                                           FotanId = v.SzulotanusitvanyId == null ? v.TanusitvanyId : (v.Tanusitvany_t2.SzulotanusitvanyId == null ? v.Tanusitvany_t2.TanusitvanyId : v.Tanusitvany_t2.SzulotanusitvanyId),
                                           FotanVk = v.SzulotanusitvanyId == null ? v.Vonalkod : (v.Tanusitvany_t2.SzulotanusitvanyId == null ? v.Tanusitvany_t2.Vonalkod : v.Tanusitvany_t2.Tanusitvany_t2.Vonalkod),
                                           nyomtatvanytipuskod = v.NyomtatvanyTipusKod,
-                                          nyomtatvanytipus = (from x in ke.NyomtatvanyTipus_m where x.Kod == v.NyomtatvanyTipusKod select new { x.Nev }).FirstOrDefault().Nev,
-                                          NemMozgathato = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
-                                          KetszerzartRogzitve = (from w in ke.MunkaTargyaHiba_t where w.MunkaTargya_cs.Tanusitvany_t.Vonalkod == v.Vonalkod && w.HibaTipusKod.Substring(0, 1) == "8" select new { vk = w.MunkaTargya_cs.Tanusitvany_t.Vonalkod }).Count() != 0,
+                                          nyomtatvanytipus = v.NyomtatvanyTipus_m.Nev,
+                                          NemMozgathato = ke.MunkaTargyaHiba_t.Where(w => w.FigyelmeztetoVonalkod == v.Vonalkod).Any(),
+                                          KetszerzartRogzitve = ke.MunkaTargyaHiba_t.Where(w => w.MunkaTargya_cs.Tanusitvany_t.Vonalkod == v.Vonalkod && w.HibaTipusKod.Substring(0, 1) == "8").Any(),
                                           Ketszerzart = v.Ketszerzart,
                                           EvesEllenorzes = v.EvesEllenorzes
                                       }).FirstOrDefault();
@@ -263,18 +263,18 @@ namespace Vonalkod
                                           FotanVk = v.SzulotanusitvanyId == null ? v.Vonalkod : (v.Tanusitvany_t2.SzulotanusitvanyId == null ? v.Tanusitvany_t2.Vonalkod : v.Tanusitvany_t2.Tanusitvany_t2.Vonalkod),
                                           db = vkInDb.IsmertVk,
                                           nyomtatvanytipuskod = v.NyomtatvanyTipusKod,
-                                          nyomtatvanytipus = (from x in ke.NyomtatvanyTipus_m where x.Kod == v.NyomtatvanyTipusKod select new { x.Nev }).FirstOrDefault().Nev,
-                                          KetszerzartRogzitve = (from w in ke.MunkaTargyaHiba_t where w.MunkaTargya_cs.MunkaId == v.MunkaId && w.MunkaTargya_cs.Eid == v.Munka_t.Rendeles_t.Eid && w.HibaTipusKod.Substring(0, 1) == "8" select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
+                                          nyomtatvanytipus = v.NyomtatvanyTipus_m.Nev,
+                                          KetszerzartRogzitve = ke.MunkaTargyaHiba_t.Where(w => w.MunkaTargya_cs.MunkaId == v.MunkaId && w.MunkaTargya_cs.Eid == v.Munka_t.Rendeles_t.Eid && w.HibaTipusKod.Substring(0, 1) == "8").Any(),
                                           Ketszerzart = v.Ketszerzart,
                                           EvesEllenorzes = v.EvesEllenorzes,
-                                          NemMozgathato = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
-                                          NemTorolheto = (from m in ke.MunkaTargya_cs where m.TanusitvanyId == ta.FotanId select new { vx = m.TanusitvanyId }).Count() != 0,
-                                          lepcsohaz = v.Oid == null ? null : (from w in ke.ORE_t where w.Oid == v.Oid select new { lh = w.Lepcsohaz }).FirstOrDefault().lh,
-                                          emelet = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { em = w.Emelet }).FirstOrDefault().em,
-                                          emeletjel = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { emj = w.EmeletJelKod }).FirstOrDefault().emj,
-                                          ajto = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { aj = w.Ajto }).FirstOrDefault().aj,
-                                          ajtotores = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { ajt = w.Ajtotores }).FirstOrDefault().ajt,
-                                          OreMegjegyzes = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select new { mj = w.Megjegyzes }).FirstOrDefault().mj
+                                          NemMozgathato = ke.MunkaTargyaHiba_t.Where(w => w.FigyelmeztetoVonalkod == v.Vonalkod).Any(),
+                                          NemTorolheto = ke.MunkaTargya_cs.Where(m => m.TanusitvanyId == ta.FotanId).Any(),
+                                          lepcsohaz = v.Oid == null ? null : (from w in ke.ORE_t where w.Oid == v.Oid select w.Lepcsohaz).FirstOrDefault(),
+                                          emelet = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select w.Emelet).FirstOrDefault(),
+                                          emeletjel = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select w.EmeletJelKod).FirstOrDefault(),
+                                          ajto = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select w.Ajto).FirstOrDefault(),
+                                          ajtotores = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select w.Ajtotores).FirstOrDefault(),
+                                          OreMegjegyzes = v.Oid == null ? "" : (from w in ke.ORE_t where w.Oid == v.Oid select w.Megjegyzes).FirstOrDefault()
                                       }).FirstOrDefault();
                                 if (t1.MunkaId != null && t1.KetszerzartRogzitve == true)
                                 {
@@ -345,10 +345,10 @@ namespace Vonalkod
                                           FotanVk = v.SzulotanusitvanyId == null ? v.Vonalkod : (v.Tanusitvany_t2.SzulotanusitvanyId == null ? v.Tanusitvany_t2.Vonalkod : v.Tanusitvany_t2.Tanusitvany_t2.Vonalkod),
                                           db = vkInDb.IsmertVk,
                                           nyomtatvanytipuskod = v.NyomtatvanyTipusKod,
-                                          nyomtatvanytipus = (from x in ke.NyomtatvanyTipus_m where x.Kod == v.NyomtatvanyTipusKod select new { x.Nev }).FirstOrDefault().Nev,
-                                          NemMozgathato = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
-                                          NemTorolheto = (from m in ke.MunkaTargya_cs where m.TanusitvanyId == v.TanusitvanyId select new { vx = m.TanusitvanyId }).Count() != 0,
-                                          KetszerzartRogzitve = (from w in ke.MunkaTargyaHiba_t where w.MunkaTargya_cs.MunkaId == v.MunkaId && w.MunkaTargya_cs.Oid == v.Oid && w.HibaTipusKod.Substring(0, 1) == "8" select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
+                                          nyomtatvanytipus = v.NyomtatvanyTipus_m.Nev,
+                                          NemMozgathato = ke.MunkaTargyaHiba_t.Where(w => w.FigyelmeztetoVonalkod == v.Vonalkod).Any(),
+                                          NemTorolheto = ke.MunkaTargya_cs.Where(m => m.TanusitvanyId == v.TanusitvanyId).Any(), // ez nem elég v.Tanusitvany_t1.Any()-vel?
+                                          KetszerzartRogzitve = ke.MunkaTargyaHiba_t.Where(w => w.MunkaTargya_cs.MunkaId == v.MunkaId && w.MunkaTargya_cs.Oid == v.Oid && w.HibaTipusKod.Substring(0, 1) == "8").Any(),
                                           Ketszerzart = v.Ketszerzart,
                                           EvesEllenorzes = v.EvesEllenorzes
                                       }).ToList();
@@ -380,7 +380,7 @@ namespace Vonalkod
                                 {
                                     foreach (Lakas l in Lakasok)
                                     {
-                                        l.vonalkod = (from t in t2 where t.oid == l.oid && t.nyomtatvanytipuskod == "LAKASTANUSITVANY" select new { t.Vonalkod }).FirstOrDefault() == null ? "" : (from t in t2 where t.oid == l.oid select new { t.Vonalkod }).FirstOrDefault().ToString();
+                                        l.vonalkod = (from t in t2 where t.oid == l.oid && t.nyomtatvanytipuskod == "LAKASTANUSITVANY" select t.Vonalkod).FirstOrDefault() == null ? "" : (from t in t2 where t.oid == l.oid select t.Vonalkod).FirstOrDefault();
                                     }
 
                                     grLakasLista.AutoGenerateColumns = false;
@@ -410,9 +410,9 @@ namespace Vonalkod
                                           FotanVk = v.SzulotanusitvanyId == null ? v.Vonalkod : (v.Tanusitvany_t2.SzulotanusitvanyId == null ? v.Tanusitvany_t2.Vonalkod : v.Tanusitvany_t2.Tanusitvany_t2.Vonalkod),
                                           db = vkInDb.IsmertVk,
                                           nyomtatvanytipuskod = v.NyomtatvanyTipusKod,
-                                          nyomtatvanytipus = (from x in ke.NyomtatvanyTipus_m where x.Kod == v.NyomtatvanyTipusKod select new { x.Nev }).FirstOrDefault().Nev,
-                                          NemMozgathato = (from w in ke.MunkaTargyaHiba_t where w.FigyelmeztetoVonalkod == v.Vonalkod select new { vk = w.FigyelmeztetoVonalkod }).Count() != 0,
-                                          NemTorolheto = (from m in ke.MunkaTargya_cs where m.TanusitvanyId == v.TanusitvanyId select new { vx = m.TanusitvanyId }).Count() != 0
+                                          nyomtatvanytipus = (from x in ke.NyomtatvanyTipus_m where x.Kod == v.NyomtatvanyTipusKod select x.Nev).FirstOrDefault(),
+                                          NemMozgathato = ke.MunkaTargyaHiba_t.Where(w => w.FigyelmeztetoVonalkod == v.Vonalkod).Any(),
+                                          NemTorolheto = ke.MunkaTargya_cs.Where(m => m.TanusitvanyId == v.TanusitvanyId).Any()
                                       }).ToList();
 
                                 #region Treeview teljes fölépítése    
@@ -555,7 +555,7 @@ namespace Vonalkod
                                             string SelectedVonalkod = VkTree.FirstOrDefault(x => x.Value == tvVonalkodok.SelectedNode).Key;
 
                                             var ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[SelectedVonalkod].Vonalkod && (v.NemTorolheto == true || v.NemMozgathato == true) select v);
-                                            if (VkTan[SelectedVonalkod].NemMozgathato == false && VkTan[SelectedVonalkod].NemTorolheto == false && ch.Count() == 0)
+                                            if (VkTan[SelectedVonalkod].NemMozgathato == false && VkTan[SelectedVonalkod].NemTorolheto == false && !ch.Any())
                                             {
                                                 ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[SelectedVonalkod].Vonalkod select v).ToList();
                                                 foreach (Tan x in ch)
@@ -1005,7 +1005,7 @@ namespace Vonalkod
             }
 
             var ch = (from Tan v in VkTan.Values where v.SzuloVk == VkTan[Vonalkod].Vonalkod && (v.NemTorolheto == true || v.NemMozgathato == true) select v);
-            if (VkTan[Vonalkod].NemMozgathato == false && VkTan[Vonalkod].NemTorolheto == false && ch.Count() == 0 && (GetTanTipus(Vonalkod) != "FOTANUSITVANY"))
+            if (VkTan[Vonalkod].NemMozgathato == false && VkTan[Vonalkod].NemTorolheto == false && !ch.Any() && (GetTanTipus(Vonalkod) != "FOTANUSITVANY"))
             {
                 lblTorles.Visible = true;
                 pbTorles.Visible = true;
@@ -1303,7 +1303,7 @@ namespace Vonalkod
 
             result.OrderBy(x => x, lakasComparer);
 
-            grLakasLista.DataSource = result;
+            grLakasLista.DataSource = result.ToList();
             grLakasLista.Refresh();
         }
     }
