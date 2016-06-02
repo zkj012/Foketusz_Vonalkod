@@ -93,6 +93,7 @@ namespace Vonalkod
                     tbMegj.Enabled = !chkKemenysepro.Checked;
                     chkEvesEllenorzes.Enabled = !chkKemenysepro.Checked;
                     grLakasLista.Visible = false; // üresen nem látható
+                    grLakasLista.Enabled = false;
 
                     grLakasLista.Columns.Add(new DataGridViewTextBoxColumn { Name = "lh", DataPropertyName = "lepcsohaz", HeaderText = "Lépcsőház", ReadOnly = true });
                     grLakasLista.Columns.Add(new DataGridViewTextBoxColumn { Name = "em", DataPropertyName = "emelet", HeaderText = "Emelet", ReadOnly = true });
@@ -307,6 +308,15 @@ namespace Vonalkod
                                                    megjegyzes = o.Megjegyzes
                                                }).ToList();
 
+                                    // eseti rendelés miatt nem törölhető állapot összeszedése
+/*                                    foreach (Lakas l in Lakasok) // ez lassú...
+                                    {
+                                        l.NemTorolhetoEsetiRendelesMiatt = (from mt in ke.MunkaTargya_cs where mt.Munka_t.MunkaStatuszKod != "TOROLVE" && mt.Munka_t.Rendeles_t.MunkaTipusKod != "SORMUNKA" && mt.Munka_t.Rendeles_t.MunkaTipusKod != "SORMUNKA_MUSZ" && mt.MunkaTargyaTipusKod == "ORE" && mt.Oid == l.oid select new { oid=mt.Oid }).Count() != 0 ? true : false;
+                                        Console.WriteLine(l.oid.ToString()+": "+l.NemTorolhetoEsetiRendelesMiatt.ToString());
+                                        l.NemTorolhetoEsetiRendelesMiatt = (from r in ke.Rendeles_t where r.Oid != null && r.MunkaTipusKod != "SORMUNKA" && r.MunkaTipusKod != "SORMUNKA_MUSZ" && r.RendelesStatuszKod != "TOROLVE" && r.Oid == l.oid select new { oid = r.Oid }).Count() != 0 ? true : l.NemTorolhetoEsetiRendelesMiatt;
+                                        Console.WriteLine(l.oid.ToString() + ": " + l.NemTorolhetoEsetiRendelesMiatt.ToString());
+                                    }
+*/                                    
                                     if (t1.Sor1 != null)
                                     {
                                         lblSor1.Visible = true;
@@ -1051,11 +1061,23 @@ namespace Vonalkod
                     }
                 }
 
-                // if row does not exist, set current cell to first row.
                 if (!rowExists && grLakasLista.RowCount > 0)
                 {
-                    // grLakasLista.Rows[0].Selected = true;
                     grLakasLista.FirstDisplayedScrollingRowIndex = 0;
+                }
+
+                // itt nem lehet lakást választani, csak az adatait szerkeszteni, ha nincs hozzá eseti megrendelő
+                if((from l in Lakasok where l.oid == so select new Lakas() { NemTorolhetoEsetiRendelesMiatt = l.NemTorolhetoEsetiRendelesMiatt }).First().NemTorolhetoEsetiRendelesMiatt == false)
+                {
+                    btnLakasadat.Enabled = true;
+                    btnLakasadat.Visible = true;
+                    lblStatus.Text = "";
+                }
+                else
+                {
+                    btnLakasadat.Enabled = false;
+                    btnLakasadat.Visible = false;
+                    lblStatus.Text = "A lakás adatai nem módosíthatóak, eseeti megrendelés van hozzá";
                 }
             }
         }
@@ -1173,6 +1195,8 @@ namespace Vonalkod
                 Console.WriteLine("Vonalkódolvasás utáni lakásadatszerkesztés (keresés után módosítás vagy új lakás hozzáadása jöhet)");
                 AdatbevitelStatusz = 1;
                 tbLepcsohaz.Select();
+                this.Visible = false;
+                btnLakasadatSave.Visible = true;
             }
         }
 
@@ -1305,6 +1329,16 @@ namespace Vonalkod
 
             grLakasLista.DataSource = result.ToList();
             grLakasLista.Refresh();
+        }
+
+        private void btnLakasKereses_Click(object sender, EventArgs e)
+        {
+            // itt lehet keresni a lakások adatát
+        }
+
+        private void btnLakasadatSave_Click(object sender, EventArgs e)
+        {
+            // módosított lakásadatok mentése
         }
     }
 }

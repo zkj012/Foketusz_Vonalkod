@@ -115,7 +115,7 @@ namespace Vonalkod
             CimHelper.Szam2 = numSzam2.Value == 0 ? null : (int?)numSzam2.Value;
             CimHelper.Jel2 = txtJel2.Text;
             CimHelper.EmeletKod = (string)cbEmelet.SelectedValue;
-            CimHelper.EmeletRovidNev = ((EmeletJel_m)cbEmelet.SelectedItem).RovidNev;
+            CimHelper.EmeletRovidNev = cbEmelet.SelectedValue == null ? "" : ((EmeletJel_m)cbEmelet.SelectedItem).RovidNev;
             CimHelper.Ajto = txtAjto.Text;
             
             this.Close();

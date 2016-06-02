@@ -20,6 +20,7 @@ namespace Vonalkod
         public string vonalkod { get; set; }
         public bool torlendo { get; set; }
         public bool uj { get; set; }
+        public bool NemTorolhetoEsetiRendelesMiatt { get; set; }
 
     }
 }

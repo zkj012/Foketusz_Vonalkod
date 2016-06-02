@@ -71,6 +71,9 @@
             this.tbMegj = new System.Windows.Forms.TextBox();
             this.lblMegj = new System.Windows.Forms.Label();
             this.grLakasLista = new System.Windows.Forms.DataGridView();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.btnLakasKereses = new System.Windows.Forms.Button();
+            this.btnLakasadatSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbTorles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb99)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grLakasLista)).BeginInit();
@@ -398,6 +401,7 @@
             this.btnLakasadat.TabIndex = 38;
             this.btnLakasadat.Text = "Lakásadat módosítása";
             this.btnLakasadat.UseVisualStyleBackColor = true;
+            this.btnLakasadat.Visible = false;
             this.btnLakasadat.Click += new System.EventHandler(this.btnLakasadat_Click);
             // 
             // label12
@@ -465,12 +469,46 @@
             this.grLakasLista.TabIndex = 45;
             this.grLakasLista.SelectionChanged += new System.EventHandler(this.grLakasLista_SelectionChanged);
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(648, 467);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(37, 13);
+            this.lblStatus.TabIndex = 46;
+            this.lblStatus.Text = "Status";
+            // 
+            // btnLakasKereses
+            // 
+            this.btnLakasKereses.Location = new System.Drawing.Point(865, 407);
+            this.btnLakasKereses.Name = "btnLakasKereses";
+            this.btnLakasKereses.Size = new System.Drawing.Size(145, 33);
+            this.btnLakasKereses.TabIndex = 47;
+            this.btnLakasKereses.Text = "Lakás keresése";
+            this.btnLakasKereses.UseVisualStyleBackColor = true;
+            this.btnLakasKereses.Visible = false;
+            this.btnLakasKereses.Click += new System.EventHandler(this.btnLakasKereses_Click);
+            // 
+            // btnLakasadatSave
+            // 
+            this.btnLakasadatSave.Location = new System.Drawing.Point(852, 407);
+            this.btnLakasadatSave.Name = "btnLakasadatSave";
+            this.btnLakasadatSave.Size = new System.Drawing.Size(145, 33);
+            this.btnLakasadatSave.TabIndex = 48;
+            this.btnLakasadatSave.Text = "Lakásadatok mentése";
+            this.btnLakasadatSave.UseVisualStyleBackColor = true;
+            this.btnLakasadatSave.Visible = false;
+            this.btnLakasadatSave.Click += new System.EventHandler(this.btnLakasadatSave_Click);
+            // 
             // VonalkodBeolvasas
             // 
             this.AcceptButton = this.btnBeolvas;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1060, 714);
+            this.Controls.Add(this.btnLakasadatSave);
+            this.Controls.Add(this.btnLakasKereses);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.grLakasLista);
             this.Controls.Add(this.tbMegj);
             this.Controls.Add(this.lblMegj);
@@ -568,5 +606,8 @@
         private System.Windows.Forms.TextBox tbMegj;
         private System.Windows.Forms.Label lblMegj;
         private System.Windows.Forms.DataGridView grLakasLista;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Button btnLakasKereses;
+        private System.Windows.Forms.Button btnLakasadatSave;
     }
 }
