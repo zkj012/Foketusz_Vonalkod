@@ -26,7 +26,7 @@ namespace Vonalkod
         public string nyomtatvanytipuskod;
         public string nyomtatvanytipus;
         public vkInDb db;
-        public string epuletcim;
+        // public string epuletcim;
         public bool Ketszerzart;
         public bool KetszerzartRogzitve;
         public bool SzuloIdModositott;
@@ -37,5 +37,6 @@ namespace Vonalkod
         public DateTime? Sor2;
         public DateTime? BeolvasasIdopontja;
         public bool EvesEllenorzes;
+        // public bool NemTorolhetoEsetiRendelesMiatt;
     }
 }

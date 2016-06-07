@@ -106,19 +106,38 @@ namespace Vonalkod
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            int i;
             CimHelper.IRSZ = (int)cbIrsz.SelectedItem;
             CimHelper.Nev = (string)cbNev.SelectedItem;
             CimHelper.JellegKod = (string)cbJelleg.SelectedValue;
             CimHelper.JellegNev = ((KozteruletJelleg_m)(cbJelleg.SelectedItem)).Nev;
-            CimHelper.Szam1 = numSzam1.Value == 0 ? null : (int?)numSzam1.Value;
+            if(!int.TryParse(txtSzam1.Text,out i))
+            {
+                i = 0;
+            }
+            CimHelper.Szam1 = i == 0 ? null : (int?)i;
             CimHelper.Jel1 = txtJel1.Text;
-            CimHelper.Szam2 = numSzam2.Value == 0 ? null : (int?)numSzam2.Value;
+            if (!int.TryParse(txtSzam2.Text, out i))
+            {
+                i = 0;
+            }
+            CimHelper.Szam2 = i == 0 ? null : (int?)i;
             CimHelper.Jel2 = txtJel2.Text;
             CimHelper.EmeletKod = (string)cbEmelet.SelectedValue;
             CimHelper.EmeletRovidNev = cbEmelet.SelectedValue == null ? "" : ((EmeletJel_m)cbEmelet.SelectedItem).RovidNev;
             CimHelper.Ajto = txtAjto.Text;
             
             this.Close();
+        }
+
+        private void txtSzam1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void txtSzam2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 

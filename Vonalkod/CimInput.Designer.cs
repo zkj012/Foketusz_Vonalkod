@@ -37,16 +37,16 @@
             this.cbNev = new System.Windows.Forms.ComboBox();
             this.cbJelleg = new System.Windows.Forms.ComboBox();
             this.cbIrsz = new System.Windows.Forms.ComboBox();
-            this.numSzam1 = new System.Windows.Forms.NumericUpDown();
             this.txtJel1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.numSzam2 = new System.Windows.Forms.NumericUpDown();
             this.txtJel2 = new System.Windows.Forms.TextBox();
             this.cbEmelet = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtAjto = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numSzam1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSzam2)).BeginInit();
+            this.txtSzam1 = new System.Windows.Forms.TextBox();
+            this.txtSzam2 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSave
@@ -55,7 +55,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnSave.Size = new System.Drawing.Size(186, 23);
-            this.btnSave.TabIndex = 8;
+            this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Cím mentése";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -137,19 +137,12 @@
             this.cbIrsz.TabIndex = 1;
             this.cbIrsz.SelectedIndexChanged += new System.EventHandler(this.cbIrsz_SelectedIndexChanged);
             // 
-            // numSzam1
-            // 
-            this.numSzam1.Location = new System.Drawing.Point(88, 98);
-            this.numSzam1.Name = "numSzam1";
-            this.numSzam1.Size = new System.Drawing.Size(47, 20);
-            this.numSzam1.TabIndex = 15;
-            // 
             // txtJel1
             // 
-            this.txtJel1.Location = new System.Drawing.Point(141, 98);
+            this.txtJel1.Location = new System.Drawing.Point(139, 97);
             this.txtJel1.Name = "txtJel1";
-            this.txtJel1.Size = new System.Drawing.Size(25, 20);
-            this.txtJel1.TabIndex = 16;
+            this.txtJel1.Size = new System.Drawing.Size(27, 20);
+            this.txtJel1.TabIndex = 5;
             // 
             // label5
             // 
@@ -160,19 +153,12 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "-";
             // 
-            // numSzam2
-            // 
-            this.numSzam2.Location = new System.Drawing.Point(188, 98);
-            this.numSzam2.Name = "numSzam2";
-            this.numSzam2.Size = new System.Drawing.Size(47, 20);
-            this.numSzam2.TabIndex = 15;
-            // 
             // txtJel2
             // 
-            this.txtJel2.Location = new System.Drawing.Point(241, 97);
+            this.txtJel2.Location = new System.Drawing.Point(241, 98);
             this.txtJel2.Name = "txtJel2";
             this.txtJel2.Size = new System.Drawing.Size(25, 20);
-            this.txtJel2.TabIndex = 16;
+            this.txtJel2.TabIndex = 7;
             // 
             // cbEmelet
             // 
@@ -181,7 +167,7 @@
             this.cbEmelet.Location = new System.Drawing.Point(88, 127);
             this.cbEmelet.Name = "cbEmelet";
             this.cbEmelet.Size = new System.Drawing.Size(78, 21);
-            this.cbEmelet.TabIndex = 17;
+            this.cbEmelet.TabIndex = 8;
             this.cbEmelet.ValueMember = "Kod";
             // 
             // label7
@@ -198,20 +184,56 @@
             this.txtAjto.Location = new System.Drawing.Point(88, 154);
             this.txtAjto.Name = "txtAjto";
             this.txtAjto.Size = new System.Drawing.Size(78, 20);
-            this.txtAjto.TabIndex = 19;
+            this.txtAjto.TabIndex = 9;
+            // 
+            // txtSzam1
+            // 
+            this.txtSzam1.Location = new System.Drawing.Point(88, 97);
+            this.txtSzam1.Name = "txtSzam1";
+            this.txtSzam1.Size = new System.Drawing.Size(37, 20);
+            this.txtSzam1.TabIndex = 4;
+            this.txtSzam1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSzam1_KeyPress);
+            // 
+            // txtSzam2
+            // 
+            this.txtSzam2.Location = new System.Drawing.Point(188, 97);
+            this.txtSzam2.Name = "txtSzam2";
+            this.txtSzam2.Size = new System.Drawing.Size(38, 20);
+            this.txtSzam2.TabIndex = 6;
+            this.txtSzam2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSzam2_KeyPress);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(125, 100);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(12, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "/";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(228, 101);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(12, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "/";
             // 
             // CimInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 215);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtSzam2);
+            this.Controls.Add(this.txtSzam1);
             this.Controls.Add(this.txtAjto);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbEmelet);
             this.Controls.Add(this.txtJel2);
-            this.Controls.Add(this.numSzam2);
             this.Controls.Add(this.txtJel1);
-            this.Controls.Add(this.numSzam1);
             this.Controls.Add(this.cbJelleg);
             this.Controls.Add(this.cbIrsz);
             this.Controls.Add(this.cbNev);
@@ -226,8 +248,6 @@
             this.Text = "Cim";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CimInput_FormClosing);
             this.Load += new System.EventHandler(this.CimInput_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numSzam1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSzam2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,11 +265,13 @@
         private System.Windows.Forms.ComboBox cbIrsz;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtJel2;
-        private System.Windows.Forms.NumericUpDown numSzam2;
         private System.Windows.Forms.TextBox txtJel1;
-        private System.Windows.Forms.NumericUpDown numSzam1;
         private System.Windows.Forms.ComboBox cbEmelet;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtAjto;
+        private System.Windows.Forms.TextBox txtSzam1;
+        private System.Windows.Forms.TextBox txtSzam2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }

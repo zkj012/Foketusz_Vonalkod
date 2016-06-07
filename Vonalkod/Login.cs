@@ -49,7 +49,7 @@ namespace Vonalkod
                     }
                     catch (Exception ex) // EntityCommandExecutionException ex)
                     {
-                        MessageBox.Show("Hiba történt! Kérem próbálja újra!");
+                        MessageBox.Show(string.Format("Hiba történt! Kérem próbálja újra! ({0})",ex.ToString()));
                     }
                     finally
                     {

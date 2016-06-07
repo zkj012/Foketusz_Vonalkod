@@ -63,7 +63,7 @@
             this.lblUser = new System.Windows.Forms.Label();
             this.chkKemenysepro = new System.Windows.Forms.CheckBox();
             this.chkSor2 = new System.Windows.Forms.CheckBox();
-            this.btnLakasadat = new System.Windows.Forms.Button();
+            this.btnLakasadatModositas = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.chkEvesEllenorzes = new System.Windows.Forms.CheckBox();
             this.cbEmeletjel = new System.Windows.Forms.ComboBox();
@@ -74,6 +74,10 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnLakasKereses = new System.Windows.Forms.Button();
             this.btnLakasadatSave = new System.Windows.Forms.Button();
+            this.btnUjLakas = new System.Windows.Forms.Button();
+            this.btnMegsem = new System.Windows.Forms.Button();
+            this.btnLakasValasztas = new System.Windows.Forms.Button();
+            this.tbBevitelStatusz = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbTorles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb99)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grLakasLista)).BeginInit();
@@ -112,6 +116,8 @@
             this.tbLak.Name = "tbLak";
             this.tbLak.Size = new System.Drawing.Size(149, 20);
             this.tbLak.TabIndex = 4;
+            this.tbLak.Text = "-";
+            this.tbLak.TextChanged += new System.EventHandler(this.tbLak_TextChanged);
             // 
             // label2
             // 
@@ -250,6 +256,7 @@
             this.tbLepcsohaz.Name = "tbLepcsohaz";
             this.tbLepcsohaz.Size = new System.Drawing.Size(100, 20);
             this.tbLepcsohaz.TabIndex = 20;
+            this.tbLepcsohaz.TextChanged += new System.EventHandler(this.tbLepcsohaz_TextChanged);
             // 
             // label6
             // 
@@ -292,7 +299,8 @@
             this.tbAjtotores.Location = new System.Drawing.Point(910, 258);
             this.tbAjtotores.Name = "tbAjtotores";
             this.tbAjtotores.Size = new System.Drawing.Size(100, 20);
-            this.tbAjtotores.TabIndex = 26;
+            this.tbAjtotores.TabIndex = 23;
+            this.tbAjtotores.TextChanged += new System.EventHandler(this.tbAjtotores_TextChanged);
             // 
             // label9
             // 
@@ -309,7 +317,8 @@
             this.tbAjto.Location = new System.Drawing.Point(910, 220);
             this.tbAjto.Name = "tbAjto";
             this.tbAjto.Size = new System.Drawing.Size(100, 20);
-            this.tbAjto.TabIndex = 28;
+            this.tbAjto.TabIndex = 22;
+            this.tbAjto.TextChanged += new System.EventHandler(this.tbAjto_TextChanged);
             // 
             // label10
             // 
@@ -345,7 +354,7 @@
             // pb99
             // 
             this.pb99.Enabled = false;
-            this.pb99.Image = global::Vonalkod.Properties.Resources._9999;
+            this.pb99.Image = ((System.Drawing.Image)(resources.GetObject("pb99.Image")));
             this.pb99.Location = new System.Drawing.Point(141, 325);
             this.pb99.Name = "pb99";
             this.pb99.Size = new System.Drawing.Size(145, 74);
@@ -366,10 +375,11 @@
             // lblUser
             // 
             this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(823, 453);
+            this.lblUser.Location = new System.Drawing.Point(56, 467);
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(0, 13);
+            this.lblUser.Size = new System.Drawing.Size(39, 13);
             this.lblUser.TabIndex = 34;
+            this.lblUser.Text = "lblUser";
             // 
             // chkKemenysepro
             // 
@@ -393,16 +403,16 @@
             this.chkSor2.UseVisualStyleBackColor = true;
             this.chkSor2.CheckedChanged += new System.EventHandler(this.chkSor2_CheckedChanged);
             // 
-            // btnLakasadat
+            // btnLakasadatModositas
             // 
-            this.btnLakasadat.Location = new System.Drawing.Point(839, 407);
-            this.btnLakasadat.Name = "btnLakasadat";
-            this.btnLakasadat.Size = new System.Drawing.Size(145, 33);
-            this.btnLakasadat.TabIndex = 38;
-            this.btnLakasadat.Text = "Lakásadat módosítása";
-            this.btnLakasadat.UseVisualStyleBackColor = true;
-            this.btnLakasadat.Visible = false;
-            this.btnLakasadat.Click += new System.EventHandler(this.btnLakasadat_Click);
+            this.btnLakasadatModositas.Location = new System.Drawing.Point(1032, 236);
+            this.btnLakasadatModositas.Name = "btnLakasadatModositas";
+            this.btnLakasadatModositas.Size = new System.Drawing.Size(145, 33);
+            this.btnLakasadatModositas.TabIndex = 38;
+            this.btnLakasadatModositas.Text = "Lakásadat módosítása";
+            this.btnLakasadatModositas.UseVisualStyleBackColor = true;
+            this.btnLakasadatModositas.Visible = false;
+            this.btnLakasadatModositas.Click += new System.EventHandler(this.btnLakasadatModositas_Click);
             // 
             // label12
             // 
@@ -420,7 +430,7 @@
             this.chkEvesEllenorzes.Location = new System.Drawing.Point(960, 324);
             this.chkEvesEllenorzes.Name = "chkEvesEllenorzes";
             this.chkEvesEllenorzes.Size = new System.Drawing.Size(15, 14);
-            this.chkEvesEllenorzes.TabIndex = 40;
+            this.chkEvesEllenorzes.TabIndex = 25;
             this.chkEvesEllenorzes.UseVisualStyleBackColor = true;
             this.chkEvesEllenorzes.CheckedChanged += new System.EventHandler(this.chkEvesEllenorzes_CheckedChanged);
             // 
@@ -430,7 +440,8 @@
             this.cbEmeletjel.Location = new System.Drawing.Point(910, 186);
             this.cbEmeletjel.Name = "cbEmeletjel";
             this.cbEmeletjel.Size = new System.Drawing.Size(100, 21);
-            this.cbEmeletjel.TabIndex = 41;
+            this.cbEmeletjel.TabIndex = 21;
+            this.cbEmeletjel.SelectedIndexChanged += new System.EventHandler(this.cbEmeletjel_SelectedIndexChanged);
             // 
             // btnCancel
             // 
@@ -448,7 +459,7 @@
             this.tbMegj.Location = new System.Drawing.Point(911, 288);
             this.tbMegj.Name = "tbMegj";
             this.tbMegj.Size = new System.Drawing.Size(100, 20);
-            this.tbMegj.TabIndex = 44;
+            this.tbMegj.TabIndex = 24;
             // 
             // lblMegj
             // 
@@ -461,6 +472,8 @@
             // 
             // grLakasLista
             // 
+            this.grLakasLista.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.grLakasLista.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grLakasLista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grLakasLista.Location = new System.Drawing.Point(20, 490);
             this.grLakasLista.Name = "grLakasLista";
@@ -480,7 +493,7 @@
             // 
             // btnLakasKereses
             // 
-            this.btnLakasKereses.Location = new System.Drawing.Point(865, 407);
+            this.btnLakasKereses.Location = new System.Drawing.Point(1032, 191);
             this.btnLakasKereses.Name = "btnLakasKereses";
             this.btnLakasKereses.Size = new System.Drawing.Size(145, 33);
             this.btnLakasKereses.TabIndex = 47;
@@ -491,7 +504,7 @@
             // 
             // btnLakasadatSave
             // 
-            this.btnLakasadatSave.Location = new System.Drawing.Point(852, 407);
+            this.btnLakasadatSave.Location = new System.Drawing.Point(1032, 148);
             this.btnLakasadatSave.Name = "btnLakasadatSave";
             this.btnLakasadatSave.Size = new System.Drawing.Size(145, 33);
             this.btnLakasadatSave.TabIndex = 48;
@@ -500,12 +513,57 @@
             this.btnLakasadatSave.Visible = false;
             this.btnLakasadatSave.Click += new System.EventHandler(this.btnLakasadatSave_Click);
             // 
+            // btnUjLakas
+            // 
+            this.btnUjLakas.Location = new System.Drawing.Point(1032, 284);
+            this.btnUjLakas.Name = "btnUjLakas";
+            this.btnUjLakas.Size = new System.Drawing.Size(145, 33);
+            this.btnUjLakas.TabIndex = 49;
+            this.btnUjLakas.Text = "Új lakás létrehozása";
+            this.btnUjLakas.UseVisualStyleBackColor = true;
+            this.btnUjLakas.Visible = false;
+            this.btnUjLakas.Click += new System.EventHandler(this.btnUjLakas_Click);
+            // 
+            // btnMegsem
+            // 
+            this.btnMegsem.Location = new System.Drawing.Point(1032, 333);
+            this.btnMegsem.Name = "btnMegsem";
+            this.btnMegsem.Size = new System.Drawing.Size(145, 33);
+            this.btnMegsem.TabIndex = 50;
+            this.btnMegsem.Text = "Mégsem";
+            this.btnMegsem.UseVisualStyleBackColor = true;
+            this.btnMegsem.Visible = false;
+            this.btnMegsem.Click += new System.EventHandler(this.btnMegsem_Click);
+            // 
+            // btnLakasValasztas
+            // 
+            this.btnLakasValasztas.Location = new System.Drawing.Point(1032, 382);
+            this.btnLakasValasztas.Name = "btnLakasValasztas";
+            this.btnLakasValasztas.Size = new System.Drawing.Size(145, 43);
+            this.btnLakasValasztas.TabIndex = 51;
+            this.btnLakasValasztas.Text = "Lakás hozzárendelése a tanúsítványhoz";
+            this.btnLakasValasztas.UseVisualStyleBackColor = true;
+            this.btnLakasValasztas.Visible = false;
+            this.btnLakasValasztas.Click += new System.EventHandler(this.btnLakasValasztas_Click);
+            // 
+            // tbBevitelStatusz
+            // 
+            this.tbBevitelStatusz.Enabled = false;
+            this.tbBevitelStatusz.Location = new System.Drawing.Point(1032, 511);
+            this.tbBevitelStatusz.Name = "tbBevitelStatusz";
+            this.tbBevitelStatusz.Size = new System.Drawing.Size(145, 20);
+            this.tbBevitelStatusz.TabIndex = 52;
+            // 
             // VonalkodBeolvasas
             // 
             this.AcceptButton = this.btnBeolvas;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 714);
+            this.ClientSize = new System.Drawing.Size(1213, 714);
+            this.Controls.Add(this.tbBevitelStatusz);
+            this.Controls.Add(this.btnLakasValasztas);
+            this.Controls.Add(this.btnMegsem);
+            this.Controls.Add(this.btnUjLakas);
             this.Controls.Add(this.btnLakasadatSave);
             this.Controls.Add(this.btnLakasKereses);
             this.Controls.Add(this.lblStatus);
@@ -516,7 +574,7 @@
             this.Controls.Add(this.cbEmeletjel);
             this.Controls.Add(this.chkEvesEllenorzes);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.btnLakasadat);
+            this.Controls.Add(this.btnLakasadatModositas);
             this.Controls.Add(this.chkSor2);
             this.Controls.Add(this.chkKemenysepro);
             this.Controls.Add(this.lblUser);
@@ -598,7 +656,7 @@
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.CheckBox chkKemenysepro;
         private System.Windows.Forms.CheckBox chkSor2;
-        private System.Windows.Forms.Button btnLakasadat;
+        private System.Windows.Forms.Button btnLakasadatModositas;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox chkEvesEllenorzes;
         private System.Windows.Forms.ComboBox cbEmeletjel;
@@ -609,5 +667,9 @@
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnLakasKereses;
         private System.Windows.Forms.Button btnLakasadatSave;
+        private System.Windows.Forms.Button btnUjLakas;
+        private System.Windows.Forms.Button btnMegsem;
+        private System.Windows.Forms.Button btnLakasValasztas;
+        private System.Windows.Forms.TextBox tbBevitelStatusz;
     }
 }
