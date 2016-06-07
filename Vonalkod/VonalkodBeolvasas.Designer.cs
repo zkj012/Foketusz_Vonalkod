@@ -72,7 +72,6 @@
             this.lblMegj = new System.Windows.Forms.Label();
             this.grLakasLista = new System.Windows.Forms.DataGridView();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.btnLakasKereses = new System.Windows.Forms.Button();
             this.btnLakasadatSave = new System.Windows.Forms.Button();
             this.btnUjLakas = new System.Windows.Forms.Button();
             this.btnMegsem = new System.Windows.Forms.Button();
@@ -90,6 +89,7 @@
             this.tbVk.Name = "tbVk";
             this.tbVk.Size = new System.Drawing.Size(297, 29);
             this.tbVk.TabIndex = 1;
+            this.tbVk.Enter += new System.EventHandler(this.tbVk_Enter);
             this.tbVk.Leave += new System.EventHandler(this.tbVk_Leave);
             // 
             // label1
@@ -436,6 +436,9 @@
             // 
             // cbEmeletjel
             // 
+            this.cbEmeletjel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbEmeletjel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbEmeletjel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEmeletjel.FormattingEnabled = true;
             this.cbEmeletjel.Location = new System.Drawing.Point(910, 186);
             this.cbEmeletjel.Name = "cbEmeletjel";
@@ -490,17 +493,6 @@
             this.lblStatus.Size = new System.Drawing.Size(37, 13);
             this.lblStatus.TabIndex = 46;
             this.lblStatus.Text = "Status";
-            // 
-            // btnLakasKereses
-            // 
-            this.btnLakasKereses.Location = new System.Drawing.Point(1032, 191);
-            this.btnLakasKereses.Name = "btnLakasKereses";
-            this.btnLakasKereses.Size = new System.Drawing.Size(145, 33);
-            this.btnLakasKereses.TabIndex = 47;
-            this.btnLakasKereses.Text = "Lakás keresése";
-            this.btnLakasKereses.UseVisualStyleBackColor = true;
-            this.btnLakasKereses.Visible = false;
-            this.btnLakasKereses.Click += new System.EventHandler(this.btnLakasKereses_Click);
             // 
             // btnLakasadatSave
             // 
@@ -565,7 +557,6 @@
             this.Controls.Add(this.btnMegsem);
             this.Controls.Add(this.btnUjLakas);
             this.Controls.Add(this.btnLakasadatSave);
-            this.Controls.Add(this.btnLakasKereses);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.grLakasLista);
             this.Controls.Add(this.tbMegj);
@@ -659,17 +650,16 @@
         private System.Windows.Forms.Button btnLakasadatModositas;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox chkEvesEllenorzes;
-        private System.Windows.Forms.ComboBox cbEmeletjel;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox tbMegj;
         private System.Windows.Forms.Label lblMegj;
         private System.Windows.Forms.DataGridView grLakasLista;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Button btnLakasKereses;
         private System.Windows.Forms.Button btnLakasadatSave;
         private System.Windows.Forms.Button btnUjLakas;
         private System.Windows.Forms.Button btnMegsem;
         private System.Windows.Forms.Button btnLakasValasztas;
         private System.Windows.Forms.TextBox tbBevitelStatusz;
+        private System.Windows.Forms.ComboBox cbEmeletjel;
     }
 }

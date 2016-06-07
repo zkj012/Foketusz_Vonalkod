@@ -37,10 +37,13 @@ namespace Vonalkod
         List<Tan> t2;
         List<Tan> t3;
         List<Lakas> Lakasok;
-        const string KetszerZartSzoveg = "; Kétszer zárt";
+        const String KetszerZartSzoveg = "; Kétszer zárt";
         Color KetszerzartBetuszin = Color.DarkOrchid;
-        bool GridEnabledPreviousStatus;
-        bool UjlakasPrevStatus;
+
+        Boolean PrevGridEnabledStatus;
+        Boolean PrevbtnUjlakasStatus;
+        Boolean PrevbtnLakasmodStatus;
+        String PrevLblStatus;
 
         enum AdatBevitel
         {
@@ -53,6 +56,7 @@ namespace Vonalkod
         private readonly IComparer<Lakas> lakasComparer = new LakasComparer();
 
         AdatBevitel AdatbevitelStatusz; // a vonalkód mező fókusz visszatérést szabályozza pl. lakásadatfrissítéskor
+        AdatBevitel PrevAdatbevitelStatusz;
 
         public VonalkodBeolvasas()
         {
@@ -106,7 +110,7 @@ namespace Vonalkod
                     chkEvesEllenorzes.Enabled = !chkKemenysepro.Checked;
                     grLakasLista.Visible = false; // üresen nem látható
                     grLakasLista.Enabled = false; // választani nem lehet, ha van a vonalkódhoz oid
-                    GridEnabledPreviousStatus = false;
+                    PrevGridEnabledStatus = false;
                     grLakasLista.AutoGenerateColumns = false;
                     grLakasLista.MultiSelect = false;
 
@@ -1046,7 +1050,10 @@ namespace Vonalkod
                     grLakasLista.AutoResizeColumns();
                     grLakasLista.Visible = !chkKemenysepro.Checked;
 
-                    lblStatus.Text = string.Empty;
+                    AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
+                    tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+
+                    lblStatus.Text = "Vonalkódolvasásra vár"; // string.Empty;
                 }
                 else if ((from Tan v in VkTan.Values where v.Vonalkod == tbLak.Text select v).Any()) // ha van ilyen vonalkód a memóriában
                 {
@@ -1077,6 +1084,9 @@ namespace Vonalkod
                         grLakasLista.Visible = !chkKemenysepro.Checked;
                         lblStatus.Text = "A lakáshoz van egyedi rendelés, az adatok nem szerkeszthetőek";
 
+                        AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
+                        tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+
                         // TODO: grid selectionchange-be mozgatandó
                         btnLakasadatModositas.Visible = false;
                         btnUjLakas.Visible = false;
@@ -1087,6 +1097,9 @@ namespace Vonalkod
                         // szerkeszthető lakásadat, de nem választható; új nem hozható létre
                         UpdateGridDataSource(Lakasok, x => x.vonalkod == tbLak.Text);
                         grLakasLista.Enabled = false;
+
+                        AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
+                        tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
 
                         lblStatus.Text = "A lakás adatai szerkeszthetőek";
 
@@ -1100,7 +1113,7 @@ namespace Vonalkod
                     // itt engedni kell új lakást hozzáadni, ha van lakástanúsítvány. Csak admin módban, csak ha van munkaid
                     UpdateGridDataSource(Lakasok, x => !String.IsNullOrEmpty(x.vonalkod));
                     grLakasLista.Refresh();
-                    GridEnabledPreviousStatus = grLakasLista.Enabled;
+                    PrevGridEnabledStatus = grLakasLista.Enabled;
                     grLakasLista.Enabled = true;
                     grLakasLista.ClearSelection();
 
@@ -1129,56 +1142,64 @@ namespace Vonalkod
 
         private void grLakasLista_SelectionChanged(object sender, EventArgs e)
         {
+
             Console.WriteLine("GridSelectionChanged (adatbevitelstátusz: {0}; selected row-oid: {1}, number of selected rows: {2}, tblak: {3})", AdatbevitelStatusz, grLakasLista.SelectedRows.Count == 0 ? "Nincs kiválasztott sor" : grLakasLista.SelectedRows[0].Cells["oid"].Value.ToString(), grLakasLista.SelectedRows.Count.ToString(), tbLak.Text);
 
-            if (grLakasLista.SelectedRows.Count == 0)
+            if((AdatbevitelStatusz != AdatBevitel.LakasadatKereses) || (AdatbevitelStatusz == AdatBevitel.LakasadatKereses && grLakasLista.Focused))
             {
-                tbLepcsohaz.Text = string.Empty;
-                cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact("<Nincs emelet>");
-                tbAjto.Text = string.Empty;
-                tbAjtotores.Text = string.Empty;
-                chkEvesEllenorzes.Checked = false;
-                tbMegj.Text = string.Empty;
-                tbOid.Text = string.Empty;
-                btnLakasadatModositas.Visible = false;
-            }
-            else
-            {
-                int loid;
-                if (!int.TryParse(grLakasLista.SelectedRows[0].Cells["oid"].Value.ToString(), out loid))
+                if (grLakasLista.SelectedRows.Count == 0)
                 {
-                    // új lakás, még nincs oid
+                    tbLepcsohaz.Text = string.Empty;
+                    cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact("<Nincs emelet>");
+                    tbAjto.Text = string.Empty;
+                    tbAjtotores.Text = string.Empty;
+                    chkEvesEllenorzes.Checked = false;
+                    tbMegj.Text = string.Empty;
+                    tbOid.Text = string.Empty;
+                    btnLakasadatModositas.Visible = false;
                 }
                 else
                 {
-                    var ls = (from l in Lakasok where l.oid == loid select l).First();
-                    tbLepcsohaz.Text = ls.lepcsohaz;
-                    cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(ls.emelet);
-                    // cbEmeletjel.SelectedIndex = VkTan[tbLak.Text].emeletjel == null ? cbEmeletjel.Items.IndexOf("<NA>") : cbEmeletjel.Items.IndexOf(VkTan[tbLak.Text].emeletjel);
-                    tbAjto.Text = ls.ajto;
-                    tbAjtotores.Text = ls.ajtotores;
-                    chkEvesEllenorzes.Checked = ls.EvesEllenorzesIndokolt;
-                    tbMegj.Text = ls.megjegyzes;
-                    tbOid.Text = loid.ToString();
-
-                    if (!ls.NemTorolhetoEsetiRendelesMiatt) // módosítható-e a lakásadat
+                    int loid;
+                    if (!int.TryParse(grLakasLista.SelectedRows[0].Cells["oid"].Value.ToString(), out loid))
                     {
-                        btnLakasadatModositas.Visible = true;
+                        // új lakás, még nincs oid
                     }
-
-                    switch (AdatbevitelStatusz)
+                    else
                     {
-                        case AdatBevitel.LakasadatKereses:
+                        var ls = (from l in Lakasok where l.oid == loid select l).First();
+                        tbLepcsohaz.Text = ls.lepcsohaz;
+                        cbEmeletjel.SelectedIndex = cbEmeletjel.FindStringExact(ls.emelet);
+                        // cbEmeletjel.SelectedIndex = VkTan[tbLak.Text].emeletjel == null ? cbEmeletjel.Items.IndexOf("<NA>") : cbEmeletjel.Items.IndexOf(VkTan[tbLak.Text].emeletjel);
+                        tbAjto.Text = ls.ajto;
+                        tbAjtotores.Text = ls.ajtotores;
+                        chkEvesEllenorzes.Checked = ls.EvesEllenorzesIndokolt;
+                        tbMegj.Text = ls.megjegyzes;
+                        tbOid.Text = loid.ToString();
+
+                        if (!ls.NemTorolhetoEsetiRendelesMiatt) // módosítható-e a lakásadat
+                        {
+                            btnLakasadatModositas.Visible = true;
+                        }
+
+                        switch (AdatbevitelStatusz) // ez nem biztos, hogy kell...
+                        {
+                            case AdatBevitel.LakasadatKereses:
                             btnLakasValasztas.Visible = true;
                             break;
-                        default:
+                            default:
                             break;
+                        }
                     }
                 }
+
+                tbVk.Select();
+            }
+            else
+            {
+                // lakáskeresés üzemmód
             }
 
-
-            tbVk.Select();
         }
 
         string GetTanTipus(string vonalkod)
@@ -1378,36 +1399,6 @@ namespace Vonalkod
 
         }
 
-        private int? LakasKeresesGrid(string lh, string emj, string aj, string ajt)
-        {
-            int lhmatch = -1;
-            int emjmatch = -1;
-            int ajmatch = -1;
-            int ajtmatch = -1;
-
-            grLakasLista.ClearSelection();
-
-            for (int i = 0; i < grLakasLista.Rows.Count; i++)
-            {
-                if ((string)grLakasLista.Rows[i].Cells["vk"].Value == "") // csak a vonalkód nélküliekben keres
-                {
-                    lhmatch = (string)grLakasLista.Rows[i].Cells["lh"].Value == lh ? i : lhmatch;
-                    emjmatch = (string)grLakasLista.Rows[i].Cells["emj"].Value == emj ? i : lhmatch;
-                    ajmatch = (string)grLakasLista.Rows[i].Cells["aj"].Value == aj ? i : lhmatch;
-                    ajtmatch = (string)grLakasLista.Rows[i].Cells["ajt"].Value == ajt ? i : lhmatch;
-
-                }
-            }
-
-            // if row does not exist, set current cell to first row.
-            /*           if (!rowExists)
-                       {
-                           // grLakasLista.Rows[0].Selected = true;
-                           grLakasLista.FirstDisplayedScrollingRowIndex = 0;
-                       }*/
-            return null;
-        } // ez kell-e??? (vagy Robi módján meg lehet csinálni???)
-
         private void UpdateGridDataSource(IEnumerable<Lakas> originalData, params Func<Lakas, bool>[] filters)
         {
             var result = originalData;
@@ -1422,11 +1413,6 @@ namespace Vonalkod
             grLakasLista.Refresh();
         }
 
-        private void btnLakasKereses_Click(object sender, EventArgs e)
-        {
-            // itt lehet keresni a lakások adatát
-        }
-
         private void btnLakasadatSave_Click(object sender, EventArgs e)
         {
             Console.WriteLine("LakasadatSaveClick ({0})", AdatbevitelStatusz.ToString());
@@ -1434,35 +1420,71 @@ namespace Vonalkod
             {
                 case AdatBevitel.Lakasadatmodositas:
                     // módosított lakásadatok mentése
+                    // nem lehet 99. emelet; ajtó, megjegyzés adatok ellenőrzése (ne legyen automatikusan generált adat benne)
 
-                    int loid;
-                    if (int.TryParse(tbOid.Text, out loid))
+                    string hibak = string.Empty;
+                    if(((KeyValuePair<String, String>)cbEmeletjel.SelectedItem).Key == "99")
                     {
-                        var lm = (from l in Lakasok where l.oid == loid select l);
-                        // lm.lepcsohaz = tbLepcsohaz.Text;
-                        Console.WriteLine("{0},{1}", cbEmeletjel.SelectedItem.ToString(), cbEmeletjel.SelectedValue.ToString());
-
+                        hibak = "Az emelet értéke nem lehet 99, kérem a helyes értéket beírni";
+                        cbEmeletjel.Select();
                     }
-                    lblStatus.Text = "Vonalkód beolvasásra vár";
-                    AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
-                    tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                    if(tbMegj.Text.Contains("adat nélküli lakás"))
+                    {
+                        if(!string.IsNullOrEmpty(hibak))
+                        {
+                            hibak += Environment.NewLine;
+                        }
+                        hibak += "A megjegyzést javítani vagy törölni kell, ha az automatikusan létrehozott adatok változnak (az ajtó adatokat is ellenőrizni kell!)";
+                        tbAjto.Select();
+                    }
 
-                    btnLakasadatSave.Visible = false;
-                    btnMegsem.Visible = false;
-                    btnLakasadatModositas.Visible = true;
-                    tvVonalkodok.Enabled = true;
-                    tbVk.Select();
+                    if(string.IsNullOrEmpty(hibak)) // csak akkor van mentés, ha nincs fölismert hibás adat
+                    {
+                        int loid;
+                        if (int.TryParse(tbOid.Text, out loid))
+                        {
+                            var lm = (from l in Lakasok where l.oid == loid select l);
+                            // módosítások mentése, auditlog
+
+
+                        }
+
+                        // ha a vonalkód üres és van kiválasztott lakás, akkor a hozzárendelés is megjelenik
+                        if (grLakasLista.SelectedRows.Count != 0 && string.IsNullOrEmpty((String)grLakasLista.SelectedRows[0].Cells["vk"].Value))
+                        {
+                            btnLakasValasztas.Visible = true;
+                        }
+
+                        // lblStatus.Text = "Vonalkód beolvasásra vár";
+                        lblStatus.Text = PrevLblStatus;
+                        AdatbevitelStatusz = PrevAdatbevitelStatusz;
+                        tbBevitelStatusz.Text = AdatbevitelStatusz.ToString() + " (előző érték: " + PrevAdatbevitelStatusz.ToString() + ")"; // debug
+                        btnUjLakas.Visible = PrevbtnUjlakasStatus;
+
+                        btnLakasadatSave.Visible = false;
+                        btnMegsem.Visible = false;
+                        btnLakasadatModositas.Visible = true;
+                        tvVonalkodok.Enabled = true;
+                        if (AdatbevitelStatusz == AdatBevitel.VonalkodOlvasas)
+                        {
+                            tbVk.Select();
+                        }
+                    }
                     break;
+
                 case AdatBevitel.Ujlakas:
-                    lblStatus.Text = "Vonalkód beolvasásra vár";
-                    AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
+                    // új lakás adatainak mentése (adatbázisba is az oid miatt)
+                    // nem lehet 99. emelet
+
+                    lblStatus.Text = PrevLblStatus;
+                    AdatbevitelStatusz = PrevAdatbevitelStatusz;
                     tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
 
                     btnLakasadatSave.Visible = false;
                     btnMegsem.Visible = false;
                     btnLakasadatModositas.Visible = true;
                     tvVonalkodok.Enabled = true;
-                    tbVk.Select();
+
 
                     // új lakás hozzáadása a listákhoz
                     // vonalkód adatok frissítése a lakásokkal
@@ -1475,6 +1497,12 @@ namespace Vonalkod
                 default:
                     break;
             }
+
+            if (AdatbevitelStatusz == AdatBevitel.VonalkodOlvasas)
+            {
+                tbVk.Select();
+            }
+
         }
 
         private void btnLakasadatModositas_Click(object sender, EventArgs e)
@@ -1485,17 +1513,22 @@ namespace Vonalkod
             }
             else
             {
+
+                PrevAdatbevitelStatusz = AdatbevitelStatusz;
+                PrevbtnUjlakasStatus = btnUjLakas.Visible;
+                PrevLblStatus = lblStatus.Text;
+
                 AdatbevitelStatusz = AdatBevitel.Lakasadatmodositas;
                 tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
                 btnLakasadatSave.Visible = true;
                 btnLakasadatModositas.Visible = false;
                 btnMegsem.Visible = true;
                 tvVonalkodok.Enabled = false;
-                GridEnabledPreviousStatus = grLakasLista.Enabled;
+                PrevGridEnabledStatus = grLakasLista.Enabled;
                 grLakasLista.Enabled = false;
                 lblStatus.Text = "Gridben kijelölt lakás adatainak módosítása";
                 tbLepcsohaz.Select();
-                UjlakasPrevStatus = btnUjLakas.Visible;
+                PrevbtnUjlakasStatus = btnUjLakas.Visible;
                 btnUjLakas.Visible = false;
 
                 btnLakasValasztas.Visible = false;
@@ -1520,7 +1553,7 @@ namespace Vonalkod
 
             tbLepcsohaz.Select();
             tvVonalkodok.Enabled = false;
-            GridEnabledPreviousStatus = grLakasLista.Enabled;
+            PrevGridEnabledStatus = grLakasLista.Enabled;
             grLakasLista.Enabled = false;
             grLakasLista.ClearSelection();
 
@@ -1542,31 +1575,40 @@ namespace Vonalkod
             switch (AdatbevitelStatusz)
             {
                 case AdatBevitel.Lakasadatmodositas:
+                case AdatBevitel.Ujlakas:
                     tvVonalkodok.Enabled = true;
-                    grLakasLista.Enabled = GridEnabledPreviousStatus;
-                    AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
-                    tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
-
+                    grLakasLista.Enabled = PrevGridEnabledStatus;
                     btnMegsem.Visible = false;
                     btnLakasadatSave.Visible = false;
                     btnLakasadatModositas.Visible = true;
-                    btnUjLakas.Visible = UjlakasPrevStatus;
-                    lblStatus.Text = "Vonalkód beolvasásra vár";
-                    break;
+                    btnUjLakas.Visible = PrevbtnUjlakasStatus;
 
+                    AdatbevitelStatusz = PrevAdatbevitelStatusz;
+                    tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+
+                    // ha a vonalkód üres, akkor a hozzárendelés is megjelenik
+                    if(grLakasLista.SelectedRows.Count != 0 && string.IsNullOrEmpty((String)grLakasLista.SelectedRows[0].Cells["vk"].Value))
+                    {
+                        btnLakasValasztas.Visible = true;
+                    }
+
+                    // lblStatus.Text = "Vonalkód beolvasásra vár";
+                    lblStatus.Text = PrevLblStatus;
+                    break;
+/*
                 case AdatBevitel.Ujlakas:
                     tvVonalkodok.Enabled = true;
                     grLakasLista.Enabled = true;
-                    AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas; // itt lehet, hogy keresés kellene???
+                    AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas; // itt lehet, hogy keresés kellene??? Vonalkódhozzárendelés???
                     tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
 
                     btnMegsem.Visible = false;
                     btnLakasadatSave.Visible = false;
                     btnUjLakas.Visible = true;
-                    break;
+                    break;*/
 
                 default:
-                    grLakasLista.Enabled = GridEnabledPreviousStatus;
+                    grLakasLista.Enabled = PrevGridEnabledStatus;
                     AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
                     tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
 
@@ -1583,7 +1625,7 @@ namespace Vonalkod
 
         private void tbLepcsohaz_TextChanged(object sender, EventArgs e)
         {
-            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses)
+            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses && !grLakasLista.Focused)
             {
                 LakasKereses();
             }
@@ -1591,7 +1633,8 @@ namespace Vonalkod
 
         private void cbEmeletjel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses)
+
+            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses && !grLakasLista.Focused)
             {
                 LakasKereses();
             }
@@ -1599,7 +1642,7 @@ namespace Vonalkod
 
         private void tbAjto_TextChanged(object sender, EventArgs e)
         {
-            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses)
+            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses && !grLakasLista.Focused)
             {
                 LakasKereses();
             }
@@ -1607,7 +1650,7 @@ namespace Vonalkod
 
         private void tbAjtotores_TextChanged(object sender, EventArgs e)
         {
-            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses)
+            if (AdatbevitelStatusz == AdatBevitel.LakasadatKereses && !grLakasLista.Focused)
             {
                 LakasKereses();
             }
@@ -1616,9 +1659,18 @@ namespace Vonalkod
         private void LakasKereses()
         {
             UpdateGridDataSource(Lakasok,
-            x => (String.IsNullOrEmpty(tbLepcsohaz.Text) || x.lepcsohaz == tbLepcsohaz.Text)
-            && (String.IsNullOrEmpty(tbAjto.Text) || x.ajto == tbAjto.Text)
-            && (String.IsNullOrEmpty(tbAjtotores.Text) || x.ajtotores == tbAjtotores.Text));
+                x => String.IsNullOrEmpty(x.vonalkod)
+                && (String.IsNullOrEmpty(tbLepcsohaz.Text) || x.lepcsohaz == tbLepcsohaz.Text)
+                && (cbEmeletjel.SelectedItem == null || String.IsNullOrEmpty(((KeyValuePair<String, String>)cbEmeletjel.SelectedItem).Key) || ((KeyValuePair<String, String>)cbEmeletjel.SelectedItem).Key == "<NA>" || x.emeletjelkod == ((KeyValuePair<String, String>)cbEmeletjel.SelectedItem).Key)
+                && (String.IsNullOrEmpty(tbAjto.Text) || x.ajto == tbAjto.Text)
+                && (String.IsNullOrEmpty(tbAjtotores.Text) || x.ajtotores == tbAjtotores.Text));
+            grLakasLista.ClearSelection();
+        }
+
+        private void tbVk_Enter(object sender, EventArgs e)
+        {
+            Console.WriteLine("tbVk_Enter");
+            // TODO: státuszmentés; a tbVk_Leave-ben visszaállítás, ha nem volt vonalkódolvasás
         }
     }
 }
