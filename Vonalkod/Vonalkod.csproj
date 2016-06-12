@@ -61,7 +61,7 @@
     <ManifestKeyFile>Vonalkod_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -97,6 +97,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditLog.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="CimInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +208,9 @@
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
     <Compile Include="vOreCim.cs">
+      <DependentUpon>KotorDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vOreTulaj1.cs">
       <DependentUpon>KotorDb.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CimInput.resx">

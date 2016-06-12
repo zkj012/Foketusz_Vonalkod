@@ -20,6 +20,7 @@ namespace Vonalkod
             InitializeComponent();
         }
 
+        private int retrycount=3;
 
         private void Login_Load(object sender, EventArgs e)
         {
@@ -28,19 +29,18 @@ namespace Vonalkod
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-
             Sha1PasswordHasher pwd = new Sha1PasswordHasher();
 
             using (KotorEntities ke = new KotorEntities())
             {
                 try
                 {
-
+                tryagain:
                     this.Enabled = false;
+                    Cursor.Current = Cursors.WaitCursor;
                     try
                     {
-                        ke.Database.CommandTimeout = 180;
+                        ke.Database.CommandTimeout = 60;
 
                         LoginHelper.LoggedOnUser = (from d in ke.Munkatars_t
                                                     where d.LoginNev == textBoxUsername.Text
@@ -49,32 +49,49 @@ namespace Vonalkod
                     }
                     catch (Exception ex) // EntityCommandExecutionException ex)
                     {
-                        MessageBox.Show(string.Format("Hiba történt! Kérem próbálja újra! ({0})",ex.ToString()));
+                        if(string.Compare(ex.Message, "The underlying provider failed on Open.") == 0 && (retrycount-- > 0))
+                        {
+                            lblLoginStatus.Text = string.Format("Bejelentkezés újrapróbálkozás ({0})", 3 - retrycount);
+                            lblLoginStatus.Refresh();
+                            goto tryagain;
+                        }
+
+                        MessageBox.Show(string.Format("Hiba történt! Kérem próbálja újra! ({0})",ex.Message));
+                        retrycount = 3;
                     }
                     finally
                     {
                         Cursor.Current = Cursors.Default;
                     }
-                    if (LoginHelper.LoggedOnUser == null || !pwd.VerifyHashedPassword(LoginHelper.LoggedOnUser.jelszohash, textBoxJelszo.Text)) 
+
+                    if(retrycount <= 0)
                     {
-                        MessageBox.Show("Hibás jelszó vagy felhasználónév");
+                        this.Controls.Clear();
+                        this.InitializeComponent();
                     }
                     else
                     {
-                        // sikeres bejelentkezés
-                        LoginHelper.LoggedOnUser.jelszohash = "";
-                        if(LoginHelper.LoggedOnUser.munkakorkod == "KEMENYSEPRO")
+                        if (LoginHelper.LoggedOnUser == null || !pwd.VerifyHashedPassword(LoginHelper.LoggedOnUser.jelszohash, textBoxJelszo.Text))
                         {
-                            LoginHelper.LoggedOnUser.kemenysepro = true;
+                            MessageBox.Show("Hibás jelszó vagy felhasználónév");
                         }
                         else
                         {
-                            LoginHelper.LoggedOnUser.kemenysepro = false;
+                            // sikeres bejelentkezés
+                            LoginHelper.LoggedOnUser.jelszohash = "";
+                            if (LoginHelper.LoggedOnUser.munkakorkod == "KEMENYSEPRO")
+                            {
+                                LoginHelper.LoggedOnUser.kemenysepro = true;
+                            }
+                            else
+                            {
+                                LoginHelper.LoggedOnUser.kemenysepro = false;
+                            }
+                            this.Hide();
+                            VonalkodBeolvasas vk = new VonalkodBeolvasas();
+                            vk.ShowDialog();
+                            this.Close();
                         }
-                        this.Hide();
-                        VonalkodBeolvasas vk = new VonalkodBeolvasas();
-                        vk.ShowDialog();
-                        this.Close();
                     }
                 }
                 finally

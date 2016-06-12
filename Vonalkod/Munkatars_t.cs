@@ -62,6 +62,7 @@ namespace Vonalkod
         public bool ADLogin { get; set; }
         public Nullable<int> ElszamolasAlairoId { get; set; }
         public string Vonalkod { get; set; }
+        public bool Tesztrendszer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cim_t> Cim_t { get; set; }

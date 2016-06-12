@@ -77,6 +77,9 @@
             this.btnMegsem = new System.Windows.Forms.Button();
             this.btnLakasValasztas = new System.Windows.Forms.Button();
             this.tbBevitelStatusz = new System.Windows.Forms.TextBox();
+            this.tbFigy = new System.Windows.Forms.TextBox();
+            this.tbTulaj = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbTorles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb99)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grLakasLista)).BeginInit();
@@ -87,7 +90,7 @@
             this.tbVk.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tbVk.Location = new System.Drawing.Point(20, 12);
             this.tbVk.Name = "tbVk";
-            this.tbVk.Size = new System.Drawing.Size(297, 29);
+            this.tbVk.Size = new System.Drawing.Size(245, 29);
             this.tbVk.TabIndex = 1;
             this.tbVk.Enter += new System.EventHandler(this.tbVk_Enter);
             this.tbVk.Leave += new System.EventHandler(this.tbVk_Leave);
@@ -106,15 +109,16 @@
             this.tbFo.Enabled = false;
             this.tbFo.Location = new System.Drawing.Point(168, 59);
             this.tbFo.Name = "tbFo";
-            this.tbFo.Size = new System.Drawing.Size(149, 20);
+            this.tbFo.Size = new System.Drawing.Size(97, 20);
             this.tbFo.TabIndex = 2;
+            this.tbFo.TextChanged += new System.EventHandler(this.tbFo_TextChanged);
             // 
             // tbLak
             // 
             this.tbLak.Enabled = false;
             this.tbLak.Location = new System.Drawing.Point(168, 96);
             this.tbLak.Name = "tbLak";
-            this.tbLak.Size = new System.Drawing.Size(149, 20);
+            this.tbLak.Size = new System.Drawing.Size(97, 20);
             this.tbLak.TabIndex = 4;
             this.tbLak.Text = "-";
             this.tbLak.TextChanged += new System.EventHandler(this.tbLak_TextChanged);
@@ -133,7 +137,7 @@
             this.tbCim.Enabled = false;
             this.tbCim.Location = new System.Drawing.Point(20, 172);
             this.tbCim.Name = "tbCim";
-            this.tbCim.Size = new System.Drawing.Size(297, 20);
+            this.tbCim.Size = new System.Drawing.Size(245, 20);
             this.tbCim.TabIndex = 5;
             // 
             // tbRendeles
@@ -141,15 +145,15 @@
             this.tbRendeles.Enabled = false;
             this.tbRendeles.Location = new System.Drawing.Point(20, 227);
             this.tbRendeles.Name = "tbRendeles";
-            this.tbRendeles.Size = new System.Drawing.Size(297, 20);
+            this.tbRendeles.Size = new System.Drawing.Size(245, 20);
             this.tbRendeles.TabIndex = 6;
             // 
             // tvVonalkodok
             // 
             this.tvVonalkodok.HideSelection = false;
-            this.tvVonalkodok.Location = new System.Drawing.Point(416, 11);
+            this.tvVonalkodok.Location = new System.Drawing.Point(376, 11);
             this.tvVonalkodok.Name = "tvVonalkodok";
-            this.tvVonalkodok.Size = new System.Drawing.Size(388, 429);
+            this.tvVonalkodok.Size = new System.Drawing.Size(428, 429);
             this.tvVonalkodok.TabIndex = 7;
             this.tvVonalkodok.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvVonalkodok_AfterSelect);
             // 
@@ -173,9 +177,9 @@
             // 
             // btnBeolvas
             // 
-            this.btnBeolvas.Location = new System.Drawing.Point(323, 12);
+            this.btnBeolvas.Location = new System.Drawing.Point(284, 9);
             this.btnBeolvas.Name = "btnBeolvas";
-            this.btnBeolvas.Size = new System.Drawing.Size(81, 29);
+            this.btnBeolvas.Size = new System.Drawing.Size(86, 29);
             this.btnBeolvas.TabIndex = 2;
             this.btnBeolvas.Text = "Beolvasás";
             this.btnBeolvas.UseVisualStyleBackColor = true;
@@ -237,7 +241,7 @@
             this.tbLastVk.Enabled = false;
             this.tbLastVk.Location = new System.Drawing.Point(168, 131);
             this.tbLastVk.Name = "tbLastVk";
-            this.tbLastVk.Size = new System.Drawing.Size(149, 20);
+            this.tbLastVk.Size = new System.Drawing.Size(97, 20);
             this.tbLastVk.TabIndex = 18;
             // 
             // label5
@@ -270,7 +274,7 @@
             // tbOid
             // 
             this.tbOid.Enabled = false;
-            this.tbOid.Location = new System.Drawing.Point(910, 357);
+            this.tbOid.Location = new System.Drawing.Point(910, 399);
             this.tbOid.Name = "tbOid";
             this.tbOid.Size = new System.Drawing.Size(100, 20);
             this.tbOid.TabIndex = 22;
@@ -278,7 +282,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(810, 360);
+            this.label7.Location = new System.Drawing.Point(810, 402);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(45, 13);
             this.label7.TabIndex = 21;
@@ -546,12 +550,41 @@
             this.tbBevitelStatusz.Size = new System.Drawing.Size(145, 20);
             this.tbBevitelStatusz.TabIndex = 52;
             // 
+            // tbFigy
+            // 
+            this.tbFigy.Enabled = false;
+            this.tbFigy.Location = new System.Drawing.Point(284, 99);
+            this.tbFigy.Multiline = true;
+            this.tbFigy.Name = "tbFigy";
+            this.tbFigy.Size = new System.Drawing.Size(86, 148);
+            this.tbFigy.TabIndex = 53;
+            // 
+            // tbTulaj
+            // 
+            this.tbTulaj.Enabled = false;
+            this.tbTulaj.Location = new System.Drawing.Point(910, 360);
+            this.tbTulaj.Name = "tbTulaj";
+            this.tbTulaj.Size = new System.Drawing.Size(100, 20);
+            this.tbTulaj.TabIndex = 55;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(810, 363);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(62, 13);
+            this.label11.TabIndex = 54;
+            this.label11.Text = "Tulajdonos:";
+            // 
             // VonalkodBeolvasas
             // 
             this.AcceptButton = this.btnBeolvas;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1213, 714);
+            this.Controls.Add(this.tbTulaj);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.tbFigy);
             this.Controls.Add(this.tbBevitelStatusz);
             this.Controls.Add(this.btnLakasValasztas);
             this.Controls.Add(this.btnMegsem);
@@ -661,5 +694,8 @@
         private System.Windows.Forms.Button btnLakasValasztas;
         private System.Windows.Forms.TextBox tbBevitelStatusz;
         private System.Windows.Forms.ComboBox cbEmeletjel;
+        private System.Windows.Forms.TextBox tbFigy;
+        private System.Windows.Forms.TextBox tbTulaj;
+        private System.Windows.Forms.Label label11;
     }
 }

@@ -12,17 +12,17 @@ namespace Vonalkod
     using System;
     using System.Collections.Generic;
     
-    public partial class vEpuletElsCim
+    public partial class AuditLog
     {
-        public int Eid { get; set; }
-        public int Cid { get; set; }
-        public Nullable<int> IRSZ { get; set; }
-        public string CimSzoveg { get; set; }
-        public Nullable<int> Iid { get; set; }
-        public string CimHRSZ { get; set; }
-        public string EpHRSZ { get; set; }
-        public string UtcaHazszam { get; set; }
-        public string TelepulesNev { get; set; }
-        public string CimSzovegEpulet { get; set; }
+        public int AuditLogID { get; set; }
+        public int UserID { get; set; }
+        public System.DateTime EventDateUTC { get; set; }
+        public string EventType { get; set; }
+        public string TableName { get; set; }
+        public string RecordID { get; set; }
+        public string ColumnName { get; set; }
+        public string OriginalValue { get; set; }
+        public string NewValue { get; set; }
+        public string Description { get; set; }
     }
 }

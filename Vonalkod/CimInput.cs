@@ -23,7 +23,7 @@ namespace Vonalkod
         {
             entities = new KotorEntities();
             LoadIrszComboBox();
-            LoadEmeletJelComboBox();
+            // LoadEmeletJelComboBox();
         }
 
         private void LoadIrszComboBox()
@@ -91,7 +91,7 @@ namespace Vonalkod
             }
         }
 
-        private void LoadEmeletJelComboBox()
+/*        private void LoadEmeletJelComboBox()
         {
             var emeletJelek = entities.EmeletJel_m.OrderBy(x => x.RovidNev).ToList();
             var autoCompleteList = new AutoCompleteStringCollection();
@@ -102,7 +102,7 @@ namespace Vonalkod
             cbEmelet.DataSource = emeletJelek;
             cbEmelet.AutoCompleteCustomSource = autoCompleteList;
         }
-
+*/
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -123,9 +123,10 @@ namespace Vonalkod
             }
             CimHelper.Szam2 = i == 0 ? null : (int?)i;
             CimHelper.Jel2 = txtJel2.Text;
-            CimHelper.EmeletKod = (string)cbEmelet.SelectedValue;
-            CimHelper.EmeletRovidNev = cbEmelet.SelectedValue == null ? "" : ((EmeletJel_m)cbEmelet.SelectedItem).RovidNev;
-            CimHelper.Ajto = txtAjto.Text;
+            //            CimHelper.EmeletKod = (string)cbEmelet.SelectedValue;
+            //            CimHelper.EmeletRovidNev = cbEmelet.SelectedValue == null ? "" : ((EmeletJel_m)cbEmelet.SelectedItem).RovidNev;
+            CimHelper.Epulet = txtEpulet.Text;
+            CimHelper.Lepcsohaz = txtLepcsohaz.Text;
             
             this.Close();
         }
@@ -153,15 +154,19 @@ namespace Vonalkod
         public static string Jel1 { get; set; }
         public static int? Szam2 { get; set; }
         public static string Jel2 { get; set; }
-        public static string EmeletKod { get; set; }
-        public static string EmeletRovidNev { get; set; }
-        public static string Ajto { get; set; }
+
+        public static string Epulet { get; set; }
+        //        public static string EmeletKod { get; set; }
+        //        public static string EmeletRovidNev { get; set; }
+        public static string Lepcsohaz { get; set; }
 
         public static string SzamJel1
         {
             get
             {
-                return $"{Szam1?.ToString()}{Jel1}";
+                string sz = $"{Szam1?.ToString()}";
+                sz += string.IsNullOrEmpty(Jel1) ? "" : $"/{Jel1}";
+                return sz;
             }
         }
 
@@ -169,7 +174,9 @@ namespace Vonalkod
         {
             get
             {
-                return $"{Szam2?.ToString()}{Jel2}";
+                string sz = $"{Szam2?.ToString()}";
+                sz += string.IsNullOrEmpty(Jel2) ? "" : $"/{Jel2}";
+                return sz;
             }
         }
 
@@ -192,8 +199,11 @@ namespace Vonalkod
         {
             get
             {
-                return $"{IRSZ} Budapest, {Nev} {JellegNev} {SzamEsJel} {EmeletRovidNev} {Ajto}";
-                // Feltételezve, hogy ez mind budapest
+                string Epcim = $"{IRSZ} Budapest, {Nev} {JellegNev} {SzamEsJel}";
+                Epcim += string.IsNullOrEmpty(Epulet) ? "" : $" {Epulet} épület";
+                Epcim += string.IsNullOrEmpty(Lepcsohaz) ? "" : $" {Lepcsohaz} lépcsőház";
+
+                return Epcim;
             }
         }        
     }

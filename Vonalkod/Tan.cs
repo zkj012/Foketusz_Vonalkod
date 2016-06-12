@@ -22,7 +22,9 @@ namespace Vonalkod
         public string emelet;
         public string ajto;
         public string ajtotores;
+        public string TanMegjegyzes;
         public string OreMegjegyzes;
+        public string OreTulaj;
         public string nyomtatvanytipuskod;
         public string nyomtatvanytipus;
         public vkInDb db;

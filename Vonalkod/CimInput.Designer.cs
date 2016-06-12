@@ -33,20 +33,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.cbNev = new System.Windows.Forms.ComboBox();
             this.cbJelleg = new System.Windows.Forms.ComboBox();
             this.cbIrsz = new System.Windows.Forms.ComboBox();
             this.txtJel1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtJel2 = new System.Windows.Forms.TextBox();
-            this.cbEmelet = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtAjto = new System.Windows.Forms.TextBox();
+            this.txtLepcsohaz = new System.Windows.Forms.TextBox();
             this.txtSzam1 = new System.Windows.Forms.TextBox();
             this.txtSzam2 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtEpulet = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSave
@@ -95,15 +95,6 @@
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Házszám:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(40, 130);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Emelet:";
             // 
             // cbNev
             // 
@@ -160,31 +151,21 @@
             this.txtJel2.Size = new System.Drawing.Size(25, 20);
             this.txtJel2.TabIndex = 7;
             // 
-            // cbEmelet
-            // 
-            this.cbEmelet.DisplayMember = "RovidNev";
-            this.cbEmelet.FormattingEnabled = true;
-            this.cbEmelet.Location = new System.Drawing.Point(88, 127);
-            this.cbEmelet.Name = "cbEmelet";
-            this.cbEmelet.Size = new System.Drawing.Size(78, 21);
-            this.cbEmelet.TabIndex = 8;
-            this.cbEmelet.ValueMember = "Kod";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(54, 157);
+            this.label7.Location = new System.Drawing.Point(20, 157);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 13);
+            this.label7.Size = new System.Drawing.Size(62, 13);
             this.label7.TabIndex = 18;
-            this.label7.Text = "Ajtó:";
+            this.label7.Text = "Lépcsőház:";
             // 
-            // txtAjto
+            // txtLepcsohaz
             // 
-            this.txtAjto.Location = new System.Drawing.Point(88, 154);
-            this.txtAjto.Name = "txtAjto";
-            this.txtAjto.Size = new System.Drawing.Size(78, 20);
-            this.txtAjto.TabIndex = 9;
+            this.txtLepcsohaz.Location = new System.Drawing.Point(88, 154);
+            this.txtLepcsohaz.Name = "txtLepcsohaz";
+            this.txtLepcsohaz.Size = new System.Drawing.Size(78, 20);
+            this.txtLepcsohaz.TabIndex = 9;
             // 
             // txtSzam1
             // 
@@ -220,25 +201,41 @@
             this.label9.TabIndex = 22;
             this.label9.Text = "/";
             // 
+            // txtEpulet
+            // 
+            this.txtEpulet.Location = new System.Drawing.Point(89, 124);
+            this.txtEpulet.Name = "txtEpulet";
+            this.txtEpulet.Size = new System.Drawing.Size(78, 20);
+            this.txtEpulet.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(42, 127);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Épület:";
+            // 
             // CimInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 215);
+            this.Controls.Add(this.txtEpulet);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtSzam2);
             this.Controls.Add(this.txtSzam1);
-            this.Controls.Add(this.txtAjto);
+            this.Controls.Add(this.txtLepcsohaz);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.cbEmelet);
             this.Controls.Add(this.txtJel2);
             this.Controls.Add(this.txtJel1);
             this.Controls.Add(this.cbJelleg);
             this.Controls.Add(this.cbIrsz);
             this.Controls.Add(this.cbNev);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -259,19 +256,19 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbNev;
         private System.Windows.Forms.ComboBox cbJelleg;
         private System.Windows.Forms.ComboBox cbIrsz;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtJel2;
         private System.Windows.Forms.TextBox txtJel1;
-        private System.Windows.Forms.ComboBox cbEmelet;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtAjto;
+        private System.Windows.Forms.TextBox txtLepcsohaz;
         private System.Windows.Forms.TextBox txtSzam1;
         private System.Windows.Forms.TextBox txtSzam2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtEpulet;
+        private System.Windows.Forms.Label label6;
     }
 }

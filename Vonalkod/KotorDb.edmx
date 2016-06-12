@@ -5,6 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KotorDb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AuditLogID" />
+          </Key>
+          <Property Name="AuditLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="EventDateUTC" Type="datetime" Nullable="false" />
+          <Property Name="EventType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RecordID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ColumnName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OriginalValue" Type="nvarchar" MaxLength="2000" />
+          <Property Name="NewValue" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
         <EntityType Name="Cim_t">
           <Key>
             <PropertyRef Name="Cid" />
@@ -202,6 +217,7 @@
           <Property Name="ADLogin" Type="bit" Nullable="false" />
           <Property Name="ElszamolasAlairoId" Type="int" />
           <Property Name="Vonalkod" Type="nvarchar" MaxLength="20" />
+          <Property Name="Tesztrendszer" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="NyomtatvanyTipus_m">
           <Key>
@@ -356,7 +372,8 @@
           <Property Name="GazElzarasahozHozzajarult" Type="bit" Nullable="false" />
           <Property Name="Megjegyzes" Type="nvarchar" MaxLength="200" />
           <Property Name="Ketszerzart" Type="bit" Nullable="false" />
-          <Property Name="EvesEllenorzes" Type="bit" Nullable="false" />
+          <Property Name="EvesEllenorzesIndokolt" Type="bit" Nullable="false" />
+          <Property Name="Tulajdonos" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KOTORTESZT.dbo.Tanusitvany2015FO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -528,6 +545,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vCim' does not have a primary key d
           <Property Name="HazszamSzoveg" Type="nvarchar" MaxLength="207" />
           <Property Name="EmeletKod" Type="nvarchar" MaxLength="3" />
           <Property Name="KozteruletId" Type="int" />
+          <Property Name="CimSzovegEpulet" Type="nvarchar" MaxLength="364" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KOTORTESZT.dbo.vEpuletElsCim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -540,6 +558,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vEpuletElsCim' does not have a prim
           <Property Name="Cid" Type="int" Nullable="false" />
           <Property Name="IRSZ" Type="int" />
           <Property Name="CimSzoveg" Type="nvarchar" MaxLength="442" />
+          <Property Name="CimSzovegEpulet" Type="nvarchar" MaxLength="364" />
           <Property Name="Iid" Type="int" />
           <Property Name="CimHRSZ" Type="nvarchar" MaxLength="43" />
           <Property Name="EpHRSZ" Type="nvarchar" MaxLength="32" />
@@ -570,6 +589,30 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <Property Name="CimHRSZ" Type="nvarchar" MaxLength="43" />
           <Property Name="UtcaHazszam" Type="nvarchar" MaxLength="427" />
           <Property Name="TelepulesNev" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KOTORTESZT.dbo.vOreTulaj1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vOreTulaj1">
+          <Key>
+            <PropertyRef Name="Oid" />
+            <PropertyRef Name="Eid" />
+            <PropertyRef Name="OreTorolve" />
+            <PropertyRef Name="OreTulajId" />
+            <PropertyRef Name="OreTulajNev" />
+            <PropertyRef Name="OreTulajCimSzoveg" />
+            <PropertyRef Name="OreTulajGazdformcsopKod" />
+            <PropertyRef Name="OreTulajGazdformcsopNev" />
+            <PropertyRef Name="OreTulajDB_Partnerid" />
+          </Key>
+          <Property Name="Oid" Type="int" Nullable="false" />
+          <Property Name="Eid" Type="int" Nullable="false" />
+          <Property Name="OreTorolve" Type="bit" Nullable="false" />
+          <Property Name="OreTulajId" Type="int" Nullable="false" />
+          <Property Name="OreTulajNev" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OreTulajCimSzoveg" Type="nvarchar" MaxLength="442" Nullable="false" />
+          <Property Name="OreTulajGazdformcsopKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OreTulajGazdformcsopNev" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OreTulajDB_Partnerid" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="Cim_EllenorzoId_FK">
           <End Role="Munkatars_t" Type="Self.Munkatars_t" Multiplicity="0..1" />
@@ -1016,6 +1059,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="KotorDbStoreContainer">
+          <EntitySet Name="AuditLog" EntityType="Self.AuditLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cim_t" EntityType="Self.Cim_t" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmeletJel_m" EntityType="Self.EmeletJel_m" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kozterulet_t" EntityType="Self.Kozterulet_t" Schema="dbo" store:Type="Tables" />
@@ -1143,7 +1187,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
     [vCim].[AjtoSzoveg] AS [AjtoSzoveg], 
     [vCim].[HazszamSzoveg] AS [HazszamSzoveg], 
     [vCim].[EmeletKod] AS [EmeletKod], 
-    [vCim].[KozteruletId] AS [KozteruletId]
+    [vCim].[KozteruletId] AS [KozteruletId], 
+    [vCim].[CimSzovegEpulet] AS [CimSzovegEpulet]
     FROM [dbo].[vCim] AS [vCim]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vEpuletElsCim" EntityType="Self.vEpuletElsCim" store:Type="Views" store:Schema="dbo">
@@ -1152,6 +1197,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
     [vEpuletElsCim].[Cid] AS [Cid], 
     [vEpuletElsCim].[IRSZ] AS [IRSZ], 
     [vEpuletElsCim].[CimSzoveg] AS [CimSzoveg], 
+    [vEpuletElsCim].[CimSzovegEpulet] AS [CimSzovegEpulet], 
     [vEpuletElsCim].[Iid] AS [Iid], 
     [vEpuletElsCim].[CimHRSZ] AS [CimHRSZ], 
     [vEpuletElsCim].[EpHRSZ] AS [EpHRSZ], 
@@ -1177,6 +1223,19 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
     [vOreCim].[UtcaHazszam] AS [UtcaHazszam], 
     [vOreCim].[TelepulesNev] AS [TelepulesNev]
     FROM [dbo].[vOreCim] AS [vOreCim]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vOreTulaj1" EntityType="Self.vOreTulaj1" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vOreTulaj1].[Oid] AS [Oid], 
+    [vOreTulaj1].[Eid] AS [Eid], 
+    [vOreTulaj1].[OreTorolve] AS [OreTorolve], 
+    [vOreTulaj1].[OreTulajId] AS [OreTulajId], 
+    [vOreTulaj1].[OreTulajNev] AS [OreTulajNev], 
+    [vOreTulaj1].[OreTulajCimSzoveg] AS [OreTulajCimSzoveg], 
+    [vOreTulaj1].[OreTulajGazdformcsopKod] AS [OreTulajGazdformcsopKod], 
+    [vOreTulaj1].[OreTulajGazdformcsopNev] AS [OreTulajGazdformcsopNev], 
+    [vOreTulaj1].[OreTulajDB_Partnerid] AS [OreTulajDB_Partnerid]
+    FROM [dbo].[vOreTulaj1] AS [vOreTulaj1]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="Cim_EllenorzoId_FK" Association="Self.Cim_EllenorzoId_FK">
             <End Role="Munkatars_t" EntitySet="Munkatars_t" />
@@ -1407,7 +1466,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <NavigationProperty Name="Munka_t" Relationship="KotorDb.Tanusitvany_MunkaId_FK" FromRole="Tanusitvany_t" ToRole="Munka_t" />
           <NavigationProperty Name="MunkaTargya_cs" Relationship="KotorDb.MunkaTargya_TanusitvanyId_FK" FromRole="Tanusitvany_t" ToRole="MunkaTargya_cs" />
           <Property Name="Ketszerzart" Type="Boolean" Nullable="false" />
-          <Property Name="EvesEllenorzes" Type="Boolean" Nullable="false" />
+          <Property Name="EvesEllenorzesIndokolt" Type="Boolean" Nullable="false" />
+          <Property Name="Tulajdonos" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TervezesiEgyseg_t">
           <Key>
@@ -1575,6 +1635,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <Property Name="HazszamSzoveg" Type="String" MaxLength="207" FixedLength="false" Unicode="true" />
           <Property Name="EmeletKod" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="KozteruletId" Type="Int32" />
+          <Property Name="CimSzovegEpulet" Type="String" MaxLength="364" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vEpuletElsCim">
           <Key>
@@ -1590,6 +1651,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <Property Name="EpHRSZ" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="UtcaHazszam" Type="String" MaxLength="359" FixedLength="false" Unicode="true" />
           <Property Name="TelepulesNev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CimSzovegEpulet" Type="String" MaxLength="364" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vOreCim">
           <Key>
@@ -1797,6 +1859,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             <End Role="Munkatars_t" EntitySet="Munkatars_t" />
             <End Role="Kozterulet_t" EntitySet="Kozterulet_t" />
           </AssociationSet>
+          <EntitySet Name="AuditLog" EntityType="KotorDb.AuditLog" />
+          <EntitySet Name="vOreTulaj1" EntityType="KotorDb.vOreTulaj1" />
         </EntityContainer>
         <EntityType Name="Munkatars_t">
           <Key>
@@ -1849,6 +1913,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <NavigationProperty Name="Regio_t1" Relationship="KotorDb.Regio_VezetoId_FK" FromRole="Munkatars_t" ToRole="Regio_t" />
           <NavigationProperty Name="Kozterulet_t" Relationship="KotorDb.Kozterulet_EllenorzoId_FK" FromRole="Munkatars_t" ToRole="Kozterulet_t" />
           <NavigationProperty Name="Kozterulet_t1" Relationship="KotorDb.Kozterulet_UtolsoModositoId_FK" FromRole="Munkatars_t" ToRole="Kozterulet_t" />
+          <Property Name="Tesztrendszer" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="Cim_EllenorzoId_FK">
           <End Type="KotorDb.Munkatars_t" Role="Munkatars_t" Multiplicity="0..1" />
@@ -2576,6 +2641,43 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AuditLogID" />
+          </Key>
+          <Property Name="AuditLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="EventDateUTC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RecordID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OriginalValue" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="NewValue" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vOreTulaj1">
+          <Key>
+            <PropertyRef Name="Oid" />
+            <PropertyRef Name="Eid" />
+            <PropertyRef Name="OreTorolve" />
+            <PropertyRef Name="OreTulajId" />
+            <PropertyRef Name="OreTulajNev" />
+            <PropertyRef Name="OreTulajCimSzoveg" />
+            <PropertyRef Name="OreTulajGazdformcsopKod" />
+            <PropertyRef Name="OreTulajGazdformcsopNev" />
+            <PropertyRef Name="OreTulajDB_Partnerid" />
+          </Key>
+          <Property Name="Oid" Type="Int32" Nullable="false" />
+          <Property Name="Eid" Type="Int32" Nullable="false" />
+          <Property Name="OreTorolve" Type="Boolean" Nullable="false" />
+          <Property Name="OreTulajId" Type="Int32" Nullable="false" />
+          <Property Name="OreTulajNev" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OreTulajCimSzoveg" Type="String" Nullable="false" MaxLength="442" FixedLength="false" Unicode="true" />
+          <Property Name="OreTulajGazdformcsopKod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OreTulajGazdformcsopNev" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OreTulajDB_Partnerid" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2621,7 +2723,8 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <EntitySetMapping Name="Tanusitvany_t">
             <EntityTypeMapping TypeName="KotorDb.Tanusitvany_t">
               <MappingFragment StoreEntitySet="Tanusitvany_t">
-                <ScalarProperty Name="EvesEllenorzes" ColumnName="EvesEllenorzes" />
+                <ScalarProperty Name="Tulajdonos" ColumnName="Tulajdonos" />
+                <ScalarProperty Name="EvesEllenorzesIndokolt" ColumnName="EvesEllenorzesIndokolt" />
                 <ScalarProperty Name="Ketszerzart" ColumnName="Ketszerzart" />
                 <ScalarProperty Name="TanusitvanyId" ColumnName="TanusitvanyId" />
                 <ScalarProperty Name="SzulotanusitvanyId" ColumnName="SzulotanusitvanyId" />
@@ -2786,6 +2889,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <EntitySetMapping Name="vCim">
             <EntityTypeMapping TypeName="KotorDb.vCim">
               <MappingFragment StoreEntitySet="vCim">
+                <ScalarProperty Name="CimSzovegEpulet" ColumnName="CimSzovegEpulet" />
                 <ScalarProperty Name="Cid" ColumnName="Cid" />
                 <ScalarProperty Name="Iranyitoszam" ColumnName="Iranyitoszam" />
                 <ScalarProperty Name="TelepulesNev" ColumnName="TelepulesNev" />
@@ -2817,6 +2921,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <EntitySetMapping Name="vEpuletElsCim">
             <EntityTypeMapping TypeName="KotorDb.vEpuletElsCim">
               <MappingFragment StoreEntitySet="vEpuletElsCim">
+                <ScalarProperty Name="CimSzovegEpulet" ColumnName="CimSzovegEpulet" />
                 <ScalarProperty Name="Eid" ColumnName="Eid" />
                 <ScalarProperty Name="Cid" ColumnName="Cid" />
                 <ScalarProperty Name="IRSZ" ColumnName="IRSZ" />
@@ -2853,6 +2958,7 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
           <EntitySetMapping Name="Munkatars_t">
             <EntityTypeMapping TypeName="KotorDb.Munkatars_t">
               <MappingFragment StoreEntitySet="Munkatars_t">
+                <ScalarProperty Name="Tesztrendszer" ColumnName="Tesztrendszer" />
                 <ScalarProperty Name="Vonalkod" ColumnName="Vonalkod" />
                 <ScalarProperty Name="ElszamolasAlairoId" ColumnName="ElszamolasAlairoId" />
                 <ScalarProperty Name="ADLogin" ColumnName="ADLogin" />
@@ -3148,6 +3254,37 @@ warning 6002: The table/view 'KOTORTESZT.dbo.vOreCim' does not have a primary ke
                 <ScalarProperty Name="NevRovid" ColumnName="NevRovid" />
                 <ScalarProperty Name="Nev" ColumnName="Nev" />
                 <ScalarProperty Name="Kod" ColumnName="Kod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLog">
+            <EntityTypeMapping TypeName="KotorDb.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLog">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OriginalValue" ColumnName="OriginalValue" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventDateUTC" ColumnName="EventDateUTC" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AuditLogID" ColumnName="AuditLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vOreTulaj1">
+            <EntityTypeMapping TypeName="KotorDb.vOreTulaj1">
+              <MappingFragment StoreEntitySet="vOreTulaj1">
+                <ScalarProperty Name="OreTulajDB_Partnerid" ColumnName="OreTulajDB_Partnerid" />
+                <ScalarProperty Name="OreTulajGazdformcsopNev" ColumnName="OreTulajGazdformcsopNev" />
+                <ScalarProperty Name="OreTulajGazdformcsopKod" ColumnName="OreTulajGazdformcsopKod" />
+                <ScalarProperty Name="OreTulajCimSzoveg" ColumnName="OreTulajCimSzoveg" />
+                <ScalarProperty Name="OreTulajNev" ColumnName="OreTulajNev" />
+                <ScalarProperty Name="OreTulajId" ColumnName="OreTulajId" />
+                <ScalarProperty Name="OreTorolve" ColumnName="OreTorolve" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Oid" ColumnName="Oid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

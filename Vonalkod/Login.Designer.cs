@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxJelszo = new System.Windows.Forms.TextBox();
             this.buttonLogin = new System.Windows.Forms.Button();
+            this.lblLoginStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxUsername
@@ -78,12 +79,21 @@
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
+            // lblLoginStatus
+            // 
+            this.lblLoginStatus.AutoSize = true;
+            this.lblLoginStatus.Location = new System.Drawing.Point(329, 149);
+            this.lblLoginStatus.Name = "lblLoginStatus";
+            this.lblLoginStatus.Size = new System.Drawing.Size(0, 13);
+            this.lblLoginStatus.TabIndex = 5;
+            // 
             // Login
             // 
             this.AcceptButton = this.buttonLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 216);
+            this.Controls.Add(this.lblLoginStatus);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxJelszo);
             this.Controls.Add(this.label2);
@@ -104,6 +114,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxJelszo;
         private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Label lblLoginStatus;
     }
 }
 

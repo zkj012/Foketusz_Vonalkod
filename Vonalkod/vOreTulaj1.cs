@@ -12,17 +12,16 @@ namespace Vonalkod
     using System;
     using System.Collections.Generic;
     
-    public partial class vEpuletElsCim
+    public partial class vOreTulaj1
     {
+        public int Oid { get; set; }
         public int Eid { get; set; }
-        public int Cid { get; set; }
-        public Nullable<int> IRSZ { get; set; }
-        public string CimSzoveg { get; set; }
-        public Nullable<int> Iid { get; set; }
-        public string CimHRSZ { get; set; }
-        public string EpHRSZ { get; set; }
-        public string UtcaHazszam { get; set; }
-        public string TelepulesNev { get; set; }
-        public string CimSzovegEpulet { get; set; }
+        public bool OreTorolve { get; set; }
+        public int OreTulajId { get; set; }
+        public string OreTulajNev { get; set; }
+        public string OreTulajCimSzoveg { get; set; }
+        public string OreTulajGazdformcsopKod { get; set; }
+        public string OreTulajGazdformcsopNev { get; set; }
+        public string OreTulajDB_Partnerid { get; set; }
     }
 }

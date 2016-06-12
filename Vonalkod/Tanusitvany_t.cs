@@ -44,7 +44,8 @@ namespace Vonalkod
         public bool GazElzarasahozHozzajarult { get; set; }
         public string Megjegyzes { get; set; }
         public bool Ketszerzart { get; set; }
-        public bool EvesEllenorzes { get; set; }
+        public bool EvesEllenorzesIndokolt { get; set; }
+        public string Tulajdonos { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tanusitvany_t> Tanusitvany_t1 { get; set; }

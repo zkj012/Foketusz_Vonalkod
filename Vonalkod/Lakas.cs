@@ -21,6 +21,8 @@ namespace Vonalkod
         public string orgajtotores { get; set; }
         public string megjegyzes { get; set; }
         public string orgmegjegyzes { get; set; }
+        public string Tulaj { get; set; }
+        public string OrgTulaj { get; set; }
         public bool torolve { get; set; }
         public string vonalkod { get; set; }
         public bool torlendo { get; set; }

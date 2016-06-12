@@ -39,5 +39,6 @@ namespace Vonalkod
         public string HazszamSzoveg { get; set; }
         public string EmeletKod { get; set; }
         public Nullable<int> KozteruletId { get; set; }
+        public string CimSzovegEpulet { get; set; }
     }
 }
