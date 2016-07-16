@@ -20,7 +20,8 @@ namespace Vonalkod
             InitializeComponent();
         }
 
-        private int retrycount=3;
+        const int retrycountdefault = 3;
+        private int retrycount = 3;
 
         private void Login_Load(object sender, EventArgs e)
         {
@@ -45,54 +46,53 @@ namespace Vonalkod
                         LoginHelper.LoggedOnUser = (from d in ke.Munkatars_t
                                                     where d.LoginNev == textBoxUsername.Text
                                                     select new UserData { userid = d.MunkatarsId, username = d.Nev, loginname = d.LoginNev, regionev = d.Regio_t.Nev, regioid=d.RegioId, munkakorkod = d.MunkakorKod ,jelszohash = d.Jelszo }).FirstOrDefault();
-
+                        if (retrycount <= 0)
+                        {
+                            this.Controls.Clear();
+                            this.InitializeComponent();
+                        }
+                        else
+                        {
+                            if (LoginHelper.LoggedOnUser == null || !pwd.VerifyHashedPassword(LoginHelper.LoggedOnUser.jelszohash, textBoxJelszo.Text))
+                            {
+                                MessageBox.Show("Hibás jelszó vagy felhasználónév");
+                            }
+                            else
+                            {
+                                // sikeres bejelentkezés
+                                LoginHelper.LoggedOnUser.jelszohash = "";
+                                if (LoginHelper.LoggedOnUser.munkakorkod == "KEMENYSEPRO")
+                                {
+                                    LoginHelper.LoggedOnUser.kemenysepro = true;
+                                }
+                                else
+                                {
+                                    LoginHelper.LoggedOnUser.kemenysepro = false;
+                                }
+                                this.Hide();
+                                VonalkodBeolvasas vk = new VonalkodBeolvasas();
+                                vk.ShowDialog();
+                                this.Close();
+                            }
+                        }
                     }
                     catch (Exception ex) // EntityCommandExecutionException ex)
                     {
                         if(string.Compare(ex.Message, "The underlying provider failed on Open.") == 0 && (retrycount-- > 0))
                         {
-                            lblLoginStatus.Text = string.Format("Bejelentkezés újrapróbálkozás ({0})", 3 - retrycount);
+                            lblLoginStatus.Text = string.Format("Bejelentkezés újrapróbálkozás ({0})", retrycountdefault - retrycount);
                             lblLoginStatus.Refresh();
                             goto tryagain;
                         }
 
                         MessageBox.Show(string.Format("Hiba történt! Kérem próbálja újra! ({0})",ex.Message));
-                        retrycount = 3;
+                        retrycount = retrycountdefault;
                     }
                     finally
                     {
                         Cursor.Current = Cursors.Default;
                     }
 
-                    if(retrycount <= 0)
-                    {
-                        this.Controls.Clear();
-                        this.InitializeComponent();
-                    }
-                    else
-                    {
-                        if (LoginHelper.LoggedOnUser == null || !pwd.VerifyHashedPassword(LoginHelper.LoggedOnUser.jelszohash, textBoxJelszo.Text))
-                        {
-                            MessageBox.Show("Hibás jelszó vagy felhasználónév");
-                        }
-                        else
-                        {
-                            // sikeres bejelentkezés
-                            LoginHelper.LoggedOnUser.jelszohash = "";
-                            if (LoginHelper.LoggedOnUser.munkakorkod == "KEMENYSEPRO")
-                            {
-                                LoginHelper.LoggedOnUser.kemenysepro = true;
-                            }
-                            else
-                            {
-                                LoginHelper.LoggedOnUser.kemenysepro = false;
-                            }
-                            this.Hide();
-                            VonalkodBeolvasas vk = new VonalkodBeolvasas();
-                            vk.ShowDialog();
-                            this.Close();
-                        }
-                    }
                 }
                 finally
                 {

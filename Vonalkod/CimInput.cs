@@ -23,6 +23,7 @@ namespace Vonalkod
         {
             entities = new KotorEntities();
             LoadIrszComboBox();
+            LoadNevComboBox();
             // LoadEmeletJelComboBox();
         }
 
@@ -107,28 +108,36 @@ namespace Vonalkod
         private void btnSave_Click(object sender, EventArgs e)
         {
             int i;
-            CimHelper.IRSZ = (int)cbIrsz.SelectedItem;
-            CimHelper.Nev = (string)cbNev.SelectedItem;
-            CimHelper.JellegKod = (string)cbJelleg.SelectedValue;
-            CimHelper.JellegNev = ((KozteruletJelleg_m)(cbJelleg.SelectedItem)).Nev;
-            if(!int.TryParse(txtSzam1.Text,out i))
+            if((int)cbIrsz.SelectedItem == 0)
             {
-                i = 0;
+                MessageBox.Show("Az irányítószám kitöltése kötelező!", "", MessageBoxButtons.OK);
+                cbIrsz.Select();
             }
-            CimHelper.Szam1 = i == 0 ? null : (int?)i;
-            CimHelper.Jel1 = txtJel1.Text;
-            if (!int.TryParse(txtSzam2.Text, out i))
+            else
             {
-                i = 0;
+                CimHelper.IRSZ = (int)cbIrsz.SelectedItem;
+                CimHelper.Nev = (string)cbNev.SelectedItem;
+                CimHelper.JellegKod = (string)cbJelleg.SelectedValue;
+                CimHelper.JellegNev = ((KozteruletJelleg_m)(cbJelleg.SelectedItem)).Nev;
+                if (!int.TryParse(txtSzam1.Text, out i))
+                {
+                    i = 0;
+                }
+                CimHelper.Szam1 = i == 0 ? null : (int?)i;
+                CimHelper.Jel1 = txtJel1.Text;
+                if (!int.TryParse(txtSzam2.Text, out i))
+                {
+                    i = 0;
+                }
+                CimHelper.Szam2 = i == 0 ? null : (int?)i;
+                CimHelper.Jel2 = txtJel2.Text;
+                //            CimHelper.EmeletKod = (string)cbEmelet.SelectedValue;
+                //            CimHelper.EmeletRovidNev = cbEmelet.SelectedValue == null ? "" : ((EmeletJel_m)cbEmelet.SelectedItem).RovidNev;
+                CimHelper.Epulet = txtEpulet.Text;
+                CimHelper.Lepcsohaz = txtLepcsohaz.Text;
+
+                this.Close();
             }
-            CimHelper.Szam2 = i == 0 ? null : (int?)i;
-            CimHelper.Jel2 = txtJel2.Text;
-            //            CimHelper.EmeletKod = (string)cbEmelet.SelectedValue;
-            //            CimHelper.EmeletRovidNev = cbEmelet.SelectedValue == null ? "" : ((EmeletJel_m)cbEmelet.SelectedItem).RovidNev;
-            CimHelper.Epulet = txtEpulet.Text;
-            CimHelper.Lepcsohaz = txtLepcsohaz.Text;
-            
-            this.Close();
         }
 
         private void txtSzam1_KeyPress(object sender, KeyPressEventArgs e)

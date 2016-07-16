@@ -28,14 +28,21 @@ namespace Vonalkod
                     ((TreeView) c).Nodes.Clear();
                 }
 
-                if (control is CheckBox)
+                if (c is CheckBox)
                 {
                     ((CheckBox) c).Checked = false;
                 }
 
-                if (control is ListBox)
+                if (c is ListBox)
                 {
                     ((ListBox)c).ClearSelected();
+                }
+
+                if (c is DataGridView)
+                {
+                    ((DataGridView)c).DataSource =null;
+                    ((DataGridView)c).Rows.Clear();
+                    ((DataGridView)c).Refresh();
                 }
 
                 if (c.HasChildren)
