@@ -78,6 +78,13 @@ namespace Vonalkod
 
                 AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
                 tbBevitelStatusz.Text = AdatbevitelStatusz.ToString();
+                tbLepcsohaz.Enabled = false;
+                cbEmeletjel.Enabled = false;
+                tbAjto.Enabled = false;
+                tbAjtotores.Enabled = false;
+                tbMegj.Enabled = false;
+                chkEvesEllenorzes.Enabled = false;
+                tbTulaj.Enabled = false;
 
                 chkKemenysepro.Checked = LoginHelper.LoggedOnUser.kemenysepro;
 
@@ -358,17 +365,18 @@ namespace Vonalkod
                                                select new Lakas()
                                                {
                                                    oid = o.Oid,
-                                                   lepcsohaz = o.Lepcsohaz,
-                                                   orglepcsohaz = o.Lepcsohaz,
-                                                   emelet = o.Emelet,
-                                                   emeletjelkod = o.EmeletJelKod,
-                                                   orgemeletjelkod = o.EmeletJelKod,
-                                                   ajto = o.Ajto,
-                                                   orgajto = o.Ajto,
-                                                   ajtotores = o.Ajtotores,
-                                                   orgajtotores = o.Ajtotores,
+                                                   lepcsohaz = string.IsNullOrEmpty(o.Lepcsohaz) ? null : o.Lepcsohaz,
+                                                   orglepcsohaz = string.IsNullOrEmpty(o.Lepcsohaz) ? null : o.Lepcsohaz,
+                                                   emelet = string.IsNullOrEmpty(o.Emelet) ? null : o.Emelet,
+                                                   emeletjelkod = string.IsNullOrEmpty(o.EmeletJelKod) ? null : o.EmeletJelKod,
+                                                   orgemeletjelkod = string.IsNullOrEmpty(o.EmeletJelKod) ? null : o.EmeletJelKod,
+                                                   ajto = string.IsNullOrEmpty(o.Ajto) ? null : o.Ajto,
+                                                   orgajto = string.IsNullOrEmpty(o.Ajto) ? null : o.Ajto,
+                                                   ajtotores = string.IsNullOrEmpty(o.Ajtotores) ? null : o.Ajtotores,
+                                                   orgajtotores = string.IsNullOrEmpty(o.Ajtotores) ? null : o.Ajtotores,
                                                    torolve = o.Torolve,
-                                                   megjegyzes = o.Megjegyzes,
+                                                   megjegyzes = string.IsNullOrEmpty(o.Megjegyzes) ? null : o.Megjegyzes,
+                                                   orgmegjegyzes = string.IsNullOrEmpty(o.Megjegyzes) ? null : o.Megjegyzes,
                                                    EvesEllenorzesIndokolt = false,
                                                    torlendo = false,
                                                    uj = false,
@@ -640,7 +648,7 @@ namespace Vonalkod
                                                 {
                                                     var ml = t2.Find(y => y.SzuloVk == tbFo.Text && y.nyomtatvanytipuskod == "ZARTLAKASERTESITO");
 
-                                                    if (!VkTan[tbFo.Text].Ketszerzart && ml != null) // eddig nem volkt kétszer zárt->csak második látogatás értesítővel együtt lehet kétszer zárt
+                                                    if (!VkTan[tbFo.Text].Ketszerzart && ml != null) // eddig nem volt kétszer zárt->csak második látogatás értesítővel együtt lehet kétszer zárt
                                                     {
                                                         VkTan[tbFo.Text].Ketszerzart = !VkTan[tbFo.Text].Ketszerzart;
                                                     }
@@ -1006,6 +1014,7 @@ namespace Vonalkod
                                                     tlujn.FotanId = VkTan[tbLak.Text].FotanId;
                                                     tlujn.FotanVk = VkTan[tbLak.Text].FotanVk;
                                                     tlujn.nyomtatvanytipuskod = GetTanTipus(tbVk.Text);
+                                                    tlujn.BeolvasasIdopontja = DateTime.Now;
                                                     tlujn.db = vkInDb.UjVk;
                                                     tlujn.Sor1 = t1.Sor1;
                                                     tlujn.Sor2 = t1.Sor2;
@@ -1047,6 +1056,13 @@ namespace Vonalkod
                 if (AdatbevitelStatusz == AdatBevitel.VonalkodOlvasas)
                 {
                     tbVk.Select();
+                    tbLepcsohaz.Enabled = false;
+                    cbEmeletjel.Enabled = false;
+                    tbAjto.Enabled = false;
+                    tbAjtotores.Enabled = false;
+                    tbMegj.Enabled = false;
+                    chkEvesEllenorzes.Enabled = false;
+                    tbTulaj.Enabled = false;
                 }
 
             }
@@ -1214,6 +1230,13 @@ namespace Vonalkod
 
                     AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
                     tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                    tbLepcsohaz.Enabled = false;
+                    cbEmeletjel.Enabled = false;
+                    tbAjto.Enabled = false;
+                    tbAjtotores.Enabled = false;
+                    tbMegj.Enabled = false;
+                    chkEvesEllenorzes.Enabled = false;
+                    tbTulaj.Enabled = false;
 
                     lblStatus.Text = "Vonalkódolvasásra vár"; // string.Empty;
                 }
@@ -1231,6 +1254,13 @@ namespace Vonalkod
                         lblStatus.Text = "A tanúsítványhoz nincs lakásadat, a meglevő szabad listából kell választani vagy újat kell létrehozni";
                         AdatbevitelStatusz = AdatBevitel.LakasadatKereses; // ez átgondolandó
                         tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                        tbLepcsohaz.Enabled = false;
+                        cbEmeletjel.Enabled = false;
+                        tbAjto.Enabled = false;
+                        tbAjtotores.Enabled = false;
+                        tbMegj.Enabled = false;
+                        chkEvesEllenorzes.Enabled = false;
+                        tbTulaj.Enabled = false;
 
                         btnUjLakas.Visible = true;
 
@@ -1248,6 +1278,13 @@ namespace Vonalkod
 
                         AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
                         tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                        tbLepcsohaz.Enabled = false;
+                        cbEmeletjel.Enabled = false;
+                        tbAjto.Enabled = false;
+                        tbAjtotores.Enabled = false;
+                        tbMegj.Enabled = false;
+                        chkEvesEllenorzes.Enabled = false;
+                        tbTulaj.Enabled = false;
 
                         // TODO: grid selectionchange-be mozgatandó
                         btnLakasadatModositas.Visible = false;
@@ -1262,6 +1299,13 @@ namespace Vonalkod
 
                         AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
                         tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                        tbLepcsohaz.Enabled = false;
+                        cbEmeletjel.Enabled = false;
+                        tbAjto.Enabled = false;
+                        tbAjtotores.Enabled = false;
+                        tbMegj.Enabled = false;
+                        chkEvesEllenorzes.Enabled = false;
+                        tbTulaj.Enabled = false;
 
                         lblStatus.Text = "A lakás adatai szerkeszthetőek";
 
@@ -1287,6 +1331,14 @@ namespace Vonalkod
                     }
 
                     AdatbevitelStatusz = AdatBevitel.LakasadatKereses;
+                    tbLepcsohaz.Enabled = false;
+                    cbEmeletjel.Enabled = false;
+                    tbAjto.Enabled = false;
+                    tbAjtotores.Enabled = false;
+                    tbMegj.Enabled = false;
+                    chkEvesEllenorzes.Enabled = false;
+                    tbTulaj.Enabled = false;
+
                     tbVk.Select();
                     lblStatus.Text = "Vonalkódbeolvasásra vár";
                 }
@@ -1298,6 +1350,14 @@ namespace Vonalkod
                 btnUjLakas.Visible = true;
                 AdatbevitelStatusz = AdatBevitel.LakasadatKereses;
                 tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                tbLepcsohaz.Enabled = false;
+                cbEmeletjel.Enabled = false;
+                tbAjto.Enabled = false;
+                tbAjtotores.Enabled = false;
+                tbMegj.Enabled = false;
+                chkEvesEllenorzes.Enabled = false;
+                tbTulaj.Enabled = false;
+
                 btnUjLakas.Visible = true;
                 btnLakasadatModositas.Visible = false;
                 tbVk.Select();
@@ -1353,6 +1413,14 @@ namespace Vonalkod
                         {
                             case AdatBevitel.LakasadatKereses:
                             btnLakasValasztas.Visible = true;
+                            tbLepcsohaz.Enabled = false;
+                            cbEmeletjel.Enabled = false;
+                            tbAjto.Enabled = false;
+                            tbAjtotores.Enabled = false;
+                            tbMegj.Enabled = false;
+                            chkEvesEllenorzes.Enabled = false;
+                            tbTulaj.Enabled = false;
+
                             break;
                             default:
                             break;
@@ -1664,8 +1732,6 @@ namespace Vonalkod
 
                             if(v.db == vkInDb.IsmertVk)
                             {
-                                Console.WriteLine("Ismert tanúsítvány szuloid változott-audit hiányzik (t2)");
-
                                 ke.AuditLog.Add(new AuditLog
                                 {
                                     UserID = (int)LoginHelper.LoggedOnUser.userid,
@@ -1680,6 +1746,28 @@ namespace Vonalkod
                             }
 
                             x.SzulotanusitvanyId = v.SzuloId;
+                        }
+
+                        foreach (Tan v in (from w in t2 where w.nyomtatvanytipuskod == "LAKASTANUSITVANY" select w))
+                        {
+                            var x = (from w in ke.Tanusitvany_t where w.TanusitvanyId == v.TanId select w).First();
+
+                            if (v.db == vkInDb.IsmertVk && x.Oid != v.oid)
+                            {
+                                ke.AuditLog.Add(new AuditLog
+                                {
+                                    UserID = (int)LoginHelper.LoggedOnUser.userid,
+                                    EventDateUTC = DateTime.Now,
+                                    EventType = "M",
+                                    TableName = "Tanusitvany",
+                                    RecordID = v.TanId.ToString(),
+                                    ColumnName = "Oid",
+                                    OriginalValue = x.Oid.ToString(),
+                                    NewValue = v.oid.ToString()
+                                });
+                            }
+
+                            x.Oid = v.oid;
                         }
 
                         // meglevő tanúsítványok-tulajdonosadat kitöltése
@@ -1710,7 +1798,35 @@ namespace Vonalkod
 
                     if (t3 != null)
                     {
-                        foreach (Tan v in (from w in t3 where w.SzuloVk != "" && w.SzuloId == null select w)) // hiányzó szuloid-k beírása
+                        foreach (Tan v in (from w in t3 select w)) // oid hozzárendelések rendberakása
+                        {
+                            Tan y = (from w in t2 where w.Vonalkod == v.SzuloVk select w).FirstOrDefault();
+                            if(v.oid != y.oid)
+                            {
+                                v.oid = y.oid;
+                                if(v.db == vkInDb.IsmertVk)
+                                {
+                                    var z = (from w in ke.Tanusitvany_t where w.Vonalkod == v.Vonalkod select w).FirstOrDefault();
+                                    if(z != null) // elvileg nem lehet null
+                                    {
+                                        ke.AuditLog.Add(new AuditLog
+                                        {
+                                            UserID = (int)LoginHelper.LoggedOnUser.userid,
+                                            EventDateUTC = DateTime.Now,
+                                            EventType = "M",
+                                            TableName = "Tanusitvany",
+                                            RecordID = z.TanusitvanyId.ToString(),
+                                            ColumnName = "Oid",
+                                            OriginalValue = z.Oid.ToString(),
+                                            NewValue = y.oid.ToString()
+                                        });
+                                        z.Oid = y.oid;
+                                    }
+                                }
+                            }
+                        }
+
+                        foreach (Tan v in (from w in t3 where !string.IsNullOrEmpty(w.SzuloVk) && w.SzuloId == null select w)) // hiányzó szuloid-k beírása
                         {
                             Tan y = (from w in ke.Tanusitvany_t where w.Vonalkod == v.SzuloVk select new Tan() { TanId = w.TanusitvanyId }).FirstOrDefault();
                             if (v.db == vkInDb.IsmertVk)
@@ -1820,6 +1936,8 @@ namespace Vonalkod
                     {
                         Lakasok.Clear();
                     }
+                    grLakasLista.DataSource = null;
+                    grLakasLista.Visible = false;
                 }
             }
             finally
@@ -1949,7 +2067,7 @@ namespace Vonalkod
                     hibak = "Az emelet értéke nem lehet 99, kérem a helyes értéket beírni";
                     cbEmeletjel.Select();
                 }
-                if(tbMegj.Text.Contains("adat nélküli lakás"))
+                if(tbMegj.Text.Contains("adat nélküli lakás") || tbMegj.Text.Contains(". lakás") || tbMegj.Text.Contains("családi"))
                 {
                     if(!string.IsNullOrEmpty(hibak))
                     {
@@ -2012,6 +2130,13 @@ namespace Vonalkod
                     AdatbevitelStatusz = PrevAdatbevitelStatusz;
                     tbBevitelStatusz.Text = AdatbevitelStatusz.ToString() + " (előző érték: " + PrevAdatbevitelStatusz.ToString() + ")"; // debug
                     btnUjLakas.Visible = PrevbtnUjlakasStatus;
+                    tbLepcsohaz.Enabled = false; // mentés után mindig nem szerkeszthető állapot következik
+                    cbEmeletjel.Enabled = false;
+                    tbAjto.Enabled = false;
+                    tbAjtotores.Enabled = false;
+                    tbMegj.Enabled = false;
+                    chkEvesEllenorzes.Enabled = false;
+                    tbTulaj.Enabled = false;
 
                     btnLakasadatSave.Visible = false;
                     btnMegsem.Visible = false;
@@ -2020,6 +2145,13 @@ namespace Vonalkod
                     if (AdatbevitelStatusz == AdatBevitel.VonalkodOlvasas)
                     {
                         tbVk.Select();
+                        tbLepcsohaz.Enabled = false;
+                        cbEmeletjel.Enabled = false;
+                        tbAjto.Enabled = false;
+                        tbAjtotores.Enabled = false;
+                        tbMegj.Enabled = false;
+                        chkEvesEllenorzes.Enabled = false;
+                        tbTulaj.Enabled = false;
                     }
                 }
                 break;
@@ -2034,6 +2166,13 @@ namespace Vonalkod
                 grLakasLista.Enabled = AdatbevitelStatusz == AdatBevitel.LakasadatKereses ? true : false;
 
                 tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                tbLepcsohaz.Enabled = false; // mentés után mindig nem szerkeszthetőállapot következik
+                cbEmeletjel.Enabled = false;
+                tbAjto.Enabled = false;
+                tbAjtotores.Enabled = false;
+                tbMegj.Enabled = false;
+                chkEvesEllenorzes.Enabled = false;
+                tbTulaj.Enabled = false;
 
                 btnLakasadatSave.Visible = false;
                 btnMegsem.Visible = false;
@@ -2114,6 +2253,14 @@ namespace Vonalkod
 
                 AdatbevitelStatusz = AdatBevitel.Lakasadatmodositas;
                 tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                tbLepcsohaz.Enabled = true;
+                cbEmeletjel.Enabled = true;
+                tbAjto.Enabled = true;
+                tbAjtotores.Enabled = true;
+                tbMegj.Enabled = true;
+                chkEvesEllenorzes.Enabled = true;
+                tbTulaj.Enabled = true;
+
                 btnLakasadatSave.Visible = true;
                 btnLakasadatModositas.Visible = false;
                 btnMegsem.Visible = true;
@@ -2137,6 +2284,14 @@ namespace Vonalkod
 
             AdatbevitelStatusz = AdatBevitel.Ujlakas;
             tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+            tbLepcsohaz.Enabled = true;
+            cbEmeletjel.Enabled = true;
+            tbAjto.Enabled = true;
+            tbAjtotores.Enabled = true;
+            tbMegj.Enabled = true;
+            chkEvesEllenorzes.Enabled = true;
+            tbTulaj.Enabled = true;
+
             tbLepcsohaz.Text = string.Empty;
             cbEmeletjel.SelectedIndex = 0;
             tbAjto.Text = string.Empty;
@@ -2181,9 +2336,16 @@ namespace Vonalkod
 
                     AdatbevitelStatusz = PrevAdatbevitelStatusz;
                     tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                    tbLepcsohaz.Enabled = false; // Mégsem után mindig nem szerkeszthető státusz következik
+                    cbEmeletjel.Enabled = false;
+                    tbAjto.Enabled = false;
+                    tbAjtotores.Enabled = false;
+                    tbMegj.Enabled = false;
+                    chkEvesEllenorzes.Enabled = false;
+                    tbTulaj.Enabled = false;
 
-                    // ha a vonalkód üres, akkor a hozzárendelés is megjelenik
-                    if(grLakasLista.SelectedRows.Count != 0 && string.IsNullOrEmpty((String)grLakasLista.SelectedRows[0].Cells["vk"].Value))
+                // ha a vonalkód üres, akkor a hozzárendelés is megjelenik
+                if (grLakasLista.SelectedRows.Count != 0 && string.IsNullOrEmpty((String)grLakasLista.SelectedRows[0].Cells["vk"].Value))
                     {
                         btnLakasValasztas.Visible = true;
                     }
@@ -2207,8 +2369,15 @@ namespace Vonalkod
                     grLakasLista.Enabled = PrevGridEnabledStatus;
                     AdatbevitelStatusz = AdatBevitel.VonalkodOlvasas;
                     tbBevitelStatusz.Text = AdatbevitelStatusz.ToString(); // debug
+                    tbLepcsohaz.Enabled = false;
+                    cbEmeletjel.Enabled = false;
+                    tbAjto.Enabled = false;
+                    tbAjtotores.Enabled = false;
+                    tbMegj.Enabled = false;
+                    chkEvesEllenorzes.Enabled = false;
+                    tbTulaj.Enabled = false;
 
-                    break;
+                break;
             }
         }
 
@@ -2228,6 +2397,7 @@ namespace Vonalkod
                 VkTan[tbLak.Text].OreMegjegyzes = tbMegj.Text;
                 VkTan[tbLak.Text].OreTulaj = tbTulaj.Text;
                 VkTan[tbLak.Text].EvesEllenorzes = chkEvesEllenorzes.Checked;
+                VkTan[tbLak.Text].oid = loid;
 
                 tvVonalkodok.BeginUpdate();
                 VkTree[tbLak.Text].Text = lm.vonalkod + " (" + (VkTan[lm.vonalkod].db == vkInDb.UjVk ? "Új " : string.Empty) + NyTip[VkTan[lm.vonalkod].nyomtatvanytipuskod] + ")" + (lm.oid == null ? "" : " " + getLakCim(lm.lepcsohaz, lm.emelet, lm.ajto, lm.ajtotores)) + (VkTan[lm.vonalkod].Ketszerzart == true ? KetszerZartSzoveg : "");
