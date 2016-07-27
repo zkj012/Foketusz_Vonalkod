@@ -1987,10 +1987,13 @@ namespace Vonalkod
                     }
                 }
 
-                grLakasLista.Enabled = false;
-                grLakasLista.DataSource = null;
-                grLakasLista.Visible = false;
+                {
+                    bool tmp = chkKemenysepro.Checked;
+                    Utilities.ResetAllControls(this);
+                    chkKemenysepro.Checked = tmp; // ezt nem kell alapállapotba állítani...
+                }
 
+                grLakasLista.Visible = false;
                 btnUjLakas.Visible = false;
                 tbLak.Text = "-";
                 lbl99.Visible = false;
@@ -1999,13 +2002,15 @@ namespace Vonalkod
                 pbTorles.Visible = false;
                 VkTan.Clear();
                 VkTree.Clear();
+                VkTan.Clear();
+                VkTree.Clear();
                 ta = null;
                 t1 = null;
                 if (t2 != null)
                 {
                     t2.Clear();
                 }
-                if(t3!=null)
+                if (t3 != null)
                 {
                     t3.Clear();
                 }
@@ -2013,6 +2018,11 @@ namespace Vonalkod
                 {
                     Lakasok.Clear();
                 }
+                grLakasLista.DataSource = null;
+                grLakasLista.Visible = false;
+
+
+
             }
         }
 
