@@ -80,6 +80,8 @@
             this.tbFigy = new System.Windows.Forms.TextBox();
             this.tbTulaj = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.lblDb = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbTorles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb99)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grLakasLista)).BeginInit();
@@ -576,12 +578,32 @@
             this.label11.TabIndex = 54;
             this.label11.Text = "Tulajdonos:";
             // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(1049, 665);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(88, 13);
+            this.lblVersion.TabIndex = 56;
+            this.lblVersion.Text = "v1.0.20160729.1";
+            // 
+            // lblDb
+            // 
+            this.lblDb.AutoSize = true;
+            this.lblDb.Location = new System.Drawing.Point(1057, 692);
+            this.lblDb.Name = "lblDb";
+            this.lblDb.Size = new System.Drawing.Size(80, 13);
+            this.lblDb.TabIndex = 57;
+            this.lblDb.Text = "KOTORTESZT";
+            // 
             // VonalkodBeolvasas
             // 
             this.AcceptButton = this.btnBeolvas;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1213, 714);
+            this.Controls.Add(this.lblDb);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.tbTulaj);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.tbFigy);
@@ -697,5 +719,7 @@
         private System.Windows.Forms.TextBox tbFigy;
         private System.Windows.Forms.TextBox tbTulaj;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblDb;
     }
 }
