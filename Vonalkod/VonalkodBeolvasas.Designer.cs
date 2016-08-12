@@ -583,18 +583,18 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Location = new System.Drawing.Point(1049, 665);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(88, 13);
+            this.lblVersion.Size = new System.Drawing.Size(110, 13);
             this.lblVersion.TabIndex = 56;
-            this.lblVersion.Text = "v1.0.20160729.1";
+            this.lblVersion.Text = "v1.0.20160729.1-éles";
             // 
             // lblDb
             // 
             this.lblDb.AutoSize = true;
             this.lblDb.Location = new System.Drawing.Point(1057, 692);
             this.lblDb.Name = "lblDb";
-            this.lblDb.Size = new System.Drawing.Size(80, 13);
+            this.lblDb.Size = new System.Drawing.Size(110, 13);
             this.lblDb.TabIndex = 57;
-            this.lblDb.Text = "KOTORTESZT";
+            this.lblDb.Text = "KOTOR éles rendszer";
             // 
             // VonalkodBeolvasas
             // 
