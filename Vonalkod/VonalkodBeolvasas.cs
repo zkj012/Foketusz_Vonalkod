@@ -16,7 +16,6 @@ using System.Diagnostics;
     Kétszer zárt lakások kezelése (beolvasáskor, íráskor)
     Munkatárgyak kezelése
     Hibák kezelése (zárt lakás, kétszer zárt)
-    Auditlog írása
     Lakástanúsítványok lakáshoz rendelése (kiválasztás, módosítás; lakásszám megerősítés)
     Épületbesorolás megjelenítése, cseréje, ha szükséges
     Mentés nélküli továbblépés
@@ -1540,8 +1539,9 @@ namespace Vonalkod
                                 RecordID = o.Oid.ToString(),
                                 ColumnName = "*Összes oszlop",
                                 OriginalValue = null,
-                                NewValue =  string.Format("Eid: {0}; Lepcsohaz: {1}; Emelet: {2}; EmeletJelKod: {3}; Ajto: {4}; Ajtotores: {5}; Megjegyzes: {6}",o.Eid.ToString(),o.Lepcsohaz,o.Emelet,o.EmeletJelKod,o.Ajto,o.Ajtotores,o.Megjegyzes)
-                                });
+                                NewValue =  string.Format("Eid: {0}; Lepcsohaz: {1}; Emelet: {2}; EmeletJelKod: {3}; Ajto: {4}; Ajtotores: {5}; Megjegyzes: {6}",o.Eid.ToString(),o.Lepcsohaz,o.Emelet,o.EmeletJelKod,o.Ajto,o.Ajtotores,o.Megjegyzes),
+                                Description = string.Format("Vonalkódolvasó alkalmazásban hozzáadva ({0})", lblVersion.Text)
+                        });
                         }
                         #endregion
                         #region Módosított lakások adatbázisba írása
@@ -1583,7 +1583,8 @@ namespace Vonalkod
                                         RecordID = o.Oid.ToString(),
                                         ColumnName = "LepcsoHaz",
                                         OriginalValue = l.orglepcsohaz,
-                                        NewValue = l.lepcsohaz
+                                        NewValue = l.lepcsohaz,
+                                        Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)                                        
                                     });
                                 }
 
@@ -1600,7 +1601,8 @@ namespace Vonalkod
                                         RecordID = o.Oid.ToString(),
                                         ColumnName = "EmeletJelKod",
                                         OriginalValue = l.orgemeletjelkod,
-                                        NewValue = l.emeletjelkod
+                                        NewValue = l.emeletjelkod,
+                                        Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                     });
                                     o.Emelet = l.emelet;
                                 }
@@ -1618,7 +1620,8 @@ namespace Vonalkod
                                         RecordID = o.Oid.ToString(),
                                         ColumnName = "Ajto",
                                         OriginalValue = l.orgajto,
-                                        NewValue = l.ajto
+                                        NewValue = l.ajto,
+                                        Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                     });
                                 }
 
@@ -1635,7 +1638,8 @@ namespace Vonalkod
                                         RecordID = o.Oid.ToString(),
                                         ColumnName = "Ajtotores",
                                         OriginalValue = l.orgajtotores,
-                                        NewValue = l.ajtotores
+                                        NewValue = l.ajtotores,
+                                        Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)                                        
                                     });
                                 }
 
@@ -1652,7 +1656,8 @@ namespace Vonalkod
                                         RecordID = o.Oid.ToString(),
                                         ColumnName = "Megjegyzes",
                                         OriginalValue = l.orgmegjegyzes,
-                                        NewValue = l.megjegyzes
+                                        NewValue = l.megjegyzes,
+                                        Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                     });
                                 }
                             }
@@ -1700,7 +1705,8 @@ namespace Vonalkod
                                 RecordID = v.TanId.ToString(),
                                 ColumnName = "*Összes oszlop",
                                 OriginalValue = null,
-                                NewValue = string.Format("Vonalkod: {0}; NyomtatvanyTipusKod: {1}; SzulotanusitvanyId: {2}; MunkaId: {3}; Ketszerzart: {4}; EvesEllenorzesIndokolt: {5}", v.Vonalkod, v.nyomtatvanytipuskod, v.SzuloId.ToString(), v.MunkaId.ToString(), v.Ketszerzart, v.EvesEllenorzes)
+                                NewValue = string.Format("Vonalkod: {0}; NyomtatvanyTipusKod: {1}; SzulotanusitvanyId: {2}; MunkaId: {3}; Ketszerzart: {4}; EvesEllenorzesIndokolt: {5}", v.Vonalkod, v.nyomtatvanytipuskod, v.SzuloId.ToString(), v.MunkaId.ToString(), v.Ketszerzart, v.EvesEllenorzes),
+                                Description = string.Format("Vonalkódolvasó alkalmazásban hozzáadva ({0})", lblVersion.Text)
                             });
                         }
 
@@ -1721,7 +1727,8 @@ namespace Vonalkod
                                     RecordID = v.TanId.ToString(),
                                     ColumnName = "SzuloId",
                                     OriginalValue = null,
-                                    NewValue = y.TanId.ToString()
+                                    NewValue = y.TanId.ToString(),
+                                    Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                 });
                             }
                         }
@@ -1741,7 +1748,8 @@ namespace Vonalkod
                                     RecordID = v.TanId.ToString(),
                                     ColumnName = "SzuloId",
                                     OriginalValue = x.SzulotanusitvanyId.ToString(),
-                                    NewValue = v.SzuloId.ToString()
+                                    NewValue = v.SzuloId.ToString(),
+                                    Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                 });
                             }
 
@@ -1763,7 +1771,8 @@ namespace Vonalkod
                                     RecordID = v.TanId.ToString(),
                                     ColumnName = "Oid",
                                     OriginalValue = x.Oid.ToString(),
-                                    NewValue = v.oid.ToString()
+                                    NewValue = v.oid.ToString(),
+                                    Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                 });
                             }
 
@@ -1787,7 +1796,8 @@ namespace Vonalkod
                                         RecordID = t.TanusitvanyId.ToString(),
                                         ColumnName = "Tulajdonos",
                                         OriginalValue = t.Tulajdonos,
-                                        NewValue = l.Tulaj
+                                        NewValue = l.Tulaj,
+                                        Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                     });
 
                                     t.Tulajdonos = l.Tulaj;
@@ -1818,7 +1828,8 @@ namespace Vonalkod
                                             RecordID = z.TanusitvanyId.ToString(),
                                             ColumnName = "Oid",
                                             OriginalValue = z.Oid.ToString(),
-                                            NewValue = y.oid.ToString()
+                                            NewValue = y.oid.ToString(),
+                                            Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                         });
                                         z.Oid = y.oid;
                                     }
@@ -1840,7 +1851,8 @@ namespace Vonalkod
                                     RecordID = v.TanId.ToString(),
                                     ColumnName = "SzuloId",
                                     OriginalValue = v.SzuloId.ToString(),
-                                    NewValue = y.TanId.ToString()
+                                    NewValue = y.TanId.ToString(),
+                                    Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                 });
                             }
                             v.SzuloId = y.TanId;
@@ -1875,7 +1887,8 @@ namespace Vonalkod
                                     RecordID = v.TanId.ToString(),
                                     ColumnName = "SzuloId",
                                     OriginalValue = x.SzulotanusitvanyId.ToString(),
-                                    NewValue = v.SzuloId.ToString()
+                                    NewValue = v.SzuloId.ToString(),
+                                    Description = string.Format("Vonalkódolvasó alkalmazásban módosítva ({0})", lblVersion.Text)
                                 });
                             }
                             x.SzulotanusitvanyId = v.SzuloId;
@@ -1897,7 +1910,8 @@ namespace Vonalkod
                                 RecordID = v.TanId.ToString(),
                                 ColumnName = "*Összes oszlop",
                                 OriginalValue = null,
-                                NewValue = string.Format("Vonalkod: {0}; NyomtatvanyTipusKod: {1}; SzulotanusitvanyId: {2}; MunkaId: {3}; Ketszerzart: {4}; EvesEllenorzesIndokolt: {5}", v.Vonalkod, v.nyomtatvanytipuskod, v.SzuloId.ToString(), v.MunkaId.ToString(), v.Ketszerzart, v.EvesEllenorzes)
+                                NewValue = string.Format("Vonalkod: {0}; NyomtatvanyTipusKod: {1}; SzulotanusitvanyId: {2}; MunkaId: {3}; Ketszerzart: {4}; EvesEllenorzesIndokolt: {5}", v.Vonalkod, v.nyomtatvanytipuskod, v.SzuloId.ToString(), v.MunkaId.ToString(), v.Ketszerzart, v.EvesEllenorzes),
+                                Description = string.Format("Vonalkódolvasó alkalmazásban hozzáadva ({0})", lblVersion.Text)
                             });
                         }
                         #endregion
