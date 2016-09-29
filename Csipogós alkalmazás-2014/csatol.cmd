@@ -1,0 +1,1 @@
+net use t: \\192.168.50.26\Shared\Faliujsag\szigoru
