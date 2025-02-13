@@ -1,0 +1,12 @@
+delete from tanusitvany_t where vonalkod='201690000001'
+delete from tanusitvany_t where vonalkod='309000001'
+delete from tanusitvany_t where vonalkod='40900000000001'
+delete from tanusitvany_t where vonalkod='11169000000005'
+delete from tanusitvany_t where vonalkod='11169000000004'
+delete from tanusitvany_t where vonalkod='11169000000003'
+delete from tanusitvany_t where vonalkod='11169000000002'
+delete from tanusitvany_t where vonalkod='11169000000001'
+delete from tanusitvany_t where vonalkod='11159000000002'
+delete from tanusitvany_t where vonalkod='01169000000001'
+
+
